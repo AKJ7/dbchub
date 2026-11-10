@@ -1,0 +1,76 @@
+---
+layout: default
+title: Legal & Licensing
+permalink: /legal/
+---
+{%- assign cat = site.data.catalog -%}
+{%- assign by_src = cat.databases | group_by: "source" -%}
+
+<div class="hero">
+  <div class="wrap">
+    <h1>Legal &amp; Licensing</h1>
+    <p>How the code, the catalog, and each imported database are licensed.</p>
+  </div>
+</div>
+
+<div class="legal">
+  <section>
+    <h2>Licenses</h2>
+    <ul>
+      <li><strong>Code</strong> (site, scripts, CLI) — Apache License 2.0.</li>
+      <li><strong>Original database content</strong> — Creative Commons Attribution 4.0
+        International (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC&nbsp;BY&nbsp;4.0</a>).</li>
+      <li><strong>Imported databases</strong> keep their upstream open-source license
+        (listed below) — they are <em>not</em> relicensed.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Database sources &amp; attribution</h2>
+    <p>{{ cat.count }} database{% if cat.count != 1 %}s{% endif %} in the catalog, by source:</p>
+    <table class="legal-table">
+      <thead><tr><th>Source</th><th>License</th><th>Databases</th><th>Attribution</th></tr></thead>
+      <tbody>
+        {%- for g in by_src %}
+        {%- assign first = g.items | first %}
+        <tr>
+          <td>
+            {%- if first.source_url -%}
+            <a href="{{ first.source_url | escape }}" target="_blank" rel="noopener noreferrer">{{ g.name | escape }}</a>
+            {%- else -%}{{ g.name | escape }}{%- endif -%}
+          </td>
+          <td>{{ first.license | escape }}</td>
+          <td>{{ g.items | size }}</td>
+          <td>{{ first.attribution | default: "—" | escape }}</td>
+        </tr>
+        {%- endfor %}
+      </tbody>
+    </table>
+    <p class="muted">Per-file provenance (including the exact upstream commit) is recorded
+      in each database's metadata and in <code>databases/SOURCES.json</code>. Full
+      third-party license texts live under <code>THIRD_PARTY_LICENSES/</code>.</p>
+  </section>
+
+  <section>
+    <h2>Disclaimer</h2>
+    <p><strong>No warranty. Not for safety-critical use.</strong> These databases are
+      community-contributed and reverse-engineered. They have not been validated for
+      correctness or safety. Do not rely on them for production vehicles, functional
+      safety, or any use where errors could cause injury or damage. Connect to a vehicle
+      bus only on equipment you own or are authorized to use.</p>
+  </section>
+
+  <section>
+    <h2>Acceptable use</h2>
+    <p>Only contribute databases you have the right to share. Proprietary, confidential,
+      or NDA-covered OEM data, personal data, and secrets are prohibited. Contributions
+      are reviewed before they are merged.</p>
+  </section>
+
+  <section>
+    <h2>Reporting &amp; takedown</h2>
+    <p>To report infringing or prohibited content, or for licensing questions, contact
+      {% if site.contact_email %}<a href="mailto:{{ site.contact_email }}">{{ site.contact_email }}</a>{% else %}the maintainers{% endif %}.
+      We review reports and remove content where warranted.</p>
+  </section>
+</div>

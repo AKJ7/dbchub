@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>dbchub — signal database catalog</title>
+    <style>
+      :root {
+        --bg: #0f1115; --card: #181b22; --fg: #e6e9ef; --muted: #9aa3b2;
+        --line: #272b35; --accent: #6ea8fe; --ok: #4ade80; --bad: #f87171;
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg: #f6f7f9; --card: #fff; --fg: #1a1d24; --muted: #5b6472;
+          --line: #e3e6eb; --accent: #2563eb;
+        }
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0; background: var(--bg); color: var(--fg);
+        font: 15px/1.5 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      }
+      header { padding: 32px 20px 12px; max-width: 1000px; margin: 0 auto; }
+      h1 { margin: 0 0 4px; font-size: 24px; }
+      .sub { color: var(--muted); }
+      main { max-width: 1000px; margin: 0 auto; padding: 12px 20px 60px; }
+      .controls { margin: 16px 0; }
+      input {
+        width: 100%; padding: 10px 12px; border-radius: 8px;
+        border: 1px solid var(--line); background: var(--card); color: var(--fg);
+      }
+      table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+      th, td { text-align: left; padding: 10px; border-bottom: 1px solid var(--line); }
+      th { color: var(--muted); font-weight: 600; font-size: 13px; }
+      td.num { text-align: right; font-variant-numeric: tabular-nums; }
+      a { color: var(--accent); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      .tag { font-size: 12px; padding: 2px 8px; border-radius: 999px; background: var(--line); color: var(--muted); }
+      .ok { color: var(--ok); } .bad { color: var(--bad); }
+      .meta { color: var(--muted); font-size: 13px; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>dbchub</h1>
+      <div class="sub">A versioned catalog of CAN / LIN / automotive signal databases.</div>
+    </header>
+    <main>
+      <div class="controls">
+        <input id="q" placeholder="Filter by name, project, bus, or format…" />
+      </div>
+      <div id="meta" class="meta"></div>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th><th>Project</th><th>Bus</th><th>Format</th>
+            <th class="num">Msgs</th><th class="num">Signals</th>
+            <th>Updated</th><th>Status</th><th></th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </main>
+    <script>
+      let DB = [];
+      const rows = document.getElementById("rows");
+      const meta = document.getElementById("meta");
+      const q = document.getElementById("q");
+
+      function render(list) {
+        rows.innerHTML = list
+          .map((d) => {
+            const c = d.counts || {};
+            const status = d.valid
+              ? '<span class="ok">● valid</span>'
+              : '<span class="bad">● invalid</span>';
+            return `<tr>
+              <td>${d.name}</td>
+              <td><span class="tag">${d.project || "—"}</span></td>
+              <td>${d.bus || "—"}</td>
+              <td>${(d.format || "").toUpperCase()}</td>
+              <td class="num">${c.messages ?? "—"}</td>
+              <td class="num">${c.signals ?? "—"}</td>
+              <td>${d.updated || "—"}</td>
+              <td>${status}</td>
+              <td><a href="${d.download}" download>download</a></td>
+            </tr>`;
+          })
+          .join("");
+      }
+
+      function apply() {
+        const t = q.value.toLowerCase();
+        const list = DB.filter((d) =>
+          [d.name, d.project, d.bus, d.format].join(" ").toLowerCase().includes(t)
+        );
+        render(list);
+      }
+
+      fetch("index.json")
+        .then((r) => r.json())
+        .then((data) => {
+          DB = data.databases || [];
+          meta.textContent = `${data.count} database(s) · generated ${data.generated}`;
+          render(DB);
+        })
+        .catch((e) => (meta.textContent = "Could not load index.json: " + e));
+
+      q.addEventListener("input", apply);
+    </script>
+  </body>
+</html>

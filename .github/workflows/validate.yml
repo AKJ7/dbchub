@@ -1,0 +1,31 @@
+name: Validate databases
+
+# Runs the `check` step of the API on every contribution. A PR that adds or
+# changes a database file is parsed and linted; malformed files fail the check
+# and block the merge.
+on:
+  pull_request:
+    paths:
+      - "databases/**"
+      - "scripts/**"
+  push:
+    branches: [main]
+    paths:
+      - "databases/**"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install parsers
+        run: pip install -r scripts/requirements.txt
+
+      - name: Validate all databases
+        run: python scripts/validate.py --root databases

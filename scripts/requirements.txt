@@ -1,0 +1,6 @@
+# Multi-format parser: DBC, DBF, KCD, SYM, ARXML (and LDF where supported)
+canmatrix[arxml]>=1.0
+# Second-opinion parser for DBC / ARXML / KCD / SYM
+cantools>=39
+# ARXML / KCD rely on lxml
+lxml>=5

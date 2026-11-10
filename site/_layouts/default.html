@@ -3,14 +3,35 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--
+      Content Security Policy. Scripts may load only from this origin (no inline JS,
+      no third-party CDNs), and the browser may connect only to GitHub's API (used by
+      the upload flow). This is the main defense-in-depth against XSS.
+      Note: some directives (e.g. frame-ancestors) only take effect as a real HTTP
+      header — set them at your host if you need clickjacking protection.
+    -->
+    <meta http-equiv="Content-Security-Policy" content="
+      default-src 'none';
+      base-uri 'none';
+      script-src 'self';
+      style-src 'self' 'unsafe-inline';
+      img-src 'self' data:;
+      font-src 'self';
+      connect-src 'self' https://api.github.com;
+      form-action 'self';
+    " />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
     <title>{{ page.title | default: site.title }}</title>
-    <meta name="description" content="{{ site.description }}" />
+    <meta name="description" content="{{ site.description | escape }}" />
     <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}" />
   </head>
-  <body>
+  <body
+    data-upstream="{{ site.upstream_repo | default: '' | escape }}"
+    data-base-branch="{{ site.base_branch | default: 'master' | escape }}"
+  >
     <nav class="nav">
       <a class="brand" href="{{ '/' | relative_url }}">
-        <span class="logo">◈</span> {{ site.title }}
+        <span class="logo">◈</span> {{ site.title | escape }}
       </a>
       <div class="search">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -29,14 +50,9 @@
       <a href="{{ '/index.json' | relative_url }}">index.json</a>
     </footer>
 
-    <script>
-      window.DBCHUB = {
-        // Pull requests are opened against this repository. Set it in _config.yml.
-        upstream: {{ site.upstream_repo | default: '' | jsonify }},
-        baseBranch: {{ site.base_branch | default: 'master' | jsonify }},
-        catalog: {{ site.data.catalog.databases | default: empty | jsonify }}
-      };
-    </script>
+    <!-- Catalog data as inert JSON (not executed), HTML-escaped to prevent markup
+         breakout. app.js reads and JSON.parses it. -->
+    <script id="dbchub-catalog" type="application/json">{{ site.data.catalog.databases | default: empty | jsonify | escape }}</script>
     <script src="{{ '/assets/js/app.js' | relative_url }}"></script>
   </body>
 </html>

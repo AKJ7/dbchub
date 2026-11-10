@@ -18,8 +18,8 @@ layout: default
     <div id="facet-mfr">
       {%- for g in by_mfr %}
       <label class="facet capitalize">
-        <input type="checkbox" class="f-mfr" value="{{ g.name }}" />
-        <span class="label">{{ g.name }}</span>
+        <input type="checkbox" class="f-mfr" value="{{ g.name | escape }}" />
+        <span class="label">{{ g.name | escape }}</span>
         <span class="n">{{ g.items | size }}</span>
       </label>
       {%- endfor %}
@@ -28,8 +28,8 @@ layout: default
     <div id="facet-fmt">
       {%- for g in by_fmt %}
       <label class="facet">
-        <input type="checkbox" class="f-fmt" value="{{ g.name }}" />
-        <span class="label">{{ g.name | upcase }}</span>
+        <input type="checkbox" class="f-fmt" value="{{ g.name | escape }}" />
+        <span class="label">{{ g.name | upcase | escape }}</span>
         <span class="n">{{ g.items | size }}</span>
       </label>
       {%- endfor %}
@@ -44,17 +44,17 @@ layout: default
 
     <div class="grid" id="grid">
       {%- for d in cat.databases %}
-      <article class="card" data-path="{{ d.path }}"
-               data-search="{{ d.name }} {{ d.manufacturer }} {{ d.model }} {{ d.bus }} {{ d.format }}"
-               data-mfr="{{ d.manufacturer }}" data-fmt="{{ d.format }}">
-        <div class="ns">{{ d.manufacturer }} / {{ d.model }}</div>
+      <article class="card" data-path="{{ d.path | escape }}"
+               data-search="{{ d.name | escape }} {{ d.manufacturer | escape }} {{ d.model | escape }} {{ d.bus | escape }} {{ d.format | escape }}"
+               data-mfr="{{ d.manufacturer | escape }}" data-fmt="{{ d.format | escape }}">
+        <div class="ns">{{ d.manufacturer | escape }} / {{ d.model | escape }}</div>
         <div class="title">
-          {{ d.name }}
-          <span class="badge {{ d.format }}">{{ d.format }}</span>
+          {{ d.name | escape }}
+          <span class="badge {{ d.format | escape }}">{{ d.format | escape }}</span>
         </div>
         <div class="row">
           {% if d.valid %}<span class="pill ok">● valid</span>{% else %}<span class="pill bad">● invalid</span>{% endif %}
-          <span class="ns">{{ d.bus | upcase }}</span>
+          <span class="ns">{{ d.bus | upcase | escape }}</span>
         </div>
         <div class="stats">
           <span><b>{{ d.counts.messages }}</b> messages</span>
@@ -62,8 +62,8 @@ layout: default
           <span><b>{{ d.counts.nodes }}</b> nodes</span>
         </div>
         <div class="actions">
-          <a class="btn small primary" href="{{ d.download }}" download onclick="event.stopPropagation()">↓ Download</a>
-          <button class="btn small js-detail" onclick="event.stopPropagation()">Details</button>
+          <a class="btn small primary js-download" href="{{ d.download | escape }}" download>↓ Download</a>
+          <button class="btn small js-detail" type="button">Details</button>
         </div>
       </article>
       {%- endfor %}
@@ -122,7 +122,7 @@ layout: default
         </div>
         <div class="field">
           <label>GitHub token <span class="hint">· used only in your browser, for api.github.com</span></label>
-          <input type="password" id="u-token" placeholder="ghp_… or github_pat_…" required />
+          <input type="password" id="u-token" placeholder="ghp_… or github_pat_…" required autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" />
           <label class="facet" style="margin-top:6px"><input type="checkbox" id="u-remember" /> <span>Remember token on this device</span></label>
         </div>
         <div class="field">

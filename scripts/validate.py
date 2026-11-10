@@ -107,13 +107,17 @@ def analyze(matrices):
     return nodes, messages, signals, errors, warnings
 
 
-def cantools_crosscheck(path: Path, errors: list[str]) -> None:
+def cantools_crosscheck(path: Path, warnings: list[str]) -> None:
+    """Second-opinion parse. canmatrix is the primary parser; cantools is stricter
+    (e.g. it rejects overlapping/oversized signals that canmatrix tolerates and that
+    appear in many real-world community DBCs). A disagreement is advisory, so it is
+    reported as a warning, not a hard failure."""
     try:
         import cantools
 
         cantools.database.load_file(str(path))
     except Exception as exc:  # noqa: BLE001 - surface any parser disagreement
-        errors.append(f"cantools failed to parse: {exc}")
+        warnings.append(f"cantools (second opinion) could not parse: {exc}")
 
 
 def validate_file(path: Path) -> Result:
@@ -140,7 +144,7 @@ def validate_file(path: Path) -> Result:
     nodes, messages, signals, errors, warnings = analyze(matrices)
 
     if ext in CANTOOLS_EXTS:
-        cantools_crosscheck(path, errors)
+        cantools_crosscheck(path, warnings)
 
     res.errors.extend(errors)
     res.warnings.extend(warnings)

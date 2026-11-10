@@ -9,7 +9,7 @@ on:
       - "databases/**"
       - "scripts/**"
   push:
-    branches: [main]
+    branches: [master]
     paths:
       - "databases/**"
 

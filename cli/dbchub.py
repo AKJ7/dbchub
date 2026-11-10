@@ -142,7 +142,7 @@ def main() -> int:
         p.add_argument("file", help="Local database file.")
         p.add_argument("--repo", required=True, help="owner/repo you can push to (your fork for public contrib).")
         p.add_argument("--upstream", help="owner/repo to open the PR against (default: --repo).")
-        p.add_argument("--base", default="main", help="Base branch (default: main).")
+        p.add_argument("--base", default="master", help="Base branch (default: master).")
         p.add_argument("--project", help="Project folder (upload only).")
         p.add_argument("--bus", help="Bus folder, e.g. can/lin (upload only).")
         p.add_argument("--path", help="Explicit repo path (overrides project/bus).")

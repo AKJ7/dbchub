@@ -39,10 +39,11 @@ Example metadata record:
 ```json
 {
   "name": "engine", "format": "dbc",
-  "manufacturer": "volkswagen", "model": "golf", "bus": "can",
+  "manufacturer": "examplecorp", "model": "sedan", "bus": "can",
+  "license": "CC-BY-4.0",
   "checksum": "sha256:…", "counts": { "nodes": 2, "messages": 2, "signals": 5 },
   "valid": true, "commit": "a1b9f3c", "updated": "2026-11-10",
-  "download": "https://you.github.io/dbchub/databases/volkswagen/golf/can/engine.dbc"
+  "download": "https://you.github.io/dbchub/databases/examplecorp/sedan/can/engine.dbc"
 }
 ```
 
@@ -66,9 +67,9 @@ export GITHUB_TOKEN=ghp_...        # 'public_repo' scope on your fork
 
 uv run dbchub upload engine.dbc \
     --repo you/dbchub --upstream org/dbchub \
-    --manufacturer volkswagen --model golf --bus can
+    --manufacturer examplecorp --model sedan --bus can
 
-uv run dbchub update databases/volkswagen/golf/can/engine.dbc \
+uv run dbchub update databases/examplecorp/sedan/can/engine.dbc \
     --repo you/dbchub --upstream org/dbchub
 ```
 
@@ -136,12 +137,38 @@ The scripts are linked to the project as entry points: `dbchub-serve`, `dbchub-v
 `uv run scripts/serve.py …`. Use `uv sync` to materialise `.venv` ahead of time and
 `uv lock` to refresh the lockfile.
 
+## Legal
+
+Automotive signal databases are frequently proprietary, so the project is built around
+**only accepting files the contributor has the right to share**, reviewed before merge.
+
+| Document | Covers |
+|---|---|
+| [`LICENSE`](LICENSE) | Code license — **Apache-2.0** |
+| [`LICENSE-DATA`](LICENSE-DATA) | Database content license — **CC BY 4.0** (originals) |
+| [`ATTRIBUTIONS.md`](ATTRIBUTIONS.md) + [`databases/SOURCES.json`](databases/SOURCES.json) | Provenance & licenses of **imported** databases (kept under their own license) |
+| [`CONTRIBUTING.md`](CONTRIBUTING.md) | How to contribute + **DCO** sign-off (`git commit -s`) |
+| [`ACCEPTABLE_USE.md`](ACCEPTABLE_USE.md) | Prohibited / permitted content |
+| [`TAKEDOWN.md`](TAKEDOWN.md) | Notice-and-takedown (DMCA) process |
+| [`DISCLAIMER.md`](DISCLAIMER.md) | No warranty; **not for safety-critical use** |
+| [`TERMS.md`](TERMS.md) / [`PRIVACY.md`](PRIVACY.md) | Terms of use; privacy (tokens stay client-side) |
+
+Before going public: **replace the `<MAINTAINER CONTACT>` placeholders**, set the
+copyright holder in [`NOTICE`](NOTICE), and have a lawyer review — this is scaffolding,
+not legal advice. If you want US DMCA safe harbor, register a designated agent.
+
+**Security.** The frontend is hardened against XSS (strict Content-Security-Policy, no
+inline JS, untrusted catalog data rendered via `textContent` only, escaped templating)
+and validates upload inputs before they reach the GitHub API. Vulnerability reporting and
+the full list of protections are in [`SECURITY.md`](SECURITY.md).
+
 ## Setup checklist for a new deployment
 
 1. Push this repo to GitHub.
 2. **Settings → Pages → Source: GitHub Actions.**
 3. Merge a PR (or push to `master`) to trigger the first catalog build.
-4. Tell contributors to fork and use the CLI (or raw PRs).
+4. Fill in the legal placeholders above and set `upstream_repo` in `site/_config.yml`.
+5. Tell contributors to fork and use the website Upload button, the CLI, or raw PRs.
 
 ## Notes & extensions
 

@@ -1,0 +1,77 @@
+{
+  "comment": "Provenance for imported databases. Each entry maps a path PREFIX (relative to databases/) to its upstream source and license. build_index.py applies the longest matching prefix to set each file's license/source/attribution. Files not matched here are treated as original contributions under CC-BY-4.0.",
+  "sources": [
+    {
+      "prefix": "toyota/",
+      "name": "comma.ai opendbc",
+      "url": "https://github.com/commaai/opendbc",
+      "commit": "27fa1c5d8eed3238a0a78c52ff5abb6cdc807bd2",
+      "license": "MIT",
+      "license_file": "THIRD_PARTY_LICENSES/opendbc-LICENSE.txt",
+      "attribution": "© comma.ai, Inc. — opendbc (MIT)"
+    },
+    {
+      "prefix": "volkswagen/",
+      "name": "comma.ai opendbc",
+      "url": "https://github.com/commaai/opendbc",
+      "commit": "27fa1c5d8eed3238a0a78c52ff5abb6cdc807bd2",
+      "license": "MIT",
+      "license_file": "THIRD_PARTY_LICENSES/opendbc-LICENSE.txt",
+      "attribution": "© comma.ai, Inc. — opendbc (MIT)"
+    },
+    {
+      "prefix": "ford/",
+      "name": "comma.ai opendbc",
+      "url": "https://github.com/commaai/opendbc",
+      "commit": "27fa1c5d8eed3238a0a78c52ff5abb6cdc807bd2",
+      "license": "MIT",
+      "license_file": "THIRD_PARTY_LICENSES/opendbc-LICENSE.txt",
+      "attribution": "© comma.ai, Inc. — opendbc (MIT)"
+    },
+    {
+      "prefix": "mazda/",
+      "name": "comma.ai opendbc",
+      "url": "https://github.com/commaai/opendbc",
+      "commit": "27fa1c5d8eed3238a0a78c52ff5abb6cdc807bd2",
+      "license": "MIT",
+      "license_file": "THIRD_PARTY_LICENSES/opendbc-LICENSE.txt",
+      "attribution": "© comma.ai, Inc. — opendbc (MIT)"
+    },
+    {
+      "prefix": "tesla/",
+      "name": "comma.ai opendbc",
+      "url": "https://github.com/commaai/opendbc",
+      "commit": "27fa1c5d8eed3238a0a78c52ff5abb6cdc807bd2",
+      "license": "MIT",
+      "license_file": "THIRD_PARTY_LICENSES/opendbc-LICENSE.txt",
+      "attribution": "© comma.ai, Inc. — opendbc (MIT)"
+    },
+    {
+      "prefix": "hyundai/",
+      "name": "comma.ai opendbc",
+      "url": "https://github.com/commaai/opendbc",
+      "commit": "27fa1c5d8eed3238a0a78c52ff5abb6cdc807bd2",
+      "license": "MIT",
+      "license_file": "THIRD_PARTY_LICENSES/opendbc-LICENSE.txt",
+      "attribution": "© comma.ai, Inc. — opendbc (MIT)"
+    },
+    {
+      "prefix": "bmw/",
+      "name": "comma.ai opendbc",
+      "url": "https://github.com/commaai/opendbc",
+      "commit": "27fa1c5d8eed3238a0a78c52ff5abb6cdc807bd2",
+      "license": "MIT",
+      "license_file": "THIRD_PARTY_LICENSES/opendbc-LICENSE.txt",
+      "attribution": "© comma.ai, Inc. — opendbc (MIT)"
+    },
+    {
+      "prefix": "mercedes-benz/",
+      "name": "comma.ai opendbc",
+      "url": "https://github.com/commaai/opendbc",
+      "commit": "27fa1c5d8eed3238a0a78c52ff5abb6cdc807bd2",
+      "license": "MIT",
+      "license_file": "THIRD_PARTY_LICENSES/opendbc-LICENSE.txt",
+      "attribution": "© comma.ai, Inc. — opendbc (MIT)"
+    }
+  ]
+}

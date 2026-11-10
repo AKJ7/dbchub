@@ -29,6 +29,41 @@ except ImportError:  # run as an installed entry point (uv run dbchub-build)
 
 REPO = Path(__file__).resolve().parent.parent
 DB_ROOT = REPO / "databases"
+SOURCES_FILE = DB_ROOT / "SOURCES.json"
+
+
+def load_sources():
+    """Return the provenance entries from databases/SOURCES.json (longest prefix
+    wins), or an empty list if absent."""
+    try:
+        data = json.loads(SOURCES_FILE.read_text())
+        entries = data.get("sources", [])
+        return sorted(entries, key=lambda s: len(s.get("prefix", "")), reverse=True)
+    except FileNotFoundError:
+        return []
+    except Exception as exc:  # malformed manifest shouldn't break the build
+        print(f"warning: could not read {SOURCES_FILE}: {exc}")
+        return []
+
+
+def provenance_for(rel_posix: str, sources):
+    """Match a file's path against the source prefixes; default to CC-BY-4.0 original."""
+    for s in sources:
+        if rel_posix.startswith(s.get("prefix", "\0")):
+            return {
+                "license": s.get("license", "CC-BY-4.0"),
+                "source": s.get("name"),
+                "source_url": s.get("url"),
+                "source_commit": s.get("commit"),
+                "attribution": s.get("attribution"),
+            }
+    return {
+        "license": "CC-BY-4.0",
+        "source": "Original contribution",
+        "source_url": None,
+        "source_commit": None,
+        "attribution": None,
+    }
 
 
 def git_last_commit(path: Path):
@@ -54,6 +89,7 @@ def build(out: Path, base_url: str) -> int:
     data_dir.mkdir(parents=True, exist_ok=True)
     files_dir.mkdir(parents=True, exist_ok=True)
 
+    sources = load_sources()
     index = []
     for f in sorted(DB_ROOT.rglob("*")):
         if not (f.is_file() and f.suffix.lower() in SUPPORTED_EXTS):
@@ -72,6 +108,7 @@ def build(out: Path, base_url: str) -> int:
             "manufacturer": manufacturer,
             "model": model,
             "bus": bus,
+            **provenance_for(rel.as_posix(), sources),
             "path": rel.as_posix(),
             "valid": res.ok,
             "warnings": res.warnings,

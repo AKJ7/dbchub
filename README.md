@@ -30,38 +30,55 @@ and the whole thing runs on GitHub with no server to host.
 | Request | Returns |
 |---|---|
 | `GET /index.json` | the full catalog |
-| `GET /databases/{project}/{bus}/{name}.json` | one database's metadata |
-| `GET /databases/{project}/{bus}/{name}.{ext}` | the raw file (latest) |
+| `GET /databases/{manufacturer}/{model}/{bus}/{name}.json` | one database's metadata |
+| `GET /databases/{manufacturer}/{model}/{bus}/{name}.{ext}` | the raw file (latest) |
 | `GET /raw/{commit-sha}/databases/.../{name}.{ext}` | a pinned historical version (via `raw.githubusercontent.com`) |
 
 Example metadata record:
 
 ```json
 {
-  "name": "engine", "format": "dbc", "project": "powertrain", "bus": "can",
+  "name": "engine", "format": "dbc",
+  "manufacturer": "volkswagen", "model": "golf", "bus": "can",
   "checksum": "sha256:…", "counts": { "nodes": 2, "messages": 2, "signals": 5 },
   "valid": true, "commit": "a1b9f3c", "updated": "2026-11-10",
-  "download": "https://you.github.io/dbchub/databases/powertrain/can/engine.dbc"
+  "download": "https://you.github.io/dbchub/databases/volkswagen/golf/can/engine.dbc"
 }
 ```
 
-### Write (via the CLI → Pull Request)
+### Write — two ways, both end in a Pull Request
+
+**A. From the website (Docker Hub-style UI).** The Explore page has **Upload** and
+**Download** built in. Download is a direct link to the file on Pages. Upload opens a
+dialog where the visitor supplies their own GitHub token and fork; the browser then
+calls the GitHub REST API directly (create branch → commit → open PR) — **no backend,
+nothing stored server-side**. The token is used only against `api.github.com` and is
+never sent anywhere else. Set the PR target in `site/_config.yml`:
+
+```yaml
+upstream_repo: "org/dbchub"   # where frontend uploads open their PR
+```
+
+**B. From the CLI** (same three API calls, scripted):
 
 ```bash
 export GITHUB_TOKEN=ghp_...        # 'public_repo' scope on your fork
 
-# add a new database
-python cli/dbchub.py upload engine.dbc \
+uv run dbchub upload engine.dbc \
     --repo you/dbchub --upstream org/dbchub \
-    --project powertrain --bus can
+    --manufacturer volkswagen --model golf --bus can
 
-# revise an existing one
-python cli/dbchub.py update databases/powertrain/can/engine.dbc \
+uv run dbchub update databases/volkswagen/golf/can/engine.dbc \
     --repo you/dbchub --upstream org/dbchub
 ```
 
-Each write creates a branch, commits the file, and opens a PR — the command prints
-the PR URL. Prefer plain git? `fork → branch → PR` does exactly the same thing.
+Either way a branch is created, the file committed, and a PR opened. Prefer plain git?
+`fork → branch → PR` does exactly the same thing.
+
+> **Nicer "Sign in with GitHub" button?** The token-paste flow stays 100% static. If you
+> want a one-click OAuth login instead, add a single serverless function (Cloudflare
+> Workers / Vercel) to do the OAuth code exchange — the only server-side piece in the
+> whole project. The browser upload logic in `site/assets/js/app.js` is unchanged.
 
 ### Check (automatic)
 
@@ -71,29 +88,53 @@ cantools second-opinion parse for DBC/ARXML/KCD/SYM. Results appear in the PR ch
 
 ## Repository layout
 
+Databases are organised **by car manufacturer**:
+
 ```
-databases/<project>/<bus>/<name>.<ext>   # the databases themselves
+databases/<manufacturer>/<model>/<bus>/<name>.<ext>   # the databases themselves
+pyproject.toml                           # uv project: dependencies + script entry points
+uv.lock                                  # pinned, reproducible dependency set
 scripts/validate.py                      # parse + lint + metadata (the "check")
-scripts/build_index.py                   # build index.json + site (the "read API")
-scripts/requirements.txt                 # canmatrix, cantools, lxml
+scripts/build_index.py                   # generate catalog data for Jekyll (the "read API")
+scripts/serve.py                         # build + serve the site locally
 cli/dbchub.py                            # write client (upload/update -> PR)
-site/index.html                          # static browse UI
+site/                                    # Jekyll site (source) — Docker Hub-style UI
+  _config.yml                            #   site config (incl. upstream_repo)
+  _layouts/default.html                  #   nav bar + page shell
+  index.html                            #   Explore page: facets, repo cards, modals
+  assets/css/style.css                   #   styles
+  assets/js/app.js                       #   filtering, detail view, browser upload -> PR
+  Gemfile                                #   github-pages gem, for local preview
 .github/workflows/validate.yml           # runs on every PR
-.github/workflows/publish.yml            # builds + deploys catalog to Pages on merge
+.github/workflows/publish.yml            # generates data + builds Jekyll + deploys on merge
 ```
+
+The catalog data (`site/_data/catalog.json`, `site/index.json`) and the downloadable
+file copies (`site/databases/`) are **generated** by `build_index.py` and are gitignored.
 
 ## Local development
 
+Dependencies are managed with [uv](https://docs.astral.sh/uv/). `uv run` creates and
+syncs the project virtualenv automatically — no manual install step.
+
 ```bash
-pip install -r scripts/requirements.txt
+# build the catalog and serve the site at http://127.0.0.1:4000
+uv run dbchub-serve
 
-# validate everything
-python scripts/validate.py --root databases
-
-# build the catalog + site into _site/, then open it
-python scripts/build_index.py --out _site --base-url http://localhost:8000
-python -m http.server -d _site 8000
+# validate everything  (entry point defined in pyproject.toml)
+uv run dbchub-validate --root databases
 ```
+
+`dbchub-serve` regenerates the catalog data and then runs Jekyll's dev server (which
+live-reloads edits to the site). It needs Ruby + Bundler for Jekyll; the first run does
+`bundle install` automatically. Options: `--host`, `--port`, and `--no-build` (serve
+without regenerating). Editing files under `databases/` requires a rebuild, so re-run
+the command (or `uv run dbchub-build`).
+
+The scripts are linked to the project as entry points: `dbchub-serve`, `dbchub-validate`,
+`dbchub-build`, and `dbchub` (the write client). You can also run the files directly with
+`uv run scripts/serve.py …`. Use `uv sync` to materialise `.venv` ahead of time and
+`uv lock` to refresh the lockfile.
 
 ## Setup checklist for a new deployment
 

@@ -1,0 +1,13 @@
+title: dbchub
+description: A versioned catalog of automotive signal databases, organised by manufacturer.
+# Pull requests from the frontend's upload dialog are opened against this repo.
+# Set it to "owner/repo" once you know your GitHub slug.
+upstream_repo: ""
+base_branch: master
+# The catalog data and the downloadable database files are generated into this
+# source tree by scripts/build_index.py before Jekyll runs.
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+plugins: []

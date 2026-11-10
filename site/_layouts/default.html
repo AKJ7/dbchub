@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ page.title | default: site.title }}</title>
+    <meta name="description" content="{{ site.description }}" />
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}" />
+  </head>
+  <body>
+    <nav class="nav">
+      <a class="brand" href="{{ '/' | relative_url }}">
+        <span class="logo">◈</span> {{ site.title }}
+      </a>
+      <div class="search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3" />
+        </svg>
+        <input id="search" type="search" placeholder="Search databases by name, manufacturer, model…" autocomplete="off" />
+      </div>
+      <div class="spacer"></div>
+      <button class="btn primary" id="open-upload">↑ Upload database</button>
+    </nav>
+
+    {{ content }}
+
+    <footer class="footer">
+      dbchub · a versioned, Git-native catalog of automotive signal databases ·
+      <a href="{{ '/index.json' | relative_url }}">index.json</a>
+    </footer>
+
+    <script>
+      window.DBCHUB = {
+        // Pull requests are opened against this repository. Set it in _config.yml.
+        upstream: {{ site.upstream_repo | default: '' | jsonify }},
+        baseBranch: {{ site.base_branch | default: 'master' | jsonify }},
+        catalog: {{ site.data.catalog.databases | default: empty | jsonify }}
+      };
+    </script>
+    <script src="{{ '/assets/js/app.js' | relative_url }}"></script>
+  </body>
+</html>

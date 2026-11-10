@@ -4,6 +4,8 @@ description: A versioned catalog of automotive signal databases, organised by ma
 # Set it to "owner/repo" once you know your GitHub slug.
 upstream_repo: ""
 base_branch: master
+# Contact shown on the Legal page for licensing / takedown questions.
+contact_email: akj123429@gmail.com
 # The catalog data and the downloadable database files are generated into this
 # source tree by scripts/build_index.py before Jekyll runs.
 exclude:

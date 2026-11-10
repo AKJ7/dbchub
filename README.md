@@ -39,11 +39,11 @@ Example metadata record:
 ```json
 {
   "name": "engine", "format": "dbc",
-  "manufacturer": "examplecorp", "model": "sedan", "bus": "can",
-  "license": "CC-BY-4.0",
-  "checksum": "sha256:…", "counts": { "nodes": 2, "messages": 2, "signals": 5 },
+  "manufacturer": "toyota", "model": "prius-2010", "bus": "can",
+  "license": "MIT", "source": "comma.ai opendbc",
+  "checksum": "sha256:…", "counts": { "nodes": 6, "messages": 26, "signals": 78 },
   "valid": true, "commit": "a1b9f3c", "updated": "2026-11-10",
-  "download": "https://you.github.io/dbchub/databases/examplecorp/sedan/can/engine.dbc"
+  "download": "https://you.github.io/dbchub/databases/toyota/prius-2010/can/toyota_prius_2010_pt.dbc"
 }
 ```
 
@@ -67,9 +67,9 @@ export GITHUB_TOKEN=ghp_...        # 'public_repo' scope on your fork
 
 uv run dbchub upload engine.dbc \
     --repo you/dbchub --upstream org/dbchub \
-    --manufacturer examplecorp --model sedan --bus can
+    --manufacturer toyota --model prius-2010 --bus can
 
-uv run dbchub update databases/examplecorp/sedan/can/engine.dbc \
+uv run dbchub update databases/toyota/prius-2010/can/toyota_prius_2010_pt.dbc \
     --repo you/dbchub --upstream org/dbchub
 ```
 
@@ -156,6 +156,10 @@ Automotive signal databases are frequently proprietary, so the project is built 
 Before going public: **replace the `<MAINTAINER CONTACT>` placeholders**, set the
 copyright holder in [`NOTICE`](NOTICE), and have a lawyer review — this is scaffolding,
 not legal advice. If you want US DMCA safe harbor, register a designated agent.
+
+The website also has a **Legal page** (`/legal/`, linked in the nav and footer) that
+summarizes the licenses and lists each database source with its license and attribution,
+generated from the catalog.
 
 **Security.** The frontend is hardened against XSS (strict Content-Security-Policy, no
 inline JS, untrusted catalog data rendered via `textContent` only, escaped templating)

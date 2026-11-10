@@ -40,6 +40,7 @@
         <input id="search" type="search" placeholder="Search databases by name, manufacturer, model…" autocomplete="off" />
       </div>
       <div class="spacer"></div>
+      <a class="btn" href="{{ '/legal/' | relative_url }}">Legal</a>
       <button class="btn primary" id="open-upload">↑ Upload database</button>
     </nav>
 
@@ -47,12 +48,13 @@
 
     <footer class="footer">
       dbchub · a versioned, Git-native catalog of automotive signal databases ·
+      <a href="{{ '/legal/' | relative_url }}">Legal</a> ·
       <a href="{{ '/index.json' | relative_url }}">index.json</a>
     </footer>
 
     <!-- Catalog data as inert JSON (not executed), HTML-escaped to prevent markup
          breakout. app.js reads and JSON.parses it. -->
-    <script id="dbchub-catalog" type="application/json">{{ site.data.catalog.databases | default: empty | jsonify | escape }}</script>
+    <script id="dbchub-catalog" type="application/json">{{ site.data.catalog.databases | default: empty | jsonify | replace: '<', '<' | replace: '>', '>' }}</script>
     <script src="{{ '/assets/js/app.js' | relative_url }}"></script>
   </body>
 </html>

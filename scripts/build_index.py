@@ -33,23 +33,29 @@ SOURCES_FILE = DB_ROOT / "SOURCES.json"
 
 
 def load_sources():
-    """Return the provenance entries from databases/SOURCES.json (longest prefix
-    wins), or an empty list if absent."""
+    """Return (prefix, source) pairs from databases/SOURCES.json, longest prefix
+    first, or an empty list if absent. A source may declare `prefix` (string) or
+    `prefixes` (list)."""
     try:
         data = json.loads(SOURCES_FILE.read_text())
-        entries = data.get("sources", [])
-        return sorted(entries, key=lambda s: len(s.get("prefix", "")), reverse=True)
     except FileNotFoundError:
         return []
     except Exception as exc:  # malformed manifest shouldn't break the build
         print(f"warning: could not read {SOURCES_FILE}: {exc}")
         return []
+    pairs = []
+    for s in data.get("sources", []):
+        prefixes = s.get("prefixes") or ([s["prefix"]] if s.get("prefix") else [])
+        for p in prefixes:
+            pairs.append((p, s))
+    pairs.sort(key=lambda t: len(t[0]), reverse=True)
+    return pairs
 
 
-def provenance_for(rel_posix: str, sources):
+def provenance_for(rel_posix: str, pairs):
     """Match a file's path against the source prefixes; default to CC-BY-4.0 original."""
-    for s in sources:
-        if rel_posix.startswith(s.get("prefix", "\0")):
+    for prefix, s in pairs:
+        if rel_posix.startswith(prefix):
             return {
                 "license": s.get("license", "CC-BY-4.0"),
                 "source": s.get("name"),

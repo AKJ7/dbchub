@@ -15,18 +15,28 @@ license, which applies only to original contributions.
 - **Copyright:** © comma.ai, Inc.
 - **Imported at commit:** `27fa1c5d8eed3238a0a78c52ff5abb6cdc807bd2`
 
-Imported files:
+Imported files (each from `opendbc/dbc/<file>` upstream):
 
-| Path | Upstream file |
-|---|---|
-| `databases/toyota/prius-2010/can/toyota_prius_2010_pt.dbc` | `opendbc/dbc/toyota_prius_2010_pt.dbc` |
-| `databases/volkswagen/mqb/can/vw_mqb.dbc` | `opendbc/dbc/vw_mqb.dbc` |
-| `databases/ford/fusion-2018/can/ford_fusion_2018_pt.dbc` | `opendbc/dbc/ford_fusion_2018_pt.dbc` |
-| `databases/mazda/mazda3-2019/can/mazda_3_2019.dbc` | `opendbc/dbc/mazda_3_2019.dbc` |
-| `databases/tesla/model3/can/tesla_model3_vehicle.dbc` | `opendbc/dbc/tesla_model3_vehicle.dbc` |
-| `databases/hyundai/i30-2014/can/hyundai_i30_2014.dbc` | `opendbc/dbc/hyundai_i30_2014.dbc` |
-| `databases/bmw/e8x-e9x/can/bmw_e9x_e8x.dbc` | `opendbc/dbc/bmw_e9x_e8x.dbc` |
-| `databases/mercedes-benz/e350-2010/can/mercedes_benz_e350_2010.dbc` | `opendbc/dbc/mercedes_benz_e350_2010.dbc` |
+| Path |
+|---|
+| `databases/acura/ilx-2016/can/acura_ilx_2016_nidec.dbc` |
+| `databases/bmw/e8x-e9x/can/bmw_e9x_e8x.dbc` |
+| `databases/byd/atto3/can/byd_atto3.dbc` |
+| `databases/cadillac/ct6/can/cadillac_ct6_powertrain.dbc` |
+| `databases/chrysler/cusw/can/chrysler_cusw.dbc` |
+| `databases/fca/giorgio/can/fca_giorgio.dbc` |
+| `databases/ford/fusion-2018/can/ford_fusion_2018_pt.dbc` |
+| `databases/gm/global-a/can/gm_global_a_chassis.dbc` |
+| `databases/hongqi/hs5/can/hongqi_hs5.dbc` |
+| `databases/hyundai/i30-2014/can/hyundai_i30_2014.dbc` |
+| `databases/mazda/mazda3-2019/can/mazda_3_2019.dbc` |
+| `databases/mercedes-benz/e350-2010/can/mercedes_benz_e350_2010.dbc` |
+| `databases/nissan/xterra-2011/can/nissan_xterra_2011.dbc` |
+| `databases/rivian/r1/can/rivian_primary_actuator.dbc` |
+| `databases/tesla/model3/can/tesla_model3_vehicle.dbc` |
+| `databases/toyota/prius-2010/can/toyota_prius_2010_pt.dbc` |
+| `databases/volkswagen/mqb/can/vw_mqb.dbc` |
+| `databases/volvo/v60-2015/can/volvo_v60_2015_pt.dbc` |
 
 > These DBCs are community-maintained and reverse-engineered; they are provided under MIT
 > without warranty and are **not validated for safety-critical use** (see

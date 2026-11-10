@@ -1,10 +1,10 @@
 name: Build and publish catalog
 
-# On merge to main, rebuild the static catalog (index.json + per-database
+# On merge to master, rebuild the static catalog (index.json + per-database
 # metadata + the browse UI) and deploy it to GitHub Pages. This is the "read API".
 on:
   push:
-    branches: [main]
+    branches: [master]
   workflow_dispatch:
 
 permissions:

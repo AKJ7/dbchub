@@ -99,7 +99,7 @@ python -m http.server -d _site 8000
 
 1. Push this repo to GitHub.
 2. **Settings → Pages → Source: GitHub Actions.**
-3. Merge a PR (or push to `main`) to trigger the first catalog build.
+3. Merge a PR (or push to `master`) to trigger the first catalog build.
 4. Tell contributors to fork and use the CLI (or raw PRs).
 
 ## Notes & extensions

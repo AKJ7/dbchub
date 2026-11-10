@@ -71,15 +71,20 @@ def cmd_write(args, is_update: bool):
     if not local.is_file():
         sys.exit(f"error: no such file: {local}")
 
-    # Target path inside the repo.
+    # Target path inside the repo: databases/<manufacturer>/<model>/<bus>/<file>
     if args.path:
         repo_path = args.path
     elif is_update:
         repo_path = str(local).replace("\\", "/")
     else:
-        if not (args.project and args.bus):
-            sys.exit("error: upload needs --project and --bus (or an explicit --path)")
-        repo_path = f"databases/{args.project}/{args.bus}/{local.name}"
+        if not (args.manufacturer and args.model and args.bus):
+            sys.exit(
+                "error: upload needs --manufacturer, --model and --bus "
+                "(or an explicit --path)"
+            )
+        repo_path = (
+            f"databases/{args.manufacturer}/{args.model}/{args.bus}/{local.name}"
+        )
 
     # 1. resolve base branch head
     status, ref = api("GET", f"/repos/{args.repo}/git/ref/heads/{args.base}", token)
@@ -143,9 +148,10 @@ def main() -> int:
         p.add_argument("--repo", required=True, help="owner/repo you can push to (your fork for public contrib).")
         p.add_argument("--upstream", help="owner/repo to open the PR against (default: --repo).")
         p.add_argument("--base", default="master", help="Base branch (default: master).")
-        p.add_argument("--project", help="Project folder (upload only).")
+        p.add_argument("--manufacturer", help="Car manufacturer folder (upload only).")
+        p.add_argument("--model", help="Model folder (upload only).")
         p.add_argument("--bus", help="Bus folder, e.g. can/lin (upload only).")
-        p.add_argument("--path", help="Explicit repo path (overrides project/bus).")
+        p.add_argument("--path", help="Explicit repo path (overrides manufacturer/model/bus).")
         p.add_argument("--branch", help="Branch name (default: auto).")
         p.add_argument("--message", help="Commit message.")
         p.add_argument("--pr-body", help="Pull-request body.")

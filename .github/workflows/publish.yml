@@ -1,7 +1,7 @@
 name: Build and publish catalog
 
-# On merge to master, rebuild the static catalog (index.json + per-database
-# metadata + the browse UI) and deploy it to GitHub Pages. This is the "read API".
+# On merge to master: generate the catalog data (Python), then build the Jekyll
+# site and deploy it to GitHub Pages. This is the "read API".
 on:
   push:
     branches: [master]
@@ -24,19 +24,25 @@ jobs:
         with:
           fetch-depth: 0 # full history so per-file commit dates are accurate
 
-      - uses: actions/setup-python@v5
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
         with:
-          python-version: "3.12"
-          cache: pip
+          enable-cache: true
 
-      - name: Install parsers
-        run: pip install -r scripts/requirements.txt
+      - uses: actions/configure-pages@v5
+        id: pages
 
-      - name: Build catalog + site
+      - name: Generate catalog data into the Jekyll source
         run: |
-          python scripts/build_index.py \
-            --out _site \
-            --base-url "${{ steps.pages.outputs.base_url || format('https://{0}.github.io/{1}', github.repository_owner, github.event.repository.name) }}"
+          uv run dbchub-build \
+            --out site \
+            --base-url "${{ steps.pages.outputs.base_url }}"
+
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: site
+          destination: _site
 
       - uses: actions/upload-pages-artifact@v3
         with:

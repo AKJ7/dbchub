@@ -1,0 +1,126 @@
+<!-- Detail modal. app.js fills it from the database's metadata JSON and, when a
+     structure tab is opened, from its <name>.structure.json (nodes/messages/signals). -->
+<div class="modal-backdrop" id="detail-modal">
+  <div class="modal wide" role="dialog" aria-modal="true" aria-labelledby="d-title">
+    <header class="d-head">
+      <div class="d-headtext">
+        <div class="ns" id="d-sub"></div>
+        <h2 id="d-title">Database</h2>
+        <div class="row" id="d-badges"></div>
+      </div>
+      <div class="d-headactions">
+        <a class="btn small primary" id="d-download" href="#" download>↓ Download</a>
+        <button class="btn small" id="d-copy" type="button" title="Copy a link to this view">🔗 Copy link</button>
+        <button class="close" type="button" data-close aria-label="Close">×</button>
+      </div>
+    </header>
+    <nav class="tabs" id="d-tabs" role="tablist" aria-label="Database sections">
+      <button type="button" role="tab" data-tab="overview">Overview</button>
+      <button type="button" role="tab" data-tab="messages">Messages <span class="n" id="d-n-messages"></span></button>
+      <button type="button" role="tab" data-tab="signals">Signals <span class="n" id="d-n-signals"></span></button>
+      <button type="button" role="tab" data-tab="nodes">Nodes <span class="n" id="d-n-nodes"></span></button>
+      <button type="button" role="tab" data-tab="lint">Lint <span class="n" id="d-n-lint"></span></button>
+    </nav>
+    <div class="body d-body">
+      <section class="tabpanel" data-panel="overview" role="tabpanel">
+        <dl class="kv" id="d-kv"></dl>
+        <div class="actions" style="margin-top:16px">
+          <a class="btn small" id="d-meta" href="#" target="_blank" rel="noopener">Metadata JSON</a>
+          <a class="btn small" id="d-struct" href="#" target="_blank" rel="noopener">Structure JSON</a>
+        </div>
+      </section>
+      <section class="tabpanel" data-panel="messages" role="tabpanel" hidden></section>
+      <section class="tabpanel" data-panel="signals" role="tabpanel" hidden></section>
+      <section class="tabpanel" data-panel="nodes" role="tabpanel" hidden></section>
+      <section class="tabpanel" data-panel="lint" role="tabpanel" hidden>
+        <p class="muted" id="d-lint-empty">No lint findings.</p>
+        <ul class="warnlist" id="d-warn"></ul>
+      </section>
+    </div>
+  </div>
+</div>
+
+<!-- Upload modal -->
+<div class="modal-backdrop" id="upload-modal">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="u-title">
+    <header>
+      <h2 id="u-title">Contribute a database</h2>
+      <button class="close" type="button" data-close aria-label="Close">×</button>
+    </header>
+    <div class="body">
+      <p class="note">
+        This opens a <strong>Pull Request</strong> from your GitHub fork using a token you
+        provide — nothing is stored on a server. A maintainer reviews and merges it.
+        You need a fork of the repository and a token with <code>public_repo</code> scope
+        (<a href="https://github.com/settings/tokens/new?scopes=public_repo&amp;description=dbchub%20upload" target="_blank" rel="noopener noreferrer">create one</a>).
+      </p>
+      <form id="upload-form" novalidate>
+        <div class="field">
+          <span class="flabel">1 · Database file</span>
+          <label class="dropzone" id="u-drop">
+            <input type="file" id="u-file" accept=".dbc,.arxml,.ldf,.dbf,.kcd,.sym" />
+            <span class="dz-empty"><b>Choose a file</b> or drop it here<br /><span class="hint">.dbc .arxml .ldf .dbf .kcd .sym · up to 25 MB</span></span>
+            <span class="dz-file" id="u-file-info" hidden></span>
+          </label>
+        </div>
+
+        <div class="field">
+          <span class="flabel">2 · Where it belongs</span>
+          <div class="three">
+            <div>
+              <label for="u-mfr">Manufacturer</label>
+              <input id="u-mfr" list="u-mfr-list" placeholder="volkswagen" autocomplete="off" spellcheck="false" />
+              <datalist id="u-mfr-list"></datalist>
+            </div>
+            <div>
+              <label for="u-model">Model / platform</label>
+              <input id="u-model" list="u-model-list" placeholder="golf-mk7" autocomplete="off" spellcheck="false" />
+              <datalist id="u-model-list"></datalist>
+            </div>
+            <div>
+              <label for="u-bus">Bus type</label>
+              <select id="u-bus">
+                {%- for b in site.bus_types %}
+                <option value="{{ b.id | escape }}">{{ b.label | escape }}</option>
+                {%- endfor %}
+                <option value="__other">Other…</option>
+              </select>
+              <input id="u-bus-other" placeholder="e.g. body-can" autocomplete="off" spellcheck="false" hidden />
+            </div>
+          </div>
+          <div class="path-preview" id="u-path" aria-live="polite"></div>
+        </div>
+
+        <div class="field">
+          <span class="flabel">3 · Your GitHub details</span>
+          <div class="two">
+            <div>
+              <label for="u-fork">Your fork <span class="hint">owner/repo</span></label>
+              <input id="u-fork" placeholder="you/dbchub" autocomplete="off" spellcheck="false" />
+            </div>
+            <div>
+              <label for="u-token">Token <span class="hint">· only sent to api.github.com</span></label>
+              <input type="password" id="u-token" placeholder="ghp_… or github_pat_…" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" />
+            </div>
+          </div>
+          <label class="check"><input type="checkbox" id="u-remember" /> <span>Remember fork and token on this device</span></label>
+        </div>
+
+        <div class="field">
+          <label for="u-msg">Commit message <span class="hint">· optional</span></label>
+          <input id="u-msg" placeholder="Add volkswagen/golf-mk7/can engine.dbc" />
+        </div>
+
+        <label class="check rights">
+          <input type="checkbox" id="u-rights" />
+          <span>I have the right to publish this file and to license it under CC BY 4.0, and it contains
+            no confidential or personal data (see <a href="{{ '/legal/' | relative_url }}" target="_blank">Legal</a>).</span>
+        </label>
+
+        <button class="btn primary" type="submit" id="u-submit" style="width:100%">Open Pull Request</button>
+        <ol class="steps" id="u-steps" hidden></ol>
+        <div class="result" id="u-result" role="status"></div>
+      </form>
+    </div>
+  </div>
+</div>

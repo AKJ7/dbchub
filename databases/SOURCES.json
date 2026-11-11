@@ -1,5 +1,6 @@
 {
-  "comment": "Provenance for imported databases. Each source maps one or more path PREFIXES (relative to databases/) to its upstream origin and license. build_index.py applies the longest matching prefix to set each file's license/source/attribution. Files not matched here are treated as original contributions under CC-BY-4.0.",
+  "comment": "Provenance of imported databases, and the manifest scripts/sources.py uses to re-import them. Each source lists its files: `path` (relative to databases/), `upstream` (path in the source repo at `commit`) and an optional `method` (`copy` by default, or `opendbc-generator` to assemble an opendbc template with its IMPORTed partials). build_index.py uses these paths to set each file's license/source/attribution; files not listed are original contributions under CC-BY-4.0. Edit by hand or via `scripts/sources.py`.",
+  "version": 2,
   "sources": [
     {
       "name": "comma.ai opendbc",
@@ -7,26 +8,674 @@
       "commit": "27fa1c5d8eed3238a0a78c52ff5abb6cdc807bd2",
       "license": "MIT",
       "license_file": "THIRD_PARTY_LICENSES/opendbc-LICENSE.txt",
+      "license_upstream": "LICENSE",
       "attribution": "© comma.ai, Inc. — opendbc (MIT)",
-      "prefixes": [
-        "acura/",
-        "bmw/",
-        "byd/",
-        "cadillac/",
-        "chrysler/",
-        "fca/",
-        "ford/",
-        "gm/",
-        "hongqi/",
-        "hyundai/",
-        "mazda/",
-        "mercedes-benz/",
-        "nissan/",
-        "rivian/",
-        "tesla/",
-        "toyota/",
-        "volkswagen/",
-        "volvo/"
+      "files": [
+        {
+          "path": "acura/ilx-2016/can/acura_ilx_2016_can_generated.dbc",
+          "upstream": "opendbc/dbc/generator/honda/acura_ilx_2016_can.dbc",
+          "method": "opendbc-generator"
+        },
+        {
+          "path": "acura/ilx-2016/can/acura_ilx_2016_nidec.dbc",
+          "upstream": "opendbc/dbc/acura_ilx_2016_nidec.dbc"
+        },
+        {
+          "path": "acura/rdx-2018/can/acura_rdx_2018_can_generated.dbc",
+          "upstream": "opendbc/dbc/generator/honda/acura_rdx_2018_can.dbc",
+          "method": "opendbc-generator"
+        },
+        {
+          "path": "acura/rdx-2020/can/acura_rdx_2020_can_generated.dbc",
+          "upstream": "opendbc/dbc/generator/honda/acura_rdx_2020_can.dbc",
+          "method": "opendbc-generator"
+        },
+        {
+          "path": "bmw/e8x-e9x/can/bmw_e9x_e8x.dbc",
+          "upstream": "opendbc/dbc/bmw_e9x_e8x.dbc"
+        },
+        {
+          "path": "byd/atto3/can/byd_atto3.dbc",
+          "upstream": "opendbc/dbc/byd_atto3.dbc"
+        },
+        {
+          "path": "cadillac/ct6/can/cadillac_ct6_chassis.dbc",
+          "upstream": "opendbc/dbc/cadillac_ct6_chassis.dbc"
+        },
+        {
+          "path": "cadillac/ct6/can/cadillac_ct6_object.dbc",
+          "upstream": "opendbc/dbc/cadillac_ct6_object.dbc"
+        },
+        {
+          "path": "cadillac/ct6/can/cadillac_ct6_powertrain.dbc",
+          "upstream": "opendbc/dbc/cadillac_ct6_powertrain.dbc"
+        },
+        {
+          "path": "chrysler/cusw/can/chrysler_cusw.dbc",
+          "upstream": "opendbc/dbc/chrysler_cusw.dbc"
+        },
+        {
+          "path": "chrysler/pacifica-2017-hybrid/can/chrysler_pacifica_2017_hybrid_generated.dbc",
+          "upstream": "opendbc/dbc/generator/chrysler/chrysler_pacifica_2017_hybrid.dbc",
+          "method": "opendbc-generator"
+        },
+        {
+          "path": "chrysler/pacifica-2017-hybrid/can/chrysler_pacifica_2017_hybrid_private_fusion.dbc",
+          "upstream": "opendbc/dbc/chrysler_pacifica_2017_hybrid_private_fusion.dbc"
+        },
+        {
+          "path": "comma/body/can/comma_body.dbc",
+          "upstream": "opendbc/dbc/comma_body.dbc"
+        },
+        {
+          "path": "delphi/esr/can/ESR.dbc",
+          "upstream": "opendbc/dbc/ESR.dbc"
+        },
+        {
+          "path": "fca/giorgio/can/fca_giorgio.dbc",
+          "upstream": "opendbc/dbc/fca_giorgio.dbc"
+        },
+        {
+          "path": "ford/cads/can/FORD_CADS.dbc",
+          "upstream": "opendbc/dbc/FORD_CADS.dbc"
+        },
+        {
+          "path": "ford/cads/can/FORD_CADS_64.dbc",
+          "upstream": "opendbc/dbc/FORD_CADS_64.dbc"
+        },
+        {
+          "path": "ford/cgea-1-2-2011/can/ford_cgea1_2_bodycan_2011.dbc",
+          "upstream": "opendbc/dbc/ford_cgea1_2_bodycan_2011.dbc"
+        },
+        {
+          "path": "ford/cgea-1-2-2011/can/ford_cgea1_2_ptcan_2011.dbc",
+          "upstream": "opendbc/dbc/ford_cgea1_2_ptcan_2011.dbc"
+        },
+        {
+          "path": "ford/fusion-2018/can/ford_fusion_2018_adas.dbc",
+          "upstream": "opendbc/dbc/ford_fusion_2018_adas.dbc"
+        },
+        {
+          "path": "ford/fusion-2018/can/ford_fusion_2018_pt.dbc",
+          "upstream": "opendbc/dbc/ford_fusion_2018_pt.dbc"
+        },
+        {
+          "path": "ford/lincoln-base/can/ford_lincoln_base_pt.dbc",
+          "upstream": "opendbc/dbc/ford_lincoln_base_pt.dbc"
+        },
+        {
+          "path": "gm/global-a/can/gm_global_a_chassis.dbc",
+          "upstream": "opendbc/dbc/gm_global_a_chassis.dbc"
+        },
+        {
+          "path": "gm/global-a/can/gm_global_a_high_voltage_management.dbc",
+          "upstream": "opendbc/dbc/gm_global_a_high_voltage_management.dbc"
+        },
+        {
+          "path": "gm/global-a/can/gm_global_a_lowspeed.dbc",
+          "upstream": "opendbc/dbc/gm_global_a_lowspeed.dbc"
+        },
+        {
+          "path": "gm/global-a/can/gm_global_a_lowspeed_1818125.dbc",
+          "upstream": "opendbc/dbc/gm_global_a_lowspeed_1818125.dbc"
+        },
+        {
+          "path": "gm/global-a/can/gm_global_a_object.dbc",
+          "upstream": "opendbc/dbc/gm_global_a_object.dbc"
+        },
+        {
+          "path": "gm/global-a/can/gm_global_a_powertrain_expansion.dbc",
+          "upstream": "opendbc/dbc/gm_global_a_powertrain_expansion.dbc"
+        },
+        {
+          "path": "gm/global-a/can/gm_global_a_powertrain_generated.dbc",
+          "upstream": "opendbc/dbc/generator/gm/gm_global_a_powertrain.dbc",
+          "method": "opendbc-generator"
+        },
+        {
+          "path": "gwm/haval-h6-phev-2024/can/gwm_haval_h6_phev_2024.dbc",
+          "upstream": "opendbc/dbc/gwm_haval_h6_phev_2024.dbc"
+        },
+        {
+          "path": "honda/bosch-radarless/can/honda_bosch_radarless_generated.dbc",
+          "upstream": "opendbc/dbc/generator/honda/honda_bosch_radarless.dbc",
+          "method": "opendbc-generator"
+        },
+        {
+          "path": "honda/canfd/can/honda_common_canfd_generated.dbc",
+          "upstream": "opendbc/dbc/generator/honda/honda_common_canfd.dbc",
+          "method": "opendbc-generator"
+        },
+        {
+          "path": "honda/civic-2016/can/honda_civic_touring_2016_can_generated.dbc",
+          "upstream": "opendbc/dbc/generator/honda/honda_civic_touring_2016_can.dbc",
+          "method": "opendbc-generator"
+        },
+        {
+          "path": "honda/civic-hatchback-2017/can/honda_civic_hatchback_ex_2017_can_generated.dbc",
+          "upstream": "opendbc/dbc/generator/honda/honda_civic_hatchback_ex_2017_can.dbc",
+          "method": "opendbc-generator"
+        },
+        {
+          "path": "honda/clarity-hybrid-2018/can/honda_clarity_hybrid_2018_can_generated.dbc",
+          "upstream": "opendbc/dbc/generator/honda/honda_clarity_hybrid_2018_can.dbc",
+          "method": "opendbc-generator"
+        },
+        {
+          "path": "honda/cr-v-2016/can/honda_crv_touring_2016_can_generated.dbc",
+          "upstream": "opendbc/dbc/generator/honda/honda_crv_touring_2016_can.dbc",
+          "method": "opendbc-generator"
+        },
+        {
+          "path": "honda/cr-v-2017/can/honda_crv_ex_2017_body_generated.dbc",
+          "upstream": "opendbc/dbc/generator/honda/honda_crv_ex_2017_body.dbc",
+          "method": "opendbc-generator"
+        },
+        {
+          "path": "honda/e-2020/can/honda_e_advance_2020_can_generated.dbc",
+          "upstream": "opendbc/dbc/generator/honda/honda_e_advance_2020_can.dbc",
+          "method": "opendbc-generator"
+        },
+        {
+          "path": "honda/insight-2019/can/honda_insight_ex_2019_can_generated.dbc",
+          "upstream": "opendbc/dbc/generator/honda/honda_insight_ex_2019_can.dbc",
+          "method": "opendbc-generator"
+        },
+        {
+          "path": "honda/odyssey-2018/can/honda_odyssey_exl_2018_generated.dbc",
+          "upstream": "opendbc/dbc/generator/honda/honda_odyssey_exl_2018.dbc",
+          "method": "opendbc-generator"
+        },
+        {
+          "path": "honda/odyssey-2018/can/honda_odyssey_twn_2018_generated.dbc",
+          "upstream": "opendbc/dbc/generator/honda/honda_odyssey_twn_2018.dbc",
+          "method": "opendbc-generator"
+        },
+        {
+          "path": "hongqi/hs5/can/hongqi_hs5.dbc",
+          "upstream": "opendbc/dbc/hongqi_hs5.dbc"
+        },
+        {
+          "path": "hyundai/2015/can/hyundai_2015_ccan.dbc",
+          "upstream": "opendbc/dbc/hyundai_2015_ccan.dbc"
+        },
+        {
+          "path": "hyundai/2015/can/hyundai_2015_mcan.dbc",
+          "upstream": "opendbc/dbc/hyundai_2015_mcan.dbc"
+        },
+        {
+          "path": "hyundai/can-platform/can/hyundai_can_generated.dbc",
+          "upstream": "opendbc/dbc/generator/hyundai/hyundai_can.dbc",
+          "method": "opendbc-generator"
+        },
+        {
+          "path": "hyundai/canfd-platform/can/hyundai_canfd_generated.dbc",
+          "upstream": "opendbc/dbc/generator/hyundai/hyundai_canfd.dbc",
+          "method": "opendbc-generator"
+        },
+        {
+          "path": "hyundai/i30-2014/can/hyundai_i30_2014.dbc",
+          "upstream": "opendbc/dbc/hyundai_i30_2014.dbc"
+        },
+        {
+          "path": "hyundai/palisade-2023/can/hyundai_palisade_2023_generated.dbc",
+          "upstream": "opendbc/dbc/generator/hyundai/hyundai_palisade_2023.dbc",
+          "method": "opendbc-generator"
+        },
+        {
+          "path": "hyundai/santa-fe-2007/can/hyundai_santafe_2007.dbc",
+          "upstream": "opendbc/dbc/hyundai_santafe_2007.dbc"
+        },
+        {
+          "path": "luxgen/s5-2015/can/luxgen_s5_2015.dbc",
+          "upstream": "opendbc/dbc/luxgen_s5_2015.dbc"
+        },
+        {
+          "path": "mazda/2017/can/mazda_2017.dbc",
+          "upstream": "opendbc/dbc/mazda_2017.dbc"
+        },
+        {
+          "path": "mazda/mazda3-2019/can/mazda_3_2019.dbc",
+          "upstream": "opendbc/dbc/mazda_3_2019.dbc"
+        },
+        {
+          "path": "mazda/radar/can/mazda_radar.dbc",
+          "upstream": "opendbc/dbc/mazda_radar.dbc"
+        },
+        {
+          "path": "mazda/rx-8/can/mazda_rx8.dbc",
+          "upstream": "opendbc/dbc/mazda_rx8.dbc"
+        },
+        {
+          "path": "mercedes-benz/e350-2010/can/mercedes_benz_e350_2010.dbc",
+          "upstream": "opendbc/dbc/mercedes_benz_e350_2010.dbc"
+        },
+        {
+          "path": "mg/hscan2/can/mg.dbc",
+          "upstream": "opendbc/dbc/mg.dbc"
+        },
+        {
+          "path": "nissan/leaf-2018/can/nissan_leaf_2018_generated.dbc",
+          "upstream": "opendbc/dbc/generator/nissan/nissan_leaf_2018.dbc",
+          "method": "opendbc-generator"
+        },
+        {
+          "path": "nissan/x-trail-2017/can/nissan_x_trail_2017_generated.dbc",
+          "upstream": "opendbc/dbc/generator/nissan/nissan_x_trail_2017.dbc",
+          "method": "opendbc-generator"
+        },
+        {
+          "path": "nissan/xterra-2011/can/nissan_xterra_2011.dbc",
+          "upstream": "opendbc/dbc/nissan_xterra_2011.dbc"
+        },
+        {
+          "path": "opel/omega-2001/can/opel_omega_2001.dbc",
+          "upstream": "opendbc/dbc/opel_omega_2001.dbc"
+        },
+        {
+          "path": "psa/aee2010/can/psa_aee2010_r3.dbc",
+          "upstream": "opendbc/dbc/psa_aee2010_r3.dbc"
+        },
+        {
+          "path": "rivian/r1/can/rivian_park_assist_can.dbc",
+          "upstream": "opendbc/dbc/rivian_park_assist_can.dbc"
+        },
+        {
+          "path": "rivian/r1/can/rivian_primary_actuator.dbc",
+          "upstream": "opendbc/dbc/rivian_primary_actuator.dbc"
+        },
+        {
+          "path": "subaru/forester-2017/can/subaru_forester_2017_generated.dbc",
+          "upstream": "opendbc/dbc/generator/subaru/subaru_forester_2017.dbc",
+          "method": "opendbc-generator"
+        },
+        {
+          "path": "subaru/global-2017/can/subaru_global_2017_generated.dbc",
+          "upstream": "opendbc/dbc/generator/subaru/subaru_global_2017.dbc",
+          "method": "opendbc-generator"
+        },
+        {
+          "path": "subaru/global-2020-hybrid/can/subaru_global_2020_hybrid_generated.dbc",
+          "upstream": "opendbc/dbc/generator/subaru/subaru_global_2020_hybrid.dbc",
+          "method": "opendbc-generator"
+        },
+        {
+          "path": "subaru/outback-2015/can/subaru_outback_2015_generated.dbc",
+          "upstream": "opendbc/dbc/generator/subaru/subaru_outback_2015.dbc",
+          "method": "opendbc-generator"
+        },
+        {
+          "path": "subaru/outback-2019/can/subaru_outback_2019_generated.dbc",
+          "upstream": "opendbc/dbc/generator/subaru/subaru_outback_2019.dbc",
+          "method": "opendbc-generator"
+        },
+        {
+          "path": "tesla/model-s/can/tesla_can.dbc",
+          "upstream": "opendbc/dbc/tesla_can.dbc"
+        },
+        {
+          "path": "tesla/model-s/can/tesla_powertrain.dbc",
+          "upstream": "opendbc/dbc/tesla_powertrain.dbc"
+        },
+        {
+          "path": "tesla/model3/can/tesla_model3_party.dbc",
+          "upstream": "opendbc/dbc/tesla_model3_party.dbc"
+        },
+        {
+          "path": "tesla/model3/can/tesla_model3_vehicle.dbc",
+          "upstream": "opendbc/dbc/tesla_model3_vehicle.dbc"
+        },
+        {
+          "path": "toyota/2017-ref/can/toyota_2017_ref_pt.dbc",
+          "upstream": "opendbc/dbc/toyota_2017_ref_pt.dbc"
+        },
+        {
+          "path": "toyota/iq-2009/can/toyota_iQ_2009_can.dbc",
+          "upstream": "opendbc/dbc/toyota_iQ_2009_can.dbc"
+        },
+        {
+          "path": "toyota/new-mc/can/toyota_new_mc_pt_generated.dbc",
+          "upstream": "opendbc/dbc/generator/toyota/toyota_new_mc_pt.dbc",
+          "method": "opendbc-generator"
+        },
+        {
+          "path": "toyota/nodsu/can/toyota_nodsu_pt_generated.dbc",
+          "upstream": "opendbc/dbc/generator/toyota/toyota_nodsu_pt.dbc",
+          "method": "opendbc-generator"
+        },
+        {
+          "path": "toyota/prius-2010/can/toyota_prius_2010_pt.dbc",
+          "upstream": "opendbc/dbc/toyota_prius_2010_pt.dbc"
+        },
+        {
+          "path": "toyota/secoc/can/toyota_secoc_pt_generated.dbc",
+          "upstream": "opendbc/dbc/generator/toyota/toyota_secoc_pt.dbc",
+          "method": "opendbc-generator"
+        },
+        {
+          "path": "toyota/tnga-k/can/toyota_tnga_k_pt_generated.dbc",
+          "upstream": "opendbc/dbc/generator/toyota/toyota_tnga_k_pt.dbc",
+          "method": "opendbc-generator"
+        },
+        {
+          "path": "toyota/tss-p/can/toyota_adas.dbc",
+          "upstream": "opendbc/dbc/toyota_adas.dbc"
+        },
+        {
+          "path": "toyota/tss-p/can/toyota_radar_dsu_tssp.dbc",
+          "upstream": "opendbc/dbc/toyota_radar_dsu_tssp.dbc"
+        },
+        {
+          "path": "toyota/tss2/can/toyota_tss2_adas.dbc",
+          "upstream": "opendbc/dbc/toyota_tss2_adas.dbc"
+        },
+        {
+          "path": "volkswagen/meb/can/vw_meb_2024_generated.dbc",
+          "upstream": "opendbc/dbc/generator/volkswagen/vw_meb_2024.dbc",
+          "method": "opendbc-generator"
+        },
+        {
+          "path": "volkswagen/meb/can/vw_meb_generated.dbc",
+          "upstream": "opendbc/dbc/generator/volkswagen/vw_meb.dbc",
+          "method": "opendbc-generator"
+        },
+        {
+          "path": "volkswagen/mlb/can/vw_mlb.dbc",
+          "upstream": "opendbc/dbc/vw_mlb.dbc"
+        },
+        {
+          "path": "volkswagen/mqb-evo/can/vw_mqbevo.dbc",
+          "upstream": "opendbc/dbc/vw_mqbevo.dbc"
+        },
+        {
+          "path": "volkswagen/mqb/can/vw_mqb.dbc",
+          "upstream": "opendbc/dbc/vw_mqb.dbc"
+        },
+        {
+          "path": "volkswagen/pq/can/vw_pq.dbc",
+          "upstream": "opendbc/dbc/vw_pq.dbc"
+        },
+        {
+          "path": "volvo/v40-2017/can/volvo_v40_2017_pt.dbc",
+          "upstream": "opendbc/dbc/volvo_v40_2017_pt.dbc"
+        },
+        {
+          "path": "volvo/v60-2015/can/volvo_v60_2015_pt.dbc",
+          "upstream": "opendbc/dbc/volvo_v60_2015_pt.dbc"
+        }
+      ]
+    },
+    {
+      "name": "joshwardell/model3dbc",
+      "url": "https://github.com/joshwardell/model3dbc",
+      "commit": "c56c113c353d09b1a5dd57677461f02fe8b7c6ca",
+      "license": "MIT",
+      "license_file": "THIRD_PARTY_LICENSES/model3dbc-LICENSE.txt",
+      "license_upstream": "LICENSE",
+      "attribution": "© 2019 Josh Wardell — model3dbc (MIT)",
+      "files": [
+        {
+          "path": "tesla/model3/can/Model3CAN.dbc",
+          "upstream": "Model3CAN.dbc"
+        }
+      ]
+    },
+    {
+      "name": "nberlette/bmw-dbc",
+      "url": "https://github.com/nberlette/bmw-dbc",
+      "commit": "0bf373ead40fdf235c2fa2ffb5be0538509cd421",
+      "license": "MIT",
+      "license_file": "THIRD_PARTY_LICENSES/bmw-dbc-LICENSE.txt",
+      "license_upstream": "LICENSE",
+      "notices": [
+        "THIRD_PARTY_LICENSES/node-bmw-interface-LICENSE.txt"
+      ],
+      "attribution": "© 2021 Nicholas Berlette — bmw-dbc (MIT); E39 file translated from node-bmw-interface © 2017 Ken Malinich (MIT)",
+      "files": [
+        {
+          "path": "bmw/e39/can/bmw-e39.dbc",
+          "upstream": "src/bmw-e39.dbc"
+        },
+        {
+          "path": "bmw/e90/can/bmw-e90.dbc",
+          "upstream": "src/bmw-e90.dbc"
+        }
+      ]
+    },
+    {
+      "name": "projectgus/kona-ev-dbc",
+      "url": "https://github.com/projectgus/kona-ev-dbc",
+      "commit": "0b569b9ce00faedf560e694f4215d6b189a4fc69",
+      "license": "MIT",
+      "license_file": "THIRD_PARTY_LICENSES/kona-ev-dbc-LICENSE.txt",
+      "license_upstream": "LICENSE",
+      "attribution": "© 2023 Angus Gratton and others — kona-ev-dbc (MIT)",
+      "files": [
+        {
+          "path": "hyundai/kona-ev/can/kona_ev_bcan.dbc",
+          "upstream": "bcan.dbc"
+        },
+        {
+          "path": "hyundai/kona-ev/can/kona_ev_ccan.dbc",
+          "upstream": "ccan.dbc"
+        },
+        {
+          "path": "hyundai/kona-ev/can/kona_ev_comp_can.dbc",
+          "upstream": "comp_can.dbc"
+        },
+        {
+          "path": "hyundai/kona-ev/can/kona_ev_pcan.dbc",
+          "upstream": "pcan.dbc"
+        }
+      ]
+    },
+    {
+      "name": "smarteng21/SmartCarDBC",
+      "url": "https://github.com/smarteng21/SmartCarDBC",
+      "commit": "0d5e8eeaa22cf8c12f9cce11ecb931b126a7870a",
+      "license": "MIT",
+      "license_file": "THIRD_PARTY_LICENSES/SmartCarDBC-LICENSE.txt",
+      "license_upstream": "LICENSE",
+      "attribution": "© 2022 Smarteng21 — SmartCarDBC (MIT)",
+      "files": [
+        {
+          "path": "smart/fortwo-450-roadster-452/can/Smart450_452.dbc",
+          "upstream": "Smart450_452.dbc"
+        }
+      ]
+    },
+    {
+      "name": "aisom02/caprice-ppv-can-database",
+      "url": "https://github.com/aisom02/caprice-ppv-can-database",
+      "commit": "21dd6d028a1085d940ac597f14f9828a34984d04",
+      "license": "CC-BY-4.0",
+      "license_file": "THIRD_PARTY_LICENSES/caprice-ppv-can-database-LICENSE.txt",
+      "license_upstream": "LICENSE",
+      "attribution": "aisom02 (github.com/aisom02/caprice-ppv-can-database) — CC BY 4.0",
+      "files": [
+        {
+          "path": "chevrolet/caprice-ppv-2014/can/caprice_ppv.dbc",
+          "upstream": "caprice_ppv.dbc"
+        }
+      ]
+    },
+    {
+      "name": "berumiya/CAN_DBC_6thGenMazda",
+      "url": "https://github.com/berumiya/CAN_DBC_6thGenMazda",
+      "commit": "3f54198ed2d264142ad6b1b4027334978b26b684",
+      "license": "CC-BY-4.0",
+      "license_file": "THIRD_PARTY_LICENSES/CAN_DBC_6thGenMazda-LICENSE.txt",
+      "license_upstream": "LICENSE",
+      "attribution": "berumiya 990S labo — CAN_DBC_6thGenMazda (CC BY 4.0)",
+      "files": [
+        {
+          "path": "mazda/mx-5-nd/can/MX5ND_6thGenMazda_HSCAN.dbc",
+          "upstream": "MX5ND_6thGenMazda_HSCAN.dbc"
+        },
+        {
+          "path": "mazda/mx-5-nd/can/MX5ND_6thGenMazda_MSCAN.dbc",
+          "upstream": "MX5ND_6thGenMazda_MSCAN.dbc"
+        }
+      ]
+    },
+    {
+      "name": "takakka/CAN_DBC_MAZDA_MX-5_2015",
+      "url": "https://github.com/takakka/CAN_DBC_MAZDA_MX-5_2015",
+      "commit": "ad8e697bdaafb527d2e056ae015367997b019898",
+      "license": "CC-BY-4.0",
+      "license_file": "THIRD_PARTY_LICENSES/CAN_DBC_MAZDA_MX-5_2015-LICENSE.txt",
+      "license_upstream": "LICENSE",
+      "notices": [
+        "THIRD_PARTY_LICENSES/CAN_DBC_MAZDA_MX-5_2015-THIRD_PARTY_NOTICES.md",
+        "THIRD_PARTY_LICENSES/RaceChronoDiyBleDevice-MIT.txt"
+      ],
+      "attribution": "© 2026 takakka, adapted from berumiya/CAN_DBC_6thGenMazda (CC BY 4.0); includes MIT-licensed reference material © 2020 Timur Iskhodzhanov",
+      "files": [
+        {
+          "path": "mazda/mx-5-2015/can/MAZDA_MX-5_2015_1.5L_MT_JP.dbc",
+          "upstream": "MAZDA_MX-5_2015_1.5L_MT_JP.dbc"
+        }
+      ]
+    },
+    {
+      "name": "nathanjmassey/ford-fusion-hscan",
+      "url": "https://github.com/nathanjmassey/ford-fusion-hscan",
+      "commit": "f434f0f324e3f647096efc68af41d37ab36ad8ef",
+      "license": "CC-BY-4.0",
+      "license_file": "THIRD_PARTY_LICENSES/ford-fusion-hscan-LICENSE.txt",
+      "license_upstream": "LICENSE",
+      "attribution": "nathanjmassey — ford-fusion-hscan (CC BY 4.0)",
+      "files": [
+        {
+          "path": "ford/fusion-2002-eu/can/ford-fusion-hscan.dbc",
+          "upstream": "ford-fusion-hscan.dbc"
+        }
+      ]
+    },
+    {
+      "name": "FourthSymmetriad/Mitsubishi-2011-i-MiEV-DBC",
+      "url": "https://github.com/FourthSymmetriad/Mitsubishi-2011-i-MiEV-DBC",
+      "commit": "28c5aa4cca3f3ece95932270022f1c2923f7da7e",
+      "license": "CC0-1.0",
+      "license_file": "THIRD_PARTY_LICENSES/Mitsubishi-2011-i-MiEV-DBC-LICENSE.txt",
+      "license_upstream": "LICENSE",
+      "attribution": "FourthSymmetriad — Mitsubishi-2011-i-MiEV-DBC (CC0 1.0)",
+      "files": [
+        {
+          "path": "mitsubishi/i-miev-2011/can/imiev_bat_can.dbc",
+          "upstream": "imiev_bat_can.dbc"
+        },
+        {
+          "path": "mitsubishi/i-miev-2011/can/imiev_main_can.dbc",
+          "upstream": "imiev_main_can.dbc"
+        }
+      ]
+    },
+    {
+      "name": "Eko-Energia/CAN-DATABASE",
+      "url": "https://github.com/Eko-Energia/CAN-DATABASE",
+      "commit": "d33686c5588f863d74f2b0ade441a776571ad3d9",
+      "license": "Unlicense",
+      "license_file": "THIRD_PARTY_LICENSES/Eko-Energia-CAN-DATABASE-LICENSE.txt",
+      "license_upstream": "LICENSE.txt",
+      "attribution": "Eko-Energia — CAN-DATABASE (Unlicense / public domain)",
+      "files": [
+        {
+          "path": "eko-energia/perla/can/CAN2_DB.dbc",
+          "upstream": "CAN2_DB.dbc"
+        },
+        {
+          "path": "eko-energia/perla/can/CAN_DB.dbc",
+          "upstream": "CAN_DB.dbc"
+        }
+      ]
+    },
+    {
+      "name": "WURacing/DBC",
+      "url": "https://github.com/WURacing/DBC",
+      "commit": "e137bf31646c4c1201dd161d69ffbdd739fa2511",
+      "license": "Apache-2.0",
+      "license_file": "THIRD_PARTY_LICENSES/WURacing-DBC-LICENSE.txt",
+      "license_upstream": "LICENSE",
+      "attribution": "WURacing — DBC (Apache-2.0)",
+      "files": [
+        {
+          "path": "wuracing/formula-sae/can/wuracing_2017.1.0.dbc",
+          "upstream": "dbc/2017.1.0.dbc"
+        },
+        {
+          "path": "wuracing/formula-sae/can/wuracing_2018.1.0.dbc",
+          "upstream": "dbc/2018.1.0.dbc"
+        },
+        {
+          "path": "wuracing/formula-sae/can/wuracing_2019.1.0.dbc",
+          "upstream": "dbc/2019.1.0.dbc"
+        },
+        {
+          "path": "wuracing/formula-sae/can/wuracing_2019.2.0.dbc",
+          "upstream": "dbc/2019.2.0.dbc"
+        },
+        {
+          "path": "wuracing/formula-sae/can/wuracing_2019.2.1.dbc",
+          "upstream": "dbc/2019.2.1.dbc"
+        },
+        {
+          "path": "wuracing/formula-sae/can/wuracing_2020.1.0.dbc",
+          "upstream": "dbc/2020.1.0.dbc"
+        }
+      ]
+    },
+    {
+      "name": "RetroPilot opendbc (fork of comma.ai opendbc)",
+      "url": "https://github.com/RetroPilot/opendbc",
+      "commit": "647fb8a238bbb2794529dc3238d64dd9dcd99b0d",
+      "license": "MIT",
+      "license_file": "THIRD_PARTY_LICENSES/opendbc-LICENSE.txt",
+      "license_upstream": "LICENSE",
+      "attribution": "© comma.ai, Inc. and RetroPilot contributors — opendbc fork (MIT)",
+      "files": [
+        {
+          "path": "volkswagen/golf-mk4/can/vw_golf_mk4.dbc",
+          "upstream": "vw_golf_mk4.dbc"
+        }
+      ]
+    },
+    {
+      "name": "BogGyver opendbc (fork of comma.ai opendbc)",
+      "url": "https://github.com/BogGyver/opendbc",
+      "commit": "9c0b6fe3ae205beccb879635750150620b8f7f9b",
+      "license": "MIT",
+      "license_file": "THIRD_PARTY_LICENSES/opendbc-LICENSE.txt",
+      "license_upstream": "LICENSE",
+      "attribution": "© comma.ai, Inc. and BogGyver contributors — opendbc fork (MIT)",
+      "files": [
+        {
+          "path": "chrysler/dasm/can/stellantis_dasm.dbc",
+          "upstream": "stellantis_dasm.dbc"
+        },
+        {
+          "path": "tesla/model-s/can/tesla_can_pre1916.dbc",
+          "upstream": "tesla_can_pre1916.dbc"
+        },
+        {
+          "path": "tesla/model-s/can/tesla_radar.dbc",
+          "upstream": "tesla_radar.dbc"
+        }
+      ]
+    },
+    {
+      "name": "BYDcar opendbc-byd (fork of comma.ai opendbc)",
+      "url": "https://github.com/BYDcar/opendbc-byd",
+      "commit": "caba3753066caa8dedad680d2709ac5c57afdefb",
+      "license": "MIT",
+      "license_file": "THIRD_PARTY_LICENSES/opendbc-LICENSE.txt",
+      "license_upstream": "LICENSE",
+      "attribution": "© comma.ai, Inc. and BYDcar contributors — opendbc fork (MIT)",
+      "files": [
+        {
+          "path": "byd/tang-phev-2015/can/byd_tang_phev_2015.dbc",
+          "upstream": "byd_tang_phev_2015.dbc"
+        }
       ]
     }
   ]

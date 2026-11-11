@@ -17,4 +17,6 @@ site/vendor/
 # Generated catalog data (produced by scripts/build_index.py)
 site/_data/catalog.json
 site/index.json
+site/browse.json
+site/_data/recent.json
 site/databases/

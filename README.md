@@ -31,6 +31,7 @@ and the whole thing runs on GitHub with no server to host.
 |---|---|
 | `GET /index.json` | the full catalog |
 | `GET /databases/{manufacturer}/{model}/{bus}/{name}.json` | one database's metadata |
+| `GET /databases/{manufacturer}/{model}/{bus}/{name}.structure.json` | its nodes, messages and signals (ID, length, senders, cycle time; start bit, length, byte order, scaling, range, unit, receivers, multiplexing, value tables) |
 | `GET /databases/{manufacturer}/{model}/{bus}/{name}.{ext}` | the raw file (latest) |
 | `GET /raw/{commit-sha}/databases/.../{name}.{ext}` | a pinned historical version (via `raw.githubusercontent.com`) |
 
@@ -110,8 +111,11 @@ site/                                    # Jekyll site (source) — Docker Hub-s
 .github/workflows/publish.yml            # generates data + builds Jekyll + deploys on merge
 ```
 
-The catalog data (`site/_data/catalog.json`, `site/index.json`) and the downloadable
-file copies (`site/databases/`) are **generated** by `build_index.py` and are gitignored.
+The catalog data (`site/_data/catalog.json`, `site/index.json`), the slim browse list
+(`site/browse.json`), the home-page activity feed (`site/_data/recent.json`) and the
+downloadable file copies (`site/databases/`) are **generated** by `build_index.py` and
+are gitignored. "Added" / "updated" dates come from the first / last commit touching
+each file, so the publish workflow needs full git history (`fetch-depth: 0`).
 
 ## Local development
 
@@ -179,8 +183,9 @@ the full list of protections are in [`SECURITY.md`](SECURITY.md).
 - **Large ARXML**: enable **Git LFS** for `*.arxml` if files get big.
 - **LDF**: canmatrix's LDF support depends on extras; if a format fails to parse,
   `validate.py` reports it rather than crashing.
-- **Search**: `index.json` is small enough to filter client-side (the browse UI does
-  this); add a prebuilt `search.json` if the catalog grows large.
+- **Search**: the `/browse/` page fetches `browse.json` (a slim catalog without lint
+  warnings, ~70 KB for ~120 files) and filters/pages it client-side; split it or move
+  to a prebuilt search index if the catalog grows into the tens of thousands.
 - **Direct writes / auth**: if you later want authenticated writes without review,
   that's the point to add a serverless function (Cloudflare Workers / Vercel) in front
   of the same repo.

@@ -1,0 +1,359 @@
+VERSION ""
+
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_: CMU1 CMU2 CMU3 CMU4 CMU5 CMU6 CMU7 CMU8 CMU9 CMU10 CMU11 CMU12 BMU CANBridge
+
+
+BO_ 963 BMU_Message: 8 BMU
+ SG_ balanceVoltage : 7|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ balanceControl : 23|8@0+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 1553 CMU1_Message1: 8 CMU1
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ balancingStatus : 15|8@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ temp1 : 23|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ temp2 : 31|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ cellA : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellB : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1554 CMU1_Message2: 8 CMU1
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ temp3 : 15|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ temp4 : 23|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ cellC : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellD : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1555 CMU1_Message3: 8 CMU1
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ temp5 : 15|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ temp6 : 23|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ cellE : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellF : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1556 CMU1_Message4: 8 CMU1
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ cellG : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellH : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1569 CMU2_Message1: 8 CMU2
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ balancingStatus : 15|8@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ temp1 : 23|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ temp2 : 31|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ cellA : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellB : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1570 CMU2_Message2: 8 CMU2
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ temp3 : 15|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ temp4 : 23|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ cellC : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellD : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1571 CMU2_Message3: 8 CMU2
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ temp5 : 15|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ temp6 : 23|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ cellE : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellF : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1572 CMU2_Message4: 8 CMU2
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ cellG : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellH : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1585 CMU3_Message1: 8 CMU3
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ balancingStatus : 15|8@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ temp1 : 23|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ temp2 : 31|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ cellA : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellB : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1586 CMU3_Message2: 8 CMU3
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ temp3 : 15|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ temp4 : 23|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ cellC : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellD : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1587 CMU3_Message3: 8 CMU3
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ temp5 : 15|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ temp6 : 23|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ cellE : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellF : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1588 CMU3_Message4: 8 CMU3
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ cellG : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellH : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1601 CMU4_Message1: 8 CMU4
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ balancingStatus : 15|8@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ temp1 : 23|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ temp2 : 31|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ cellA : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellB : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1602 CMU4_Message2: 8 CMU4
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ temp3 : 15|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ temp4 : 23|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ cellC : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellD : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1603 CMU4_Message3: 8 CMU4
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ temp5 : 15|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ temp6 : 23|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ cellE : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellF : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1604 CMU4_Message4: 8 CMU4
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ cellG : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellH : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1617 CMU5_Message1: 8 CMU5
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ balancingStatus : 15|8@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ temp1 : 23|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ temp2 : 31|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ cellA : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellB : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1618 CMU5_Message2: 8 CMU5
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ temp3 : 15|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ temp4 : 23|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ cellC : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellD : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1619 CMU5_Message3: 8 CMU5
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ temp5 : 15|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ temp6 : 23|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ cellE : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellF : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1620 CMU5_Message4: 8 CMU5
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ cellG : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellH : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1633 CMU6_Message1: 8 CMU6
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ balancingStatus : 15|8@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ temp1 : 23|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ temp2 : 31|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ cellA : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellB : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1634 CMU6_Message2: 8 CMU6
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ temp3 : 15|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ cellC : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellD : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1635 CMU6_Message3: 8 CMU6
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+
+BO_ 1636 CMU6_Message4: 8 CMU6
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+
+BO_ 1649 CMU7_Message1: 8 CMU7
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ balancingStatus : 15|8@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ temp1 : 23|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ temp2 : 31|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ cellA : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellB : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1650 CMU7_Message2: 8 CMU7
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ temp3 : 15|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ temp4 : 23|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ cellC : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellD : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1651 CMU7_Message3: 8 CMU7
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ temp5 : 15|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ temp6 : 23|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ cellE : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellF : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1652 CMU7_Message4: 8 CMU7
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ cellG : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellH : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1665 CMU8_Message1: 8 CMU8
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ balancingStatus : 15|8@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ temp1 : 23|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ temp2 : 31|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ cellA : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellB : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1666 CMU8_Message2: 8 CMU8
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ temp3 : 15|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ temp4 : 23|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ cellC : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellD : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1667 CMU8_Message3: 8 CMU8
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ temp5 : 15|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ temp6 : 23|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ cellE : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellF : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1668 CMU8_Message4: 8 CMU8
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ cellG : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellH : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1681 CMU9_Message1: 8 CMU9
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ balancingStatus : 15|8@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ temp1 : 23|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ temp2 : 31|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ cellA : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellB : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1682 CMU9_Message2: 8 CMU9
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ temp3 : 15|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ temp4 : 23|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ cellC : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellD : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1683 CMU9_Message3: 8 CMU9
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ temp5 : 15|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ temp6 : 23|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ cellE : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellF : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1684 CMU9_Message4: 8 CMU9
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ cellG : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellH : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1697 CMU10_Message1: 8 CMU10
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ balancingStatus : 15|8@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ temp1 : 23|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ temp2 : 31|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ cellA : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellB : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1698 CMU10_Message2: 8 CMU10
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ temp3 : 15|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ temp4 : 23|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ cellC : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellD : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1699 CMU10_Message3: 8 CMU10
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ temp5 : 15|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ temp6 : 23|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ cellE : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellF : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1700 CMU10_Message4: 8 CMU10
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ cellG : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellH : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1713 CMU11_Message1: 8 CMU11
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ balancingStatus : 15|8@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ temp1 : 23|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ temp2 : 31|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ cellA : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellB : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1714 CMU11_Message2: 8 CMU11
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ temp3 : 15|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ temp4 : 23|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ cellC : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellD : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1715 CMU11_Message3: 8 CMU11
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ temp5 : 15|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ temp6 : 23|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ cellE : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellF : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1716 CMU11_Message4: 8 CMU11
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ cellG : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellH : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1729 CMU12_Message1: 8 CMU12
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ balancingStatus : 15|8@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ temp1 : 23|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ temp2 : 31|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ cellA : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellB : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1730 CMU12_Message2: 8 CMU12
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+ SG_ temp3 : 15|8@0+ (1,-50) [-50|80] "degC" Vector__XXX
+ SG_ cellC : 39|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+ SG_ cellD : 55|16@0+ (0.005,2.1) [2.1|5] "V" Vector__XXX
+
+BO_ 1731 CMU12_Message3: 8 CMU12
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+
+BO_ 1732 CMU12_Message4: 8 CMU12
+ SG_ cmuID : 7|8@0+ (1,0) [1|12] "" Vector__XXX
+
+BO_ 1792 Bridge_Status: 8 CANBridge
+ SG_ bridgeStatus : 7|8@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ correctedMessages : 15|16@0+ (1,0) [0|0] "" Vector__XXX
+
+
+
+

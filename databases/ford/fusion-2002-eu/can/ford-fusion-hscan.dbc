@@ -1,0 +1,26 @@
+VERSION ""
+
+NS_ :
+
+BS_:
+
+BU_: IPC
+
+BO_ 1075 BodyStatus_433: 8 IPC
+ SG_ DoorFrontLeft : 7|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ DoorFrontRight : 6|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ DoorRearLeft : 5|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ DoorRearRight : 4|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ Boot : 3|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ CentralLock : 40|8@1+ (1,0) [0|255] "" Vector__XXX
+
+CM_ BU_ IPC "Instrument cluster (assumed sender; 2008 Ford Fusion, HS-CAN 500 kbit/s)";
+CM_ BO_ 1075 "Door, boot and central-lock state. About 4 Hz with the ignition at II. Bit positions are physical (LHD: front left = driver).";
+CM_ SG_ 1075 CentralLock "0x10 locked, 0x20 unlocked; other values unknown";
+
+VAL_ 1075 DoorFrontLeft 1 "Open" 0 "Closed" ;
+VAL_ 1075 DoorFrontRight 1 "Open" 0 "Closed" ;
+VAL_ 1075 DoorRearLeft 1 "Open" 0 "Closed" ;
+VAL_ 1075 DoorRearRight 1 "Open" 0 "Closed" ;
+VAL_ 1075 Boot 1 "Open" 0 "Closed" ;
+VAL_ 1075 CentralLock 16 "Locked" 32 "Unlocked" ;

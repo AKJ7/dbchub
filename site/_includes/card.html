@@ -1,0 +1,29 @@
+{%- comment -%}
+  One database card. Params: d (slim record), when ("updated" | "added").
+  app.js builds the same markup for the browse page — keep the two in sync.
+{%- endcomment -%}
+{%- assign d = include.d -%}
+<article class="card" data-path="{{ d.path | escape }}" tabindex="0">
+  <div class="ns">{{ d.manufacturer | escape }} / {{ d.model | escape }}</div>
+  <div class="title">
+    <span class="name">{{ d.name | escape }}</span>
+    <span class="badge {{ d.format | escape }}">{{ d.format | escape }}</span>
+  </div>
+  <div class="row">
+    {% if d.valid %}<span class="pill ok">● valid</span>{% else %}<span class="pill bad">● invalid</span>{% endif %}
+    <span class="ns">{{ d.bus | upcase | escape }}</span>
+    <span class="ns">{{ d.license | escape }}</span>
+  </div>
+  <div class="stats">
+    <span><b>{{ d.counts.messages }}</b> messages</span>
+    <span><b>{{ d.counts.signals }}</b> signals</span>
+    <span><b>{{ d.counts.nodes }}</b> nodes</span>
+  </div>
+  <div class="foot">
+    <span class="when">{% if include.when == "added" %}Added {{ d.added }}{% else %}Updated {{ d.updated }}{% endif %}</span>
+    <span class="actions">
+      <a class="btn small primary" href="{{ '/databases/' | append: d.path | relative_url | escape }}" download>↓ Download</a>
+      <button class="btn small js-detail" type="button">Details</button>
+    </span>
+  </div>
+</article>

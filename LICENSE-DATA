@@ -17,7 +17,13 @@ link back to its page in this repository.
 Some files are IMPORTED from third-party open-source projects and keep their
 OWN license (e.g. MIT), not CC BY 4.0. Per-file provenance and license are
 recorded in `databases/SOURCES.json` (and each database's metadata), the license
-texts in `THIRD_PARTY_LICENSES/`, and credits in `ATTRIBUTIONS.md`.
+texts in `THIRD_PARTY_LICENSES/`, and credits in `ATTRIBUTIONS.md`. Only
+licenses listed in `ACCEPTABLE_USE.md` are accepted for imports.
+
+Files the site generates from a database (format conversions such as DBC, KCD,
+SYM, CSV, ARXML and C code, and the JSON metadata/structure/history files) are
+adaptations of that database and are offered under the same license as the
+database itself.
 
 A plain-language summary is at https://creativecommons.org/licenses/by/4.0/
 The full legal code follows.

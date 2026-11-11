@@ -1,0 +1,2 @@
+name: "CAN FD platform"
+description: "Honda vehicles using CAN FD (opendbc honda_common_canfd)."

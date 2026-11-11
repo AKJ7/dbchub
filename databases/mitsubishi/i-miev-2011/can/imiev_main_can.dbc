@@ -1,0 +1,265 @@
+VERSION ""
+
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_: BMU EV_ECU Inverter OBC AC_ECU ETACS ASC_ECU Meter
+
+
+BO_ 329 ASC_149: 8 ASC_ECU
+ SG_ Yaw_Rate : 0|16@1+ (0.005,-163.84) [-163.84|163.84] "deg/s" Vector__XXX
+ SG_ Lat_Accel : 32|16@1+ (0.000127465,-4.1768) [-4.18|4.18] "g" Vector__XXX
+ SG_ Frame_Counter : 55|16@0+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 512 ASC_200: 8 ASC_ECU
+
+BO_ 520 ASC_208: 8 ASC_ECU
+ SG_ Brake_Pressure : 39|8@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ Brake_Pedal_Position : 23|8@0+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 533 ASC_215: 8 ASC_ECU
+
+BO_ 561 ASC_231: 8 ASC_ECU
+
+BO_ 566 ASC_236: 8 ASC_ECU
+ SG_ Steering_Angle : 7|16@0+ (0.0333,-136.533) [0|0] "deg" Vector__XXX
+ SG_ EPS_Torque : 23|16@0+ (1,-4096) [0|0] "" Vector__XXX
+
+BO_ 645 EVECU_285: 8 EV_ECU
+ SG_ Long_Accel : 7|16@0+ (0.0025,-5) [0|0] "m/s^2" Vector__XXX
+ SG_ Aux_Battery_Voltage : 39|8@0+ (0.1,0) [0|0] "V" Vector__XXX
+ SG_ Operating_Mode : 19|4@0+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 646 OBC_286: 8 EV_ECU
+
+BO_ 648 Inverter_288: 8 Inverter
+ SG_ Motor_Torque : 7|16@0+ (0.1,-200) [0|0] "Nm" Vector__XXX
+ SG_ Motor_RPM : 23|16@0+ (1,-10000) [0|0] "RPM" Vector__XXX
+ SG_ DC_Link_Voltage : 39|8@0+ (2,0) [0|0] "V" Vector__XXX
+
+BO_ 664 Inverter_298: 8 Inverter
+ SG_ Motor_Temp0 : 7|8@0+ (1,-50) [0|0] "degC" Vector__XXX
+ SG_ Motor_Temp1 : 15|8@0+ (1,-50) [0|0] "degC" Vector__XXX
+ SG_ Motor_Temp2 : 23|8@0+ (1,-50) [0|0] "degC" Vector__XXX
+ SG_ Motor_Temp3 : 31|8@0+ (1,-50) [0|0] "degC" Vector__XXX
+ SG_ Motor_RPM : 55|16@0+ (1,-10000) [0|0] "RPM" Vector__XXX
+
+BO_ 666 EVECU_29A_VIN: 8 EV_ECU
+ SG_ Message_Number : 7|8@0+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 776 Unknown_308: 8 Vector__XXX
+
+BO_ 838 EVECU_346: 8 EV_ECU
+ SG_ Range : 63|8@0+ (1,0) [0|0] "miles" Vector__XXX
+ SG_ Handbrake : 39|8@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ Pack_Current_Again : 7|16@0+ (1,-10000) [0|0] "A" Vector__XXX
+
+BO_ 883 BMU_373_VI: 8 BMU
+ SG_ Cell_Max_Voltage : 7|8@0+ (0.01,2.1) [2.1|5] "V" Vector__XXX
+ SG_ Cell_Min_Voltage : 15|8@0+ (0.01,2.1) [2.1|5] "V" Vector__XXX
+ SG_ Pack_Current : 23|16@0+ (0.01,-327.68) [-327.68|327.67] "A" Vector__XXX
+ SG_ Pack_Current_Corrected : 23|16@0+ (0.01,-327) [-327.68|327.67] "A" Vector__XXX
+ SG_ Pack_Voltage : 39|16@0+ (0.1,0) [0|6553.5] "V" Vector__XXX
+
+BO_ 884 BMU_374_SoC_Temp: 8 BMU
+ SG_ Display_SoC : 7|8@0+ (0.5,5) [0|100] "%" Vector__XXX
+ SG_ Control_SoC : 15|8@0+ (0.5,0) [0|100] "%" Vector__XXX
+ SG_ Cell_Max_Temp : 39|8@0+ (1,-50) [0|0] "degC" Vector__XXX
+ SG_ Cell_Min_Temp : 47|8@0+ (1,-50) [0|0] "degC" Vector__XXX
+ SG_ Pack_Max_Capacity : 55|8@0+ (0.5,0) [0|0] "Ah" Vector__XXX
+ SG_ Cooling_Fan : 56|1@0+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 885 BMU_375: 8 BMU
+
+BO_ 900 ACECU_384: 8 AC_ECU
+ SG_ AC_Current : 7|16@0+ (0.001,0) [0|0] "A" Vector__XXX
+ SG_ AC_Compressor_Temp : 31|8@0+ (1,-20) [0|0] "degC" Vector__XXX
+ SG_ AC_Demand : 23|8@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ Heater_Status : 39|8@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ Heater_Current : 47|8@0+ (0.1,0) [0|0] "A" Vector__XXX
+
+BO_ 905 OBC_389: 8 OBC
+
+BO_ 932 ACECU_3A4: 8 AC_ECU
+
+BO_ 1042 Meter_412: 8 Meter
+ SG_ Speed : 23|8@0+ (1,0) [0|0] "mph" Vector__XXX
+ SG_ Odometer : 31|24@0+ (1,0) [0|0] "miles" Vector__XXX
+
+BO_ 1048 EVECU_418_Gear: 7 EV_ECU
+ SG_ Gear : 7|8@0+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 1060 ETACS_424: 8 ETACS
+
+BO_ 1380 Unknown_564: 8 Vector__XXX
+
+BO_ 1381 Unknown_565: 8 Vector__XXX
+
+BO_ 1441 BMU_5A1_Faults: 8 BMU
+
+BO_ 1686 Inverter_696_Current: 8 Inverter
+ SG_ Motor_Current : 23|16@0+ (0.05,-25) [0|0] "A" Vector__XXX
+ SG_ Motor_Regen_Current : 55|16@0+ (0.2,-2000) [0|0] "A" Vector__XXX
+
+BO_ 1687 EVECU_697_CHAdeMO: 8 EV_ECU
+ SG_ CHAdeMO_Charge_Voltage : 7|16@0+ (1,0) [0|0] "V" Vector__XXX
+ SG_ CHAdeMO_Charge_Current : 23|8@0+ (1,0) [0|0] "A" Vector__XXX
+
+BO_ 1761 BMU_6E1_CellsAB: 8 BMU
+ SG_ CMU_ID M : 7|8@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ Temp1 : 23|8@0+ (1,-50) [0|0] "degC" Vector__XXX
+ SG_ Temp2 : 31|8@0+ (1,-50) [0|0] "degC" Vector__XXX
+ SG_ CMU1_CellA m1 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU1_CellB m1 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU2_CellA m2 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU2_CellB m2 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU3_CellA m3 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU3_CellB m3 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU4_CellA m4 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU4_CellB m4 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU5_CellA m5 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU5_CellB m5 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU6_CellA m6 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU6_CellB m6 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU7_CellA m7 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU7_CellB m7 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU8_CellA m8 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU8_CellB m8 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU9_CellA m9 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU9_CellB m9 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU10_CellA m10 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU10_CellB m10 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU11_CellA m11 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU11_CellB m11 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU12_CellA m12 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU12_CellB m12 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+
+BO_ 1762 BMU_6E2_CellsCD: 8 BMU
+ SG_ CMU_ID M : 7|8@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ Temp3 : 15|8@0+ (1,-50) [0|0] "degC" Vector__XXX
+ SG_ Temp4 : 23|8@0+ (1,-50) [0|0] "degC" Vector__XXX
+ SG_ CMU1_CellC m1 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU1_CellD m1 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU2_CellC m2 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU2_CellD m2 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU3_CellC m3 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU3_CellD m3 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU4_CellC m4 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU4_CellD m4 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU5_CellC m5 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU5_CellD m5 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU6_CellC m6 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU6_CellD m6 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU7_CellC m7 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU7_CellD m7 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU8_CellC m8 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU8_CellD m8 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU9_CellC m9 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU9_CellD m9 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU10_CellC m10 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU10_CellD m10 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU11_CellC m11 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU11_CellD m11 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU12_CellC m12 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU12_CellD m12 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+
+BO_ 1763 BMU_6E3_CellsEF: 8 BMU
+ SG_ CMU_ID M : 7|8@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ Temp5 : 15|8@0+ (1,-50) [0|0] "degC" Vector__XXX
+ SG_ Temp6 : 23|8@0+ (1,-50) [0|0] "degC" Vector__XXX
+ SG_ CMU1_CellE m1 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU1_CellF m1 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU2_CellE m2 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU2_CellF m2 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU3_CellE m3 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU3_CellF m3 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU4_CellE m4 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU4_CellF m4 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU5_CellE m5 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU5_CellF m5 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU7_CellE m7 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU7_CellF m7 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU8_CellE m8 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU8_CellF m8 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU9_CellE m9 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU9_CellF m9 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU10_CellE m10 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU10_CellF m10 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU11_CellE m11 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU11_CellF m11 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+
+BO_ 1764 BMU_6E4_CellsGH: 8 BMU
+ SG_ CMU_ID M : 7|8@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ CMU1_CellG m1 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU1_CellH m1 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU2_CellG m2 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU2_CellH m2 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU3_CellG m3 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU3_CellH m3 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU4_CellG m4 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU4_CellH m4 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU5_CellG m5 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU5_CellH m5 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU7_CellG m7 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU7_CellH m7 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU8_CellG m8 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU8_CellH m8 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU9_CellG m9 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU9_CellH m9 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU10_CellG m10 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU10_CellH m10 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU11_CellG m11 : 39|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+ SG_ CMU11_CellH m11 : 55|16@0+ (0.005,2.1) [0|0] "V" Vector__XXX
+
+
+
+CM_ BO_ 666 "VIN transmitted as ASCII characters in three separate messages";
+CM_ SG_ 838 Pack_Current_Again "WIP";
+CM_ SG_ 883 Pack_Current "Negative current means discharging";
+CM_ SG_ 883 Pack_Current_Corrected "Negative current means discharging";
+CM_ BO_ 884 "";
+CM_ SG_ 884 Display_SoC "";
+CM_ SG_ 884 Control_SoC "";
+CM_ SG_ 900 AC_Current "WIP";
+CM_ SG_ 900 AC_Compressor_Temp "WIP";
+CM_ SG_ 900 AC_Demand "WIP";
+CM_ SG_ 900 Heater_Status "WIP";
+CM_ SG_ 900 Heater_Current "WIP";
+CM_ BO_ 1048 "";
+CM_ BO_ 1763 "";
+CM_ BO_ 1764 "";
+VAL_ 838 Handbrake 0 "OFF" 32 "ON" ;
+VAL_ 884 Cooling_Fan 0 "OFF" 1 "ON" ;
+VAL_ 900 Heater_Status 0 "OFF" 20 "ON" ;
+VAL_ 1048 Gear 80 "P" 82 "R" 78 "N" 68 "D" 131 "B" 50 "C" ;
+

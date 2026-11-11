@@ -27,6 +27,26 @@ doubt, don't upload it. Prohibited content is rejected and removed
 By contributing, you agree your contribution is provided under these licenses and
 that you have the right to do so.
 
+## Importing databases someone else published
+
+Files that are already openly licensed elsewhere are *imported* rather than
+contributed: they keep their own license. Only the licenses listed in
+[`ACCEPTABLE_USE.md`](ACCEPTABLE_USE.md#what-may-be-added) are accepted (permissive
+or CC BY / CC0; no share-alike, non-commercial or no-derivatives terms, and never
+unlicensed files). To import:
+
+1. Add a source to [`databases/SOURCES.json`](databases/SOURCES.json): `name`, `url`,
+   pinned `commit`, SPDX `license`, `license_file`, `license_upstream`, `attribution`,
+   and one `files` entry per file (`path` under `databases/`, `upstream` path; set
+   `method: opendbc-generator` for opendbc templates).
+2. Put the license text at `license_file` (under `THIRD_PARTY_LICENSES/`).
+3. Run `uv run python scripts/sources.py sync --source "<name>"` to fetch the files
+   and `uv run python scripts/sources.py attributions` to update `ATTRIBUTIONS.md`.
+
+`scripts/sources.py check` reports sources whose upstream has moved, and a weekly
+workflow (`sync-sources.yml`) opens a pull request when it has. The tool only copies
+files; it never runs code from the upstream repository.
+
 ## Sign off your commits (DCO)
 
 We use the [Developer Certificate of Origin](DCO). Every commit must carry a
@@ -64,6 +84,29 @@ Or plain git: `fork → branch → add file under databases/<manufacturer>/<mode
 - Supported formats: `.dbc .arxml .ldf .dbf .kcd .sym`.
 - CI validates every file (parse + lint). Fix reported errors before merge.
 - No real personal data, credentials, or confidential markings in the files.
+
+### Describing manufacturers and models (optional)
+
+Folder names are short slugs. To give them display names and context, add
+`databases/<manufacturer>/manufacturer.yml` and/or
+`databases/<manufacturer>/<model>/model.yml`:
+
+```yaml
+# databases/volkswagen/mqb/model.yml
+name: "MQB platform"
+years: "2012+"                 # free text
+platform: "MQB"
+aliases: ["Golf Mk7", "Passat B8"]   # also used by search
+description: "Volkswagen Group transverse-engine platform."
+buses:                         # keyed by the <bus> folder
+  can:
+    name: "Powertrain CAN"
+    bitrate: 500000            # bit/s
+```
+
+`manufacturer.yml` takes `name`, `kind` (`vehicle-manufacturer`, `supplier`,
+`platform`, `motorsport`, `research`, `aftermarket`), `aliases` and `description`.
+CI rejects unknown keys and wrong types (see `scripts/meta.py`).
 
 ## Review
 

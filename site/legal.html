@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Legal & Licensing
+page_id: legal
 permalink: /legal/
 ---
 {%- assign cat = site.data.catalog -%}
@@ -21,7 +22,12 @@ permalink: /legal/
       <li><strong>Original database content</strong> — Creative Commons Attribution 4.0
         International (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC&nbsp;BY&nbsp;4.0</a>).</li>
       <li><strong>Imported databases</strong> keep their upstream open-source license
-        (listed below) — they are <em>not</em> relicensed.</li>
+        (listed below) — they are <em>not</em> relicensed. Only permissive licenses
+        (MIT, BSD, Apache-2.0, ISC), CC&nbsp;BY and public-domain dedications (CC0,
+        Unlicense) are accepted; share-alike, non-commercial, no-derivatives and
+        unlicensed sources are not copied into the catalog.</li>
+      <li><strong>Converted downloads</strong> (DBC, KCD, SYM, CSV, ARXML, C code) and the
+        generated metadata of a database carry that database's license.</li>
     </ul>
   </section>
 
@@ -62,9 +68,11 @@ permalink: /legal/
 
   <section>
     <h2>Acceptable use</h2>
-    <p>Only contribute databases you have the right to share. Proprietary, confidential,
-      or NDA-covered OEM data, personal data, and secrets are prohibited. Contributions
-      are reviewed before they are merged.</p>
+    <p>Only contribute databases you have the right to share and to license under
+      CC&nbsp;BY&nbsp;4.0. Proprietary, confidential, or NDA-covered OEM data, personal data,
+      and secrets are prohibited. Contributions are reviewed before they are merged.
+      The full policy, including which licenses can be imported, is in
+      <code>ACCEPTABLE_USE.md</code>.</p>
   </section>
 
   <section>

@@ -13,7 +13,12 @@ There is no backend account system; contributions are made through GitHub.
 ## 2. Licenses
 
 - **Code** is licensed under Apache-2.0 — [`LICENSE`](LICENSE).
-- **Database content** is licensed under CC BY 4.0 — [`LICENSE-DATA`](LICENSE-DATA).
+- **Database content** contributed to the project is licensed under CC BY 4.0 —
+  [`LICENSE-DATA`](LICENSE-DATA).
+- **Imported databases** keep their upstream license (MIT, Apache-2.0, CC0, …), shown on
+  each database's page and listed in [`ATTRIBUTIONS.md`](ATTRIBUTIONS.md).
+- **Converted downloads** (DBC/KCD/SYM/CSV/ARXML/C exports) and generated metadata carry
+  the license of the database they were produced from.
 
 Downloading does not transfer any rights beyond those licenses.
 

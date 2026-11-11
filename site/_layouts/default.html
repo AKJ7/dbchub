@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!--
       Content Security Policy. Scripts may load only from this origin (no inline JS,
-      no third-party CDNs), and the browser may connect only to GitHub's API (used by
-      the upload flow). This is the main defense-in-depth against XSS.
+      no third-party CDNs), and the browser may connect only to this origin (catalog
+      JSON) and GitHub's API (used by the upload flow). This is the main
+      defense-in-depth against XSS.
       Note: some directives (e.g. frame-ancestors) only take effect as a real HTTP
       header — set them at your host if you need clickjacking protection.
     -->
@@ -21,40 +22,47 @@
       form-action 'self';
     " />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
-    <title>{{ page.title | default: site.title }}</title>
+    <title>{% if page.title %}{{ page.title | escape }} · {% endif %}{{ site.title | escape }}</title>
     <meta name="description" content="{{ site.description | escape }}" />
     <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}" />
   </head>
   <body
     data-upstream="{{ site.upstream_repo | default: '' | escape }}"
     data-base-branch="{{ site.base_branch | default: 'master' | escape }}"
+    data-browse-json="{{ '/browse.json' | relative_url }}"
+    data-search-json="{{ '/search-index.json' | relative_url }}"
+    data-db-base="{{ '/databases/' | relative_url }}"
+    data-page="{{ page.page_id | default: 'other' }}"
   >
     <nav class="nav">
       <a class="brand" href="{{ '/' | relative_url }}">
         <span class="logo">◈</span> {{ site.title | escape }}
       </a>
-      <div class="search">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <form class="search" action="{{ '/browse/' | relative_url }}" method="get" role="search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3" />
         </svg>
-        <input id="search" type="search" placeholder="Search databases by name, manufacturer, model…" autocomplete="off" />
-      </div>
+        <input id="search" name="q" type="search" placeholder="Search databases by name, manufacturer, model…" autocomplete="off" aria-label="Search databases" />
+      </form>
       <div class="spacer"></div>
-      <a class="btn" href="{{ '/legal/' | relative_url }}">Legal</a>
-      <button class="btn primary" id="open-upload">↑ Upload database</button>
+      <a class="navlink{% if page.page_id == 'home' %} active{% endif %}" href="{{ '/' | relative_url }}">Home</a>
+      <a class="navlink{% if page.page_id == 'browse' %} active{% endif %}" href="{{ '/browse/' | relative_url }}">Browse all</a>
+      <a class="navlink{% if page.page_id == 'search' %} active{% endif %}" href="{{ '/search/' | relative_url }}">Signal search</a>
+      <a class="navlink{% if page.page_id == 'legal' %} active{% endif %}" href="{{ '/legal/' | relative_url }}">Legal</a>
+      <button class="btn primary" id="open-upload" type="button">↑ Upload</button>
     </nav>
 
     {{ content }}
 
+    {% include modals.html %}
+
     <footer class="footer">
       dbchub · a versioned, Git-native catalog of automotive signal databases ·
+      <a href="{{ '/browse/' | relative_url }}">Browse</a> ·
       <a href="{{ '/legal/' | relative_url }}">Legal</a> ·
       <a href="{{ '/index.json' | relative_url }}">index.json</a>
     </footer>
 
-    <!-- Catalog data as inert JSON (not executed), HTML-escaped to prevent markup
-         breakout. app.js reads and JSON.parses it. -->
-    <script id="dbchub-catalog" type="application/json">{{ site.data.catalog.databases | default: empty | jsonify | replace: '<', '<' | replace: '>', '>' }}</script>
     <script src="{{ '/assets/js/app.js' | relative_url }}"></script>
   </body>
 </html>

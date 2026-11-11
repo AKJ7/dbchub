@@ -1,137 +1,53 @@
 ---
 layout: default
+page_id: home
 ---
-{%- assign cat = site.data.catalog -%}
-{%- assign by_mfr = cat.databases | group_by: "manufacturer" -%}
-{%- assign by_fmt = cat.databases | group_by: "format" -%}
+{%- assign r = site.data.recent -%}
 
 <div class="hero">
   <div class="wrap">
     <h1>Explore signal databases</h1>
-    <p>Browse, download, and contribute CAN / LIN automotive databases — organised by manufacturer.</p>
+    <p>Browse, download, and contribute CAN / LIN automotive databases, organised by manufacturer.</p>
+    <p class="herolinks">Looking for a specific signal or CAN ID? <a href="{{ '/search/' | relative_url }}">Search across all databases →</a></p>
+    <div class="statrow">
+      <div><b>{{ r.count }}</b><span>databases</span></div>
+      <div><b>{{ r.manufacturers | size }}</b><span>manufacturers</span></div>
+      <div><b>{{ r.models }}</b><span>models &amp; platforms</span></div>
+      <div><b>{{ r.signals }}</b><span>signals</span></div>
+    </div>
   </div>
 </div>
 
-<div class="shell">
-  <aside class="sidebar">
-    <h3>Manufacturer</h3>
-    <div id="facet-mfr">
-      {%- for g in by_mfr %}
-      <label class="facet capitalize">
-        <input type="checkbox" class="f-mfr" value="{{ g.name | escape }}" />
-        <span class="label">{{ g.name | escape }}</span>
-        <span class="n">{{ g.items | size }}</span>
-      </label>
-      {%- endfor %}
+<main class="page">
+  <section class="block">
+    <div class="block-head">
+      <h2>Recently updated</h2>
+      <a href="{{ '/browse/?sort=updated' | relative_url }}">See all →</a>
     </div>
-    <h3>Format</h3>
-    <div id="facet-fmt">
-      {%- for g in by_fmt %}
-      <label class="facet">
-        <input type="checkbox" class="f-fmt" value="{{ g.name | escape }}" />
-        <span class="label">{{ g.name | upcase | escape }}</span>
-        <span class="n">{{ g.items | size }}</span>
-      </label>
-      {%- endfor %}
+    <div class="grid">
+      {%- for d in r.updated %}{% include card.html d=d when="updated" %}{% endfor %}
     </div>
-  </aside>
-
-  <section class="content">
-    <div class="results-head">
-      <strong>Databases</strong>
-      <span class="count"><span id="shown">{{ cat.count }}</span> of {{ cat.count }}</span>
-    </div>
-
-    <div class="grid" id="grid">
-      {%- for d in cat.databases %}
-      <article class="card" data-path="{{ d.path | escape }}"
-               data-search="{{ d.name | escape }} {{ d.manufacturer | escape }} {{ d.model | escape }} {{ d.bus | escape }} {{ d.format | escape }}"
-               data-mfr="{{ d.manufacturer | escape }}" data-fmt="{{ d.format | escape }}">
-        <div class="ns">{{ d.manufacturer | escape }} / {{ d.model | escape }}</div>
-        <div class="title">
-          {{ d.name | escape }}
-          <span class="badge {{ d.format | escape }}">{{ d.format | escape }}</span>
-        </div>
-        <div class="row">
-          {% if d.valid %}<span class="pill ok">● valid</span>{% else %}<span class="pill bad">● invalid</span>{% endif %}
-          <span class="ns">{{ d.bus | upcase | escape }}</span>
-        </div>
-        <div class="stats">
-          <span><b>{{ d.counts.messages }}</b> messages</span>
-          <span><b>{{ d.counts.signals }}</b> signals</span>
-          <span><b>{{ d.counts.nodes }}</b> nodes</span>
-        </div>
-        <div class="actions">
-          <a class="btn small primary js-download" href="{{ d.download | escape }}" download>↓ Download</a>
-          <button class="btn small js-detail" type="button">Details</button>
-        </div>
-      </article>
-      {%- endfor %}
-    </div>
-    <div class="empty" id="empty" style="display:none">No databases match your filters.</div>
   </section>
-</div>
 
-<!-- Detail modal -->
-<div class="modal-backdrop" id="detail-modal">
-  <div class="modal">
-    <header>
-      <h2 id="d-title">Database</h2>
-      <button class="close" data-close>×</button>
-    </header>
-    <div class="body">
-      <dl class="kv" id="d-kv"></dl>
-      <ul class="warnlist" id="d-warn"></ul>
-      <div class="actions" style="margin-top:16px">
-        <a class="btn primary" id="d-download" href="#" download>↓ Download</a>
-        <a class="btn" id="d-meta" href="#" target="_blank" rel="noopener">Metadata JSON</a>
-      </div>
+  <section class="block">
+    <div class="block-head">
+      <h2>Recently added</h2>
+      <a href="{{ '/browse/?sort=added' | relative_url }}">See all →</a>
     </div>
-  </div>
-</div>
+    <div class="grid">
+      {%- for d in r.added %}{% include card.html d=d when="added" %}{% endfor %}
+    </div>
+  </section>
 
-<!-- Upload modal -->
-<div class="modal-backdrop" id="upload-modal">
-  <div class="modal">
-    <header>
-      <h2>Contribute a database</h2>
-      <button class="close" data-close>×</button>
-    </header>
-    <div class="body">
-      <p class="note">
-        This opens a <strong>Pull Request</strong> from your GitHub account using a token you
-        provide — nothing is stored on a server. A maintainer reviews and merges it.
-        Create a token with <code>public_repo</code> scope and fork the repository first.
-      </p>
-      <form id="upload-form" style="margin-top:14px">
-        <div class="field">
-          <label>Database file <span class="hint">· .dbc .arxml .ldf .dbf .kcd .sym</span></label>
-          <input type="file" id="u-file" accept=".dbc,.arxml,.ldf,.dbf,.kcd,.sym" required />
-        </div>
-        <div class="field">
-          <div class="two">
-            <div><label>Manufacturer</label><input id="u-mfr" placeholder="volkswagen" required /></div>
-            <div><label>Model</label><input id="u-model" placeholder="golf" required /></div>
-          </div>
-        </div>
-        <div class="field">
-          <div class="two">
-            <div><label>Bus</label><input id="u-bus" value="can" required /></div>
-            <div><label>Your fork <span class="hint">owner/repo</span></label><input id="u-fork" placeholder="you/dbchub" required /></div>
-          </div>
-        </div>
-        <div class="field">
-          <label>GitHub token <span class="hint">· used only in your browser, for api.github.com</span></label>
-          <input type="password" id="u-token" placeholder="ghp_… or github_pat_…" required autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" />
-          <label class="facet" style="margin-top:6px"><input type="checkbox" id="u-remember" /> <span>Remember token on this device</span></label>
-        </div>
-        <div class="field">
-          <label>Commit message <span class="hint">· optional</span></label>
-          <input id="u-msg" placeholder="Add volkswagen/golf/can engine.dbc" />
-        </div>
-        <button class="btn primary" type="submit" id="u-submit" style="width:100%">Open Pull Request</button>
-        <div class="result" id="u-result"></div>
-      </form>
+  <section class="block">
+    <div class="block-head">
+      <h2>Browse by manufacturer</h2>
+      <a href="{{ '/browse/' | relative_url }}">All {{ r.count }} databases →</a>
     </div>
-  </div>
-</div>
+    <div class="chips">
+      {%- for m in r.manufacturers %}
+      <a class="chip" href="{{ '/browse/' | relative_url }}?mfr={{ m.name | url_encode }}"><span>{{ m.display | default: m.name | escape }}</span><span class="n">{{ m.count }}</span></a>
+      {%- endfor %}
+    </div>
+  </section>
+</main>

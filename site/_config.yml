@@ -6,6 +6,17 @@ upstream_repo: ""
 base_branch: master
 # Contact shown on the Legal page for licensing / takedown questions.
 contact_email: akj123429@gmail.com
+# Bus types offered by the upload dialog. `id` becomes the <bus> folder in
+# databases/<manufacturer>/<model>/<bus>/ (lowercase slug); `label` is shown.
+# Contributors can still pick "Other…" and type their own slug.
+bus_types:
+  - { id: can, label: "CAN" }
+  - { id: canfd, label: "CAN FD" }
+  - { id: j1939, label: "J1939 (CAN, heavy-duty)" }
+  - { id: lin, label: "LIN" }
+  - { id: flexray, label: "FlexRay" }
+  - { id: ethernet, label: "Automotive Ethernet (SOME/IP)" }
+  - { id: most, label: "MOST" }
 # The catalog data and the downloadable database files are generated into this
 # source tree by scripts/build_index.py before Jekyll runs.
 exclude:

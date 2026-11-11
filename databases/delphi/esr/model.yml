@@ -1,0 +1,3 @@
+name: "ESR radar"
+aliases: ["Electronically Scanning Radar"]
+description: "Delphi ESR automotive radar sensor output."

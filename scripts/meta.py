@@ -107,6 +107,52 @@ def validate_meta_tree(root: Path) -> list[str]:
     return errs
 
 
+# Licenses accepted for imported databases (see ACCEPTABLE_USE.md).
+ALLOWED_IMPORT_LICENSES = {
+    "MIT", "BSD-2-Clause", "BSD-3-Clause", "Apache-2.0", "ISC",
+    "CC-BY-3.0", "CC-BY-4.0", "CC0-1.0", "Unlicense",
+}
+
+
+def validate_sources(root: Path) -> list[str]:
+    """Check databases/SOURCES.json against the import policy."""
+    import json
+
+    manifest = root / "SOURCES.json"
+    if not manifest.exists():
+        return []
+    where = f"databases/{manifest.name}"
+    try:
+        data = json.loads(manifest.read_text())
+    except ValueError as exc:
+        return [f"{where}: invalid JSON ({exc})"]
+    errs, seen = [], {}
+    repo = root.parent
+    for s in data.get("sources", []):
+        name = s.get("name", "?")
+        for k in ("name", "url", "commit", "license", "license_file", "attribution"):
+            if not s.get(k):
+                errs.append(f"{where}: source '{name}' is missing '{k}'")
+        lic = s.get("license")
+        if lic and lic not in ALLOWED_IMPORT_LICENSES:
+            errs.append(f"{where}: source '{name}' has license '{lic}', which ACCEPTABLE_USE.md does not accept for imports")
+        if s.get("license_file") and not (repo / s["license_file"]).is_file():
+            errs.append(f"{where}: source '{name}': license_file {s['license_file']} does not exist")
+        for n in s.get("notices", []):
+            if not (repo / n).is_file():
+                errs.append(f"{where}: source '{name}': notice {n} does not exist")
+        for f in s.get("files", []):
+            p = f.get("path", "")
+            if not p or ".." in Path(p).parts or not (root / p).is_file():
+                errs.append(f"{where}: source '{name}' lists {p!r}, which is not a file under databases/")
+            if f.get("method", "copy") not in ("copy", "opendbc-generator"):
+                errs.append(f"{where}: source '{name}': unknown method {f.get('method')!r} for {p}")
+            if p in seen:
+                errs.append(f"{where}: {p} is claimed by both '{seen[p]}' and '{name}'")
+            seen[p] = name
+    return errs
+
+
 def load_meta(root: Path) -> tuple[dict, dict]:
     """Return ({manufacturer: data}, {(manufacturer, model): data}); invalid files are skipped."""
     mfrs, models = {}, {}

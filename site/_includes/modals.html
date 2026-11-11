@@ -19,11 +19,19 @@
       <button type="button" role="tab" data-tab="messages">Messages <span class="n" id="d-n-messages"></span></button>
       <button type="button" role="tab" data-tab="signals">Signals <span class="n" id="d-n-signals"></span></button>
       <button type="button" role="tab" data-tab="nodes">Nodes <span class="n" id="d-n-nodes"></span></button>
+      <button type="button" role="tab" data-tab="decode">Decode</button>
+      <button type="button" role="tab" data-tab="history">History <span class="n" id="d-n-history"></span></button>
       <button type="button" role="tab" data-tab="lint">Lint <span class="n" id="d-n-lint"></span></button>
     </nav>
     <div class="body d-body">
       <section class="tabpanel" data-panel="overview" role="tabpanel">
+        <p class="d-desc" id="d-desc" hidden></p>
         <dl class="kv" id="d-kv"></dl>
+        <div class="exports" id="d-exports" hidden>
+          <h4 class="d-subhead">Download as</h4>
+          <div class="actions" id="d-export-list"></div>
+          <p class="muted small">Converted automatically with canmatrix / cantools — check the result before relying on it.</p>
+        </div>
         <div class="actions" style="margin-top:16px">
           <a class="btn small" id="d-meta" href="#" target="_blank" rel="noopener">Metadata JSON</a>
           <a class="btn small" id="d-struct" href="#" target="_blank" rel="noopener">Structure JSON</a>
@@ -32,9 +40,11 @@
       <section class="tabpanel" data-panel="messages" role="tabpanel" hidden></section>
       <section class="tabpanel" data-panel="signals" role="tabpanel" hidden></section>
       <section class="tabpanel" data-panel="nodes" role="tabpanel" hidden></section>
+      <section class="tabpanel" data-panel="decode" role="tabpanel" hidden></section>
+      <section class="tabpanel" data-panel="history" role="tabpanel" hidden></section>
       <section class="tabpanel" data-panel="lint" role="tabpanel" hidden>
         <p class="muted" id="d-lint-empty">No lint findings.</p>
-        <ul class="warnlist" id="d-warn"></ul>
+        <div id="d-lint"></div>
       </section>
     </div>
   </div>

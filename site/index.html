@@ -8,6 +8,7 @@ page_id: home
   <div class="wrap">
     <h1>Explore signal databases</h1>
     <p>Browse, download, and contribute CAN / LIN automotive databases, organised by manufacturer.</p>
+    <p class="herolinks">Looking for a specific signal or CAN ID? <a href="{{ '/search/' | relative_url }}">Search across all databases →</a></p>
     <div class="statrow">
       <div><b>{{ r.count }}</b><span>databases</span></div>
       <div><b>{{ r.manufacturers | size }}</b><span>manufacturers</span></div>
@@ -45,7 +46,7 @@ page_id: home
     </div>
     <div class="chips">
       {%- for m in r.manufacturers %}
-      <a class="chip" href="{{ '/browse/' | relative_url }}?mfr={{ m.name | url_encode }}"><span>{{ m.name | escape }}</span><span class="n">{{ m.count }}</span></a>
+      <a class="chip" href="{{ '/browse/' | relative_url }}?mfr={{ m.name | url_encode }}"><span>{{ m.display | default: m.name | escape }}</span><span class="n">{{ m.count }}</span></a>
       {%- endfor %}
     </div>
   </section>

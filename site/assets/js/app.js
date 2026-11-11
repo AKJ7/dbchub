@@ -478,6 +478,7 @@
     writeHash();
     var panel = $('#detail-modal .tabpanel[data-panel="' + tab + '"]');
     if (tab === "overview" || tab === "lint") return;
+    if (tab === "history") { renderHistory(panel); return; }
     panel.textContent = "";
     panel.appendChild(el("p", "muted", "Loading structure…"));
     var path = D.path;
@@ -487,6 +488,7 @@
       if (tab === "messages") renderMessages(panel);
       else if (tab === "signals") renderSignals(panel);
       else if (tab === "nodes") renderNodes(panel);
+      else if (tab === "decode") renderDecode(panel);
       $(".d-body").scrollTop = 0;
     }).catch(function () {
       panel.textContent = "";
@@ -510,16 +512,18 @@
     $("#d-title").textContent = String(path).split("/").pop();
     $("#d-sub").textContent = String(path).split("/").slice(0, 2).join(" / ");
     $("#d-badges").textContent = "";
-    ["messages", "signals", "nodes", "lint"].forEach(function (k) { $("#d-n-" + k).textContent = ""; });
+    ["messages", "signals", "nodes", "history", "lint"].forEach(function (k) { $("#d-n-" + k).textContent = ""; });
+    $("#d-lint").textContent = "";
+    $("#d-exports").hidden = true;
+    $("#d-desc").hidden = true;
     var dl = $("#d-kv");
     dl.textContent = "";
     dl.appendChild(el("dd", "loading", "Loading…"));
-    $("#d-warn").textContent = "";
     setLink($("#d-download"), fileUrl(path));
     setLink($("#d-meta"), null);
     setLink($("#d-struct"), null);
     openModal("detail-modal");
-    var tab = ["overview", "messages", "signals", "nodes", "lint"].indexOf(opts.tab) !== -1 ? opts.tab : "overview";
+    var tab = ["overview", "messages", "signals", "nodes", "decode", "history", "lint"].indexOf(opts.tab) !== -1 ? opts.tab : "overview";
     go(tab, { msg: opts.msg, node: opts.node });
 
     var url = metaUrl(path);
@@ -534,7 +538,7 @@
 
   function renderOverview(d, url) {
     $("#d-title").textContent = d.name;
-    $("#d-sub").textContent = d.manufacturer + " / " + d.model;
+    $("#d-sub").textContent = (d.manufacturer_name || d.manufacturer) + " / " + (d.model_name || d.model);
     var badges = $("#d-badges");
     badges.textContent = "";
     badges.appendChild(el("span", "badge " + String(d.format || "").replace(/[^a-z0-9]/gi, ""), d.format));
@@ -548,12 +552,24 @@
       $("#d-n-signals").textContent = fmt(c.signals);
       $("#d-n-nodes").textContent = fmt(c.nodes);
     }
+    if (d.versions) $("#d-n-history").textContent = d.versions;
+    var mi = d.model_info || {}, mf = d.manufacturer_info || {}, bi = d.bus_info || {};
+    var desc = [mi.description, mf.description].filter(Boolean).join(" ");
+    $("#d-desc").textContent = desc;
+    $("#d-desc").hidden = !desc;
+
     var dl = $("#d-kv");
     dl.textContent = "";
     addRow(dl, "Contents", (c.messages || 0) + " messages · " + (c.signals || 0) + " signals · " + (c.nodes || 0) + " nodes");
-    addRow(dl, "Format", (d.format || "").toUpperCase());
-    addRow(dl, "Bus", (d.bus || "").toUpperCase());
-    addRow(dl, "Size", fmtSize(d.size_bytes));
+    addRow(dl, "Manufacturer", (d.manufacturer_name || d.manufacturer) + (mf.kind && mf.kind !== "vehicle-manufacturer" ? " (" + mf.kind.replace(/-/g, " ") + ")" : ""));
+    addRow(dl, "Model / platform", (d.model_name || d.model) + (mi.years ? " · " + mi.years : "") + (mi.platform ? " · platform " + mi.platform : ""));
+    var aliases = (mi.aliases || []).concat(mf.aliases || []);
+    if (aliases.length) addRow(dl, "Also known as", aliases.join(", "));
+    addRow(dl, "Bus", (bi.name || String(d.bus || "").toUpperCase()) + (bi.bitrate ? " · " + (bi.bitrate >= 1000 ? bi.bitrate / 1000 + " kbit/s" : bi.bitrate + " bit/s") : "") + (bi.description ? " · " + bi.description : ""));
+    addRow(dl, "Format", (d.format || "").toUpperCase() + " · " + fmtSize(d.size_bytes));
+    var lint = d.lint || {};
+    var lintBtn = linkBtn((lint.error || 0) + " errors · " + (lint.warning || 0) + " warnings · " + (lint.info || 0) + " info", function () { go("lint", {}); });
+    addRow(dl, "Lint", lintBtn);
     addRow(dl, "License", d.license || "CC-BY-4.0");
     if (d.source) {
       var src = el("span");
@@ -566,21 +582,293 @@
       addRow(dl, "Source", src);
     }
     addRow(dl, "Added", d.added);
-    addRow(dl, "Updated", d.updated);
-    addRow(dl, "Commit", d.commit);
+    addRow(dl, "Updated", d.updated + (d.versions ? " · " + d.versions + " version" + (d.versions === 1 ? "" : "s") : ""));
     addRow(dl, "Checksum", d.checksum);
     addRow(dl, "Path", d.path);
 
-    var warns = (d.errors || []).map(function (w) { return "error: " + w; }).concat(d.warnings || []);
-    var warn = $("#d-warn");
-    warn.textContent = "";
-    warns.slice(0, 500).forEach(function (w) { warn.appendChild(el("li", null, w)); });
-    if (warns.length > 500) warn.appendChild(el("li", null, "… and " + (warns.length - 500) + " more (see metadata JSON)"));
-    $("#d-lint-empty").hidden = !!warns.length;
-    $("#d-n-lint").textContent = warns.length;
+    // Exports: paths are relative to databases/, built into same-origin URLs.
+    var list = $("#d-export-list");
+    list.textContent = "";
+    (Array.isArray(d.exports) ? d.exports : []).forEach(function (e) {
+      if (typeof e.path !== "string" || !SAFE_PATH.test(e.path)) return;
+      var a = el("a", "btn small", "↓ " + (e.label || e.format));
+      a.href = fileUrl(e.path); a.setAttribute("download", "");
+      list.appendChild(a);
+    });
+    $("#d-exports").hidden = !list.children.length;
 
+    renderLint(Array.isArray(d.findings) ? d.findings : null, d);
     setLink($("#d-meta"), url);
     setLink($("#d-struct"), d.structure_url === null ? null : structUrl(d.path));
+  }
+
+  /* ---- lint: findings grouped by rule ---- */
+  var LEVEL_ORDER = { error: 0, warning: 1, info: 2 };
+  function renderLint(findings, d) {
+    var box = $("#d-lint");
+    box.textContent = "";
+    if (!findings) {  // older metadata without structured findings
+      findings = (d.errors || []).map(function (m) { return { rule: "error", level: "error", message: m }; })
+        .concat((d.warnings || []).map(function (m) { return { rule: "warning", level: "warning", message: m }; }));
+    }
+    var groups = {};
+    findings.forEach(function (f) {
+      var g = groups[f.rule] || (groups[f.rule] = { rule: f.rule, level: f.level, items: [] });
+      g.items.push(f.message);
+    });
+    var titles = (d.lint && d.lint.rules) || {};
+    var list = Object.keys(groups).map(function (k) { return groups[k]; })
+      .sort(function (a, b) { return (LEVEL_ORDER[a.level] - LEVEL_ORDER[b.level]) || (b.items.length - a.items.length); });
+    var serious = findings.filter(function (f) { return f.level !== "info"; }).length;
+    $("#d-n-lint").textContent = serious || (findings.length ? "info" : "0");
+    $("#d-lint-empty").hidden = !!findings.length;
+    if (findings.length) {
+      var sum = el("p", "muted small", "Errors fail validation; warnings are probably wrong; info is tolerated but worth knowing. Groups are collapsed unless they need attention.");
+      box.appendChild(sum);
+    }
+    list.forEach(function (g) {
+      var det = el("details", "lintgroup " + g.level);
+      det.open = g.level === "error" || (g.level === "warning" && g.items.length <= 50);
+      var s = el("summary");
+      s.appendChild(el("span", "lvl " + g.level, g.level));
+      s.appendChild(el("span", "lt", (titles[g.rule] && titles[g.rule].title) || g.rule));
+      s.appendChild(el("span", "n", String(g.items.length)));
+      s.appendChild(el("code", "rule", g.rule));
+      det.appendChild(s);
+      var ul = el("ul", "warnlist");
+      g.items.slice(0, 500).forEach(function (m) { ul.appendChild(el("li", null, m)); });
+      if (g.items.length > 500) ul.appendChild(el("li", "muted", "… and " + (g.items.length - 500) + " more (see metadata JSON)"));
+      det.appendChild(ul);
+      box.appendChild(det);
+    });
+  }
+
+  /* ---- history: committed versions and what each changed ---- */
+  function historyUrl(path) { return CFG.dbBase + encPath(String(path).replace(/\.[^./]+$/, "") + ".history.json"); }
+  function commitLink(sha) {
+    if (!sha) return el("span", "muted", "working tree");
+    if (CFG.upstream && /^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/.test(CFG.upstream) && /^[0-9a-f]{4,40}$/.test(sha)) {
+      var a = el("a", "mono", sha);
+      a.href = "https://github.com/" + CFG.upstream + "/commit/" + sha;
+      a.target = "_blank"; a.rel = "noopener noreferrer";
+      return a;
+    }
+    return el("span", "mono", sha);
+  }
+  function chip(n, label, cls) { return n ? el("span", "chg " + cls, (cls === "add" ? "+" : cls === "del" ? "−" : "~") + n + " " + label) : null; }
+
+  function renderHistory(panel) {
+    panel.textContent = "";
+    panel.appendChild(el("p", "muted", "Loading history…"));
+    var path = D.path;
+    getJson(historyUrl(path)).then(function (h) {
+      if (!D || D.path !== path || D.tab !== "history") return;
+      panel.textContent = "";
+      var versions = Array.isArray(h.versions) ? h.versions : [];
+      if (!versions.length) {
+        panel.appendChild(el("p", "muted", "No committed versions yet."));
+        return;
+      }
+      panel.appendChild(el("p", "muted small", "Each version shows what it changed compared with the previous one. Messages are matched by identifier, signals by name."));
+      var ol = el("ol", "versions");
+      versions.forEach(function (v, i) {
+        var li = el("li", "version");
+        var head = el("div", "vhead");
+        head.appendChild(el("span", "vdate", v.date ? String(v.date).slice(0, 10) : "—"));
+        head.appendChild(commitLink(v.commit));
+        head.appendChild(el("span", "vsubj", v.subject || ""));
+        li.appendChild(head);
+        var dd = v.diff || {}, s = dd.summary || {};
+        var chips = el("div", "chips small");
+        [chip(s.messages_added, "msg", "add"), chip(s.messages_removed, "msg", "del"), chip(s.messages_changed, "msg", "mod"),
+         chip(s.signals_added, "sig", "add"), chip(s.signals_removed, "sig", "del"), chip(s.signals_changed, "sig", "mod")]
+          .forEach(function (c) { if (c) chips.appendChild(c); });
+        if (!chips.children.length) chips.appendChild(el("span", "muted", "no changes to messages or signals"));
+        li.appendChild(chips);
+        var entries = Array.isArray(dd.messages) ? dd.messages : [];
+        if (entries.length) {
+          var det = el("details");
+          det.open = i === 0 && entries.length <= 30;
+          det.appendChild(el("summary", null, entries.length + (dd.truncated ? "+" : "") + " message change" + (entries.length === 1 ? "" : "s")));
+          var ul = el("ul", "difflist");
+          entries.forEach(function (e) {
+            var item = el("li", e.change);
+            item.appendChild(el("span", "chg " + (e.change === "added" ? "add" : e.change === "removed" ? "del" : "mod"), e.change));
+            item.appendChild(document.createTextNode(" "));
+            var name = el("b", null, e.name);
+            item.appendChild(name);
+            item.appendChild(el("span", "mono muted", " " + hexId(e)));
+            var bits = [];
+            Object.keys(e.fields || {}).forEach(function (k) { bits.push(k + ": " + fmt(JSON.stringify(e.fields[k][0])) + " → " + fmt(JSON.stringify(e.fields[k][1]))); });
+            (e.signal_changes || []).forEach(function (c) {
+              var t = c.change + " " + c.name;
+              if (c.fields) t += " (" + Object.keys(c.fields).map(function (k) { return k + ": " + JSON.stringify(c.fields[k][0]) + " → " + JSON.stringify(c.fields[k][1]); }).join(", ") + ")";
+              bits.push(t);
+            });
+            if (typeof e.signals === "number") bits.push(e.signals + " signal" + (e.signals === 1 ? "" : "s"));
+            if (bits.length) {
+              var sub = el("ul");
+              bits.slice(0, 40).forEach(function (b) { sub.appendChild(el("li", null, b)); });
+              if (bits.length > 40) sub.appendChild(el("li", "muted", "… " + (bits.length - 40) + " more"));
+              item.appendChild(sub);
+            }
+            if (e.change !== "removed") {
+              item.classList.add("clickable");
+              name.addEventListener("click", function () { go("messages", { msg: e.name }); });
+            }
+            ul.appendChild(item);
+          });
+          if (dd.truncated) ul.appendChild(el("li", "muted", "… " + dd.truncated + " more message changes not listed"));
+          det.appendChild(ul);
+          li.appendChild(det);
+        }
+        ol.appendChild(li);
+      });
+      panel.appendChild(ol);
+    }).catch(function () {
+      panel.textContent = "";
+      panel.appendChild(el("p", "muted", "No history is available for this database."));
+    });
+  }
+
+  /* ---- decode: paste frames, decode them with this database (all in the browser) ---- */
+  var DECODE_EXAMPLE = "# One frame per line. Accepted forms:\n" +
+    "#   (1700000000.000000) can0 0B4#0000000000001C58   (candump -L)\n" +
+    "#   can0  0B4   [8]  00 00 00 00 00 00 1C 58         (candump)\n" +
+    "#   0x0B4 00 00 00 00 00 00 1C 58                     (ID + bytes)\n";
+
+  function parseFrames(text) {
+    var out = [];
+    String(text).split(/\r?\n/).slice(0, 1000).forEach(function (line, i) {
+      var l = line.trim(), m, id, hex;
+      if (!l || l[0] === "#") return;
+      if ((m = /(?:^|\s)([0-9A-Fa-f]{1,8})##[0-9A-Fa-f]([0-9A-Fa-f]*)\s*$/.exec(l))) { id = m[1]; hex = m[2]; }           // CAN FD candump -L
+      else if ((m = /(?:^|\s)([0-9A-Fa-f]{1,8})#(R?)([0-9A-Fa-f]*)\s*$/.exec(l))) { id = m[1]; hex = m[3]; }               // candump -L
+      else if ((m = /(?:^|\s)([0-9A-Fa-f]{1,8})\s+\[(\d+)\]\s+((?:[0-9A-Fa-f]{2}\s*)*)$/.exec(l))) { id = m[1]; hex = m[3]; } // candump
+      else if ((m = /^(?:0x)?([0-9A-Fa-f]{1,8})\s*[:,;\s]\s*((?:[0-9A-Fa-f]{2}[\s,]*)*)$/.exec(l))) { id = m[1]; hex = m[2]; }
+      else { out.push({ line: i + 1, text: l, error: "Unrecognised line" }); return; }
+      hex = hex.replace(/[\s,]/g, "");
+      if (hex.length % 2) { out.push({ line: i + 1, text: l, error: "Odd number of hex digits" }); return; }
+      var bytes = [];
+      for (var k = 0; k < hex.length; k += 2) bytes.push(parseInt(hex.substr(k, 2), 16));
+      out.push({ line: i + 1, text: l, id: parseInt(id, 16), extended: id.length > 3, bytes: bytes });
+    });
+    return out;
+  }
+
+  // Raw value of a signal as a BigInt, or null if the payload is too short.
+  function rawValue(bytes, s) {
+    var bits = sigBits(s), raw = BigInt(0);
+    if (!bits.length) return null;
+    var order = s.byte_order === "little_endian" ? bits.slice().reverse() : bits; // MSB first
+    for (var i = 0; i < order.length; i++) {
+      var b = order[i], byte = b >> 3;
+      if (b < 0 || byte >= bytes.length) return null;
+      raw = (raw << BigInt(1)) | BigInt((bytes[byte] >> (b & 7)) & 1);
+    }
+    return raw;
+  }
+  function physical(raw, s) {
+    var len = s.length || 0, v;
+    if (s.float && (len === 32 || len === 64)) {
+      var dv = new DataView(new ArrayBuffer(8));
+      if (len === 32) { dv.setUint32(0, Number(raw)); v = dv.getFloat32(0); }
+      else { dv.setBigUint64(0, raw); v = dv.getFloat64(0); }
+    } else {
+      if (s.signed && len > 0 && (raw >> BigInt(len - 1)) & BigInt(1)) raw -= BigInt(1) << BigInt(len);
+      v = Number(raw);
+    }
+    var phys = v * (s.factor == null ? 1 : s.factor) + (s.offset || 0);
+    return { raw: raw, value: Number(phys.toPrecision(12)) };
+  }
+
+  function decodeFrame(f, byId) {
+    var m = byId[(f.extended ? "x" : "s") + f.id] || byId["x" + f.id] || byId["s" + f.id];
+    if (!m) return { frame: f, error: "No message with this ID in the database" };
+    var muxer = m.signals.filter(function (s) { return s.multiplex === "multiplexor"; })[0], muxVal = null;
+    if (muxer) { var r = rawValue(f.bytes, muxer); muxVal = r == null ? null : Number(r); }
+    var rows = [];
+    m.signals.forEach(function (s) {
+      if (typeof s.multiplex === "number" && s.multiplex !== muxVal) return;
+      var raw = rawValue(f.bytes, s);
+      if (raw == null) { rows.push({ s: s, missing: true }); return; }
+      var p = physical(raw, s);
+      var label = s.values ? s.values[String(raw)] : null;
+      rows.push({ s: s, raw: raw, value: p.value, label: label,
+                  outOfRange: (s.min != null && s.max != null && (s.min !== 0 || s.max !== 0)) && (p.value < s.min || p.value > s.max) });
+    });
+    return { frame: f, message: m, rows: rows, short: f.bytes.length < (m.length || 0) };
+  }
+
+  function renderDecode(panel) {
+    var S = D.struct, byId = {};
+    S.messages.forEach(function (m) { if (m.id != null && !m.pseudo) byId[(m.extended ? "x" : "s") + m.id] = m; });
+    panel.appendChild(el("p", "muted small", "Paste CAN frames to decode them with this database. Everything happens in your browser; nothing is uploaded."));
+    var ta = el("textarea", "decode-input");
+    ta.rows = 6; ta.spellcheck = false; ta.placeholder = DECODE_EXAMPLE;
+    ta.value = D.decodeText || "";
+    ta.setAttribute("aria-label", "CAN frames to decode");
+    panel.appendChild(ta);
+    var bar = el("div", "d-toolbar");
+    var btn = el("button", "btn small primary", "Decode"); btn.type = "button";
+    var ex = el("button", "btn small", "Insert an example frame"); ex.type = "button";
+    var info = el("span", "muted small");
+    bar.appendChild(btn); bar.appendChild(ex); bar.appendChild(info);
+    panel.appendChild(bar);
+    var out = el("div", "decode-out");
+    panel.appendChild(out);
+
+    function hexBytes(bs) { return bs.map(function (b) { return (b < 16 ? "0" : "") + b.toString(16).toUpperCase(); }).join(" "); }
+    function run() {
+      D.decodeText = ta.value;
+      out.textContent = "";
+      var frames = parseFrames(ta.value);
+      var decoded = 0;
+      frames.slice(0, 200).forEach(function (f) {
+        var card = el("div", "framecard");
+        var head = el("div", "fhead");
+        if (f.error) {
+          card.classList.add("bad");
+          head.appendChild(el("span", "mono", "line " + f.line + ": " + f.text.slice(0, 80)));
+          head.appendChild(el("span", "muted", " — " + f.error));
+          card.appendChild(head); out.appendChild(card); return;
+        }
+        var r = decodeFrame(f, byId);
+        head.appendChild(el("span", "mono", hexId({ id: f.id, extended: f.extended || f.id > 0x7FF })));
+        head.appendChild(el("span", "mono muted", " [" + f.bytes.length + "] " + hexBytes(f.bytes)));
+        if (r.error) {
+          card.classList.add("bad");
+          head.appendChild(el("span", "muted", " — " + r.error));
+          card.appendChild(head); out.appendChild(card); return;
+        }
+        decoded++;
+        head.appendChild(document.createTextNode(" "));
+        head.appendChild(linkBtn(r.message.name, function () { go("messages", { msg: r.message.name }); }));
+        if (r.short) head.appendChild(el("span", "warn", " — payload shorter than the message's " + r.message.length + " bytes"));
+        card.appendChild(head);
+        card.appendChild(dataTable(r.rows,
+          [{ label: "Signal" }, { label: "Value", cls: "num" }, { label: "Unit" }, { label: "Raw", cls: "num" }, { label: "Meaning" }],
+          function (x) {
+            if (x.missing) return [x.s.name, "—", x.s.unit, "—", "not in payload"];
+            var v = el("span", x.outOfRange ? "warn" : null, String(x.value));
+            if (x.outOfRange) v.title = "outside the declared range " + x.s.min + " … " + x.s.max;
+            return [x.s.name, v, x.s.unit, x.raw.toString() + " (0x" + x.raw.toString(16).toUpperCase() + ")", x.label || ""];
+          }, null, "This message has no signals."));
+        out.appendChild(card);
+      });
+      info.textContent = frames.length ? decoded + " of " + frames.length + " line(s) decoded" + (frames.length > 200 ? " (first 200 shown)" : "") : "";
+    }
+    btn.addEventListener("click", run);
+    ta.addEventListener("keydown", function (e) { if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) run(); });
+    ex.addEventListener("click", function () {
+      var m = S.messages.filter(function (x) { return !x.pseudo && x.id != null && x.signals.length; })[0];
+      if (!m) return;
+      var bytes = [];
+      for (var i = 0; i < (m.length || 8); i++) bytes.push(Math.floor(Math.random() * 256));
+      ta.value = (ta.value ? ta.value.replace(/\s*$/, "\n") : "") + hexId(m).slice(2) + "#" + hexBytes(bytes).replace(/ /g, "");
+      run();
+    });
+    if (ta.value) run();
   }
 
   $$("#d-tabs [data-tab]").forEach(function (b) {
@@ -632,7 +920,7 @@
     var card = el("article", "card");
     card.dataset.path = d.path;
     card.tabIndex = 0;
-    card.appendChild(el("div", "ns", d.manufacturer + " / " + d.model));
+    card.appendChild(el("div", "ns", (d.manufacturer_name || d.manufacturer) + " / " + (d.model_name || d.model) + (d.years ? " · " + d.years : "")));
     var title = el("div", "title");
     title.appendChild(el("span", "name", d.name));
     title.appendChild(el("span", "badge " + String(d.format || "").replace(/[^a-z0-9]/gi, ""), d.format));
@@ -666,13 +954,13 @@
     var grid = $("#b-grid"), empty = $("#b-empty"), pager = $("#b-pager"), count = $("#b-count");
     var sortSel = $("#b-sort"), perSel = $("#b-per"), clearBtn = $("#clear-filters");
     var FACETS = [
-      { key: "mfr", field: "manufacturer", box: "#facet-mfr", label: function (v) { return v; } },
+      { key: "mfr", field: "manufacturer", display: "manufacturer_name", box: "#facet-mfr", label: function (v) { return v; } },
       { key: "fmt", field: "format", box: "#facet-fmt", label: function (v) { return v.toUpperCase(); } },
       { key: "bus", field: "bus", box: "#facet-bus", label: function (v) { return v.toUpperCase(); } },
       { key: "lic", field: "license", box: "#facet-lic", label: function (v) { return v; } }
     ];
     var SORTS = {
-      manufacturer: function (a, b) { return cmp(a.manufacturer, b.manufacturer) || cmp(a.model, b.model) || cmp(a.name, b.name); },
+      manufacturer: function (a, b) { return cmp(a.manufacturer_name || a.manufacturer, b.manufacturer_name || b.manufacturer) || cmp(a.model_name || a.model, b.model_name || b.model) || cmp(a.name, b.name); },
       name: function (a, b) { return cmp(a.name, b.name) || cmp(a.path, b.path); },
       updated: function (a, b) { return ts(b.updated_at) - ts(a.updated_at) || cmp(a.path, b.path); },
       added: function (a, b) { return ts(b.added_at) - ts(a.added_at) || cmp(a.path, b.path); },
@@ -710,7 +998,7 @@
 
     function matches(d, skipKey) {
       if (state.q) {
-        var hay = (d.name + " " + d.manufacturer + " " + d.model + " " + d.bus + " " + d.format + " " + d.path).toLowerCase();
+        var hay = [d.name, d.manufacturer, d.manufacturer_name, d.model, d.model_name, d.years, (d.aliases || []).join(" "), d.bus, d.format, d.path].join(" ").toLowerCase();
         var terms = state.q.toLowerCase().split(/\s+/).filter(Boolean);
         for (var i = 0; i < terms.length; i++) if (hay.indexOf(terms[i]) === -1) return false;
       }
@@ -728,12 +1016,12 @@
         var counts = {}, shown = {};
         ALL.forEach(function (d) {
           var v = String(d[f.field] || "").toLowerCase();
-          if (!(v in counts)) { counts[v] = 0; shown[v] = String(d[f.field] || ""); }
+          if (!(v in counts)) { counts[v] = 0; shown[v] = String((f.display && d[f.display]) || d[f.field] || ""); }
           if (matches(d, f.key)) counts[v]++;
         });
         var box = $(f.box);
         box.textContent = "";
-        Object.keys(counts).sort(cmp).forEach(function (v) {
+        Object.keys(counts).sort(function (a, b) { return cmp(shown[a], shown[b]); }).forEach(function (v) {
           var lab = el("label", "facet");
           var cb = el("input"); cb.type = "checkbox"; cb.value = v;
           cb.checked = state[f.key].indexOf(v) !== -1;
@@ -746,7 +1034,7 @@
           lab.appendChild(el("span", "label", f.label(shown[v])));
           lab.appendChild(el("span", "n", counts[v]));
           if (!counts[v] && !cb.checked) lab.classList.add("zero");
-          lab.dataset.v = v;
+          lab.dataset.v = (v + " " + shown[v]).toLowerCase();
           box.appendChild(lab);
         });
       });
@@ -837,6 +1125,96 @@
       if (!rows.length) { count.textContent = "Could not load the catalog."; return; }
       update(false);
     });
+  }
+
+  /* ---------------- cross-database signal / ID search ---------------- */
+  function initSearch() {
+    var input = $("#s-q"), out = $("#s-results"), count = $("#s-count"), form = $("#s-form");
+    var MAX_ROWS = 300;
+    var IDX = null, lower = null;
+
+    var params = new URLSearchParams(location.search);
+    input.value = params.get("q") || "";
+    var mode = ["all", "signals", "messages", "ids"].indexOf(params.get("in")) !== -1 ? params.get("in") : "all";
+    $$('input[name="in"]', form).forEach(function (r) { r.checked = r.value === mode; });
+
+    function idCandidates(q) {
+      var m;
+      if ((m = /^0x([0-9a-f]{1,8})$/i.exec(q))) return [parseInt(m[1], 16)];
+      if (/^[0-9]{1,10}$/.test(q)) return [parseInt(q, 10), parseInt(q, 16)].filter(function (v, i, a) { return a.indexOf(v) === i; });
+      if (/^[0-9a-f]{1,8}$/i.test(q)) return [parseInt(q, 16)];
+      return [];
+    }
+
+    function search() {
+      var q = input.value.trim();
+      mode = ($('input[name="in"]:checked', form) || {}).value || "all";
+      var p = new URLSearchParams();
+      if (q) p.set("q", q);
+      if (mode !== "all") p.set("in", mode);
+      history.replaceState(null, "", location.pathname + (p.toString() ? "?" + p : "") + location.hash);
+      out.textContent = "";
+      if (!q) { count.textContent = ""; return; }
+      if (!IDX) { count.textContent = "Loading the index…"; return; }
+
+      var rows = [], total = 0;
+      function push(r) { total++; if (rows.length < MAX_ROWS) rows.push(r); }
+      var ids = mode === "signals" || mode === "messages" ? [] : idCandidates(q);
+      var terms = mode === "ids" ? [] : q.toLowerCase().split(/\s+/).filter(Boolean);
+      function hit(h) { for (var i = 0; i < terms.length; i++) if (h.indexOf(terms[i]) === -1) return false; return true; }
+
+      if (ids.length) {
+        IDX.messages.forEach(function (m, i) { if (ids.indexOf(m[1]) !== -1) push({ kind: "id", msg: i }); });
+      }
+      if (terms.length) {
+        if (mode !== "signals") lower.messages.forEach(function (h, i) { if (hit(h)) push({ kind: "message", msg: i }); });
+        if (mode !== "messages") lower.signals.forEach(function (h, i) { if (hit(h)) push({ kind: "signal", sig: i, msg: IDX.signals[i][0] }); });
+      }
+      count.textContent = total ? total + " result" + (total === 1 ? "" : "s") + (total > MAX_ROWS ? " (first " + MAX_ROWS + " shown — refine the search)" : "") : "No results.";
+      if (!rows.length) return;
+
+      var dbsHit = {};
+      rows.forEach(function (r) { dbsHit[IDX.messages[r.msg][0]] = 1; });
+      count.textContent += " in " + Object.keys(dbsHit).length + " database" + (Object.keys(dbsHit).length === 1 ? "" : "s");
+
+      out.appendChild(dataTable(rows,
+        [{ label: "Match" }, { label: "Signal" }, { label: "Message" }, { label: "ID", cls: "mono" }, { label: "Unit" }, { label: "Database" }],
+        function (r) {
+          var m = IDX.messages[r.msg], db = IDX.databases[m[0]], s = r.sig != null ? IDX.signals[r.sig] : null;
+          var dbCell = el("span");
+          dbCell.appendChild(el("span", null, db[2] + " / " + db[3] + " "));
+          dbCell.appendChild(el("span", "muted", db[1]));
+          return [el("span", "tag soft", r.kind), s ? el("b", null, s[1]) : "", s ? m[3] : el("b", null, m[3]),
+                  hexId({ id: m[1], extended: !!m[2] }), s ? s[2] : "", dbCell];
+        },
+        function (r) {
+          var m = IDX.messages[r.msg], db = IDX.databases[m[0]];
+          showDetail(db[0], { tab: "messages", msg: m[3] });
+        }, "No results."));
+    }
+
+    var t;
+    input.addEventListener("input", function () { clearTimeout(t); t = setTimeout(search, 150); });
+    form.addEventListener("submit", function (e) { e.preventDefault(); search(); });
+    $$('input[name="in"]', form).forEach(function (r) { r.addEventListener("change", search); });
+    input.focus();
+
+    getJson($("body").dataset.searchJson || "/search-index.json").then(function (d) {
+      IDX = {
+        databases: Array.isArray(d.databases) ? d.databases : [],
+        messages: Array.isArray(d.messages) ? d.messages : [],
+        signals: Array.isArray(d.signals) ? d.signals : []
+      };
+      // Pre-lowered haystacks: name + message + database, so "speed tesla" works.
+      var dbHay = IDX.databases.map(function (db) { return (db[1] + " " + db[2] + " " + db[3]).toLowerCase(); });
+      var msgHay = IDX.messages.map(function (m) { return (m[3] + " " + dbHay[m[0]]).toLowerCase(); });
+      lower = {
+        messages: msgHay,
+        signals: IDX.signals.map(function (s) { return (s[1] + " " + (s[2] || "") + " " + msgHay[s[0]]).toLowerCase(); })
+      };
+      count.textContent = "";
+      search();
+    }).catch(function () { count.textContent = "Could not load the search index."; });
   }
 
   /* ---------------- upload -> pull request ---------------- */
@@ -1097,5 +1475,6 @@
   /* ---------------- boot ---------------- */
   initUpload();
   if (CFG.page === "browse") initBrowse();
+  if (CFG.page === "search") initSearch();
   openDetailFromHash();
 })();

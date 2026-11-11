@@ -1,0 +1,67 @@
+name: Sync imported databases
+
+# Weekly: move every source in databases/SOURCES.json to its upstream HEAD,
+# re-import the listed files (copy / concatenate only — upstream code is never
+# run) and open a pull request with the result for a maintainer to review.
+#
+# Note: pull requests opened with the default GITHUB_TOKEN do not trigger other
+# workflows, so the "Validate databases" check won't run on them. Add a
+# fine-grained token (contents + pull requests: write) as the repository secret
+# SOURCES_SYNC_TOKEN to get validation and the change report on these PRs.
+# Also enable Settings → Actions → "Allow GitHub Actions to create pull requests".
+on:
+  schedule:
+    - cron: "17 4 * * 1"
+  workflow_dispatch:
+    inputs:
+      source:
+        description: "Only this source (name as in SOURCES.json); empty = all"
+        required: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Re-import at upstream HEAD
+        id: sync
+        run: |
+          args=(sync --to latest)
+          if [ -n "${{ github.event.inputs.source }}" ]; then args+=(--source "${{ github.event.inputs.source }}"); fi
+          uv run python scripts/sources.py "${args[@]}" | tee sync.log
+          uv run python scripts/sources.py attributions
+          {
+            echo 'log<<EOF'
+            cat sync.log
+            echo 'EOF'
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Open or update the pull request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.SOURCES_SYNC_TOKEN || github.token }}
+          branch: automation/sync-sources
+          base: master
+          commit-message: "Sync imported databases with upstream"
+          signoff: true
+          title: "Sync imported databases with upstream"
+          body: |
+            Automated re-import of the sources in `databases/SOURCES.json` at their upstream HEAD.
+
+            Review the license notes below and the database change report before merging.
+
+            ```
+            ${{ steps.sync.outputs.log }}
+            ```
+          labels: sources
+          delete-branch: true

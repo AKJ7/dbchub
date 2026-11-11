@@ -1,0 +1,4 @@
+name: "comma.ai"
+kind: platform
+aliases: ["comma"]
+description: "Open-source driver-assistance company; maker of the comma body robot."

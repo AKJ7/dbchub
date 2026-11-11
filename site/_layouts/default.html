@@ -30,6 +30,7 @@
     data-upstream="{{ site.upstream_repo | default: '' | escape }}"
     data-base-branch="{{ site.base_branch | default: 'master' | escape }}"
     data-browse-json="{{ '/browse.json' | relative_url }}"
+    data-search-json="{{ '/search-index.json' | relative_url }}"
     data-db-base="{{ '/databases/' | relative_url }}"
     data-page="{{ page.page_id | default: 'other' }}"
   >
@@ -46,6 +47,7 @@
       <div class="spacer"></div>
       <a class="navlink{% if page.page_id == 'home' %} active{% endif %}" href="{{ '/' | relative_url }}">Home</a>
       <a class="navlink{% if page.page_id == 'browse' %} active{% endif %}" href="{{ '/browse/' | relative_url }}">Browse all</a>
+      <a class="navlink{% if page.page_id == 'search' %} active{% endif %}" href="{{ '/search/' | relative_url }}">Signal search</a>
       <a class="navlink{% if page.page_id == 'legal' %} active{% endif %}" href="{{ '/legal/' | relative_url }}">Legal</a>
       <button class="btn primary" id="open-upload" type="button">↑ Upload</button>
     </nav>

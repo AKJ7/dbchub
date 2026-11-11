@@ -26,7 +26,6 @@ import contextlib
 import hashlib
 import io
 import json
-import logging
 import os
 import re
 import sys
@@ -133,19 +132,8 @@ def normalize_dbc(text: str) -> tuple[str, int]:
     return _ID_STATEMENT.sub(repl, text), len(fixed)
 
 
-class _ListHandler(logging.Handler):
-    def __init__(self):
-        super().__init__(logging.WARNING)
-        self.records: list[str] = []
-
-    def emit(self, record):
-        self.records.append(record.getMessage())
-
-
 def load_matrices(path: Path, res: Result | None = None):
     """Return {bus_name: CanMatrix}. Lines canmatrix skips are reported on `res`."""
-    import canmatrix.formats
-
     ext = path.suffix.lower()
     data = path.read_bytes()
     if ext == ".dbc":
@@ -372,16 +360,11 @@ def validate_file(path: Path) -> Result:
         res.add("parse-failed", f"Unsupported extension '{ext}'")
         return _finish(res)
 
-    log = _ListHandler()
-    cm_logger = logging.getLogger("canmatrix")
-    cm_logger.addHandler(log)
     try:
         matrices = load_matrices(path, res)
     except Exception as exc:  # noqa: BLE001
         res.add("parse-failed", f"Parse failed: {exc}")
         return _finish(res)
-    finally:
-        cm_logger.removeHandler(log)
 
     if not matrices or all(cm is None for cm in matrices.values()):
         res.add("parse-failed", "No bus/matrix found in file")
@@ -439,10 +422,10 @@ def main() -> int:
 
     # Model / manufacturer metadata files are validated too (see scripts/meta.py).
     try:
-        from meta import validate_meta_tree
+        from meta import validate_meta_tree, validate_sources
     except ImportError:
-        from scripts.meta import validate_meta_tree
-    meta_errors = validate_meta_tree(Path(args.root)) if not args.paths else []
+        from scripts.meta import validate_meta_tree, validate_sources
+    meta_errors = (validate_meta_tree(Path(args.root)) + validate_sources(Path(args.root))) if not args.paths else []
 
     if args.json:
         print(json.dumps([{k: v for k, v in r.__dict__.items() if k not in ("structure", "matrices")} for r in results], indent=2))

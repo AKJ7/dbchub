@@ -1,0 +1,3 @@
+name: "Lincoln base platform"
+aliases: ["Lincoln"]
+description: "Shared Ford/Lincoln powertrain CAN (opendbc ford_lincoln_base_pt)."

@@ -1,0 +1,32 @@
+---
+layout: default
+title: Signal & ID search
+page_id: search
+permalink: /search/
+---
+<div class="hero slim">
+  <div class="wrap">
+    <h1>Search signals and CAN IDs</h1>
+    <p>Find which databases define a signal, a message or an identifier, across the whole catalog.</p>
+  </div>
+</div>
+
+<main class="page">
+  <form class="bigsearch" id="s-form" role="search" action="" method="get">
+    <input id="s-q" name="q" type="search" autocomplete="off" spellcheck="false"
+           placeholder="e.g. wheel speed · 0x3D8 · STEER_ANGLE · 1D0" aria-label="Signal, message or CAN ID" />
+    <div class="modes" role="radiogroup" aria-label="Search in">
+      <label><input type="radio" name="in" value="all" checked /> Everything</label>
+      <label><input type="radio" name="in" value="signals" /> Signals</label>
+      <label><input type="radio" name="in" value="messages" /> Messages</label>
+      <label><input type="radio" name="in" value="ids" /> CAN IDs</label>
+    </div>
+  </form>
+  <p class="muted small" id="s-hint">
+    Words are matched anywhere in signal, message and database names (all words must match).
+    A hex value like <code>0x3D8</code> searches identifiers; a bare number like <code>984</code> matches it as decimal and as hex.
+  </p>
+  <div class="toolbar"><div class="count" id="s-count" aria-live="polite"></div></div>
+  <div id="s-results"></div>
+  <noscript><p class="empty">Search needs JavaScript. The raw index is at <a href="{{ '/search-index.json' | relative_url }}">search-index.json</a>.</p></noscript>
+</main>

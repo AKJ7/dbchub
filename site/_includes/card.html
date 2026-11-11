@@ -4,7 +4,7 @@
 {%- endcomment -%}
 {%- assign d = include.d -%}
 <article class="card" data-path="{{ d.path | escape }}" tabindex="0">
-  <div class="ns">{{ d.manufacturer | escape }} / {{ d.model | escape }}</div>
+  <div class="ns">{{ d.manufacturer_name | default: d.manufacturer | escape }} / {{ d.model_name | default: d.model | escape }}{% if d.years %} · {{ d.years | escape }}{% endif %}</div>
   <div class="title">
     <span class="name">{{ d.name | escape }}</span>
     <span class="badge {{ d.format | escape }}">{{ d.format | escape }}</span>

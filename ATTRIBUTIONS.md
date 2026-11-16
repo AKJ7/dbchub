@@ -21,7 +21,7 @@ The sections below are generated from `databases/SOURCES.json` by
 - **Source:** https://github.com/commaai/opendbc
 - **License:** MIT — full text in [`THIRD_PARTY_LICENSES/opendbc-LICENSE.txt`](THIRD_PARTY_LICENSES/opendbc-LICENSE.txt)
 - **Credit:** © comma.ai, Inc. — opendbc (MIT)
-- **Imported at commit:** `27fa1c5d8eed3238a0a78c52ff5abb6cdc807bd2`
+- **Imported at commit:** `6cd8a71d18019b50173f107018b98f8293813858`
 
 | Path | Upstream |
 |---|---|

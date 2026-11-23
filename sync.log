@@ -1,0 +1,18 @@
+== comma.ai opendbc @ c55bd39ea2cd
+   updated: mg/hscan2/can/mg.dbc (7213db50f540 -> a8d1841883bc)
+== joshwardell/model3dbc @ c56c113c353d
+== nberlette/bmw-dbc @ 0bf373ead40f
+== projectgus/kona-ev-dbc @ 0b569b9ce00f
+== smarteng21/SmartCarDBC @ 0d5e8eeaa22c
+== aisom02/caprice-ppv-can-database @ 21dd6d028a10
+== berumiya/CAN_DBC_6thGenMazda @ 3f54198ed2d2
+== takakka/CAN_DBC_MAZDA_MX-5_2015 @ ad8e697bdaaf
+== nathanjmassey/ford-fusion-hscan @ f434f0f324e3
+== FourthSymmetriad/Mitsubishi-2011-i-MiEV-DBC @ 28c5aa4cca3f
+== Eko-Energia/CAN-DATABASE @ d33686c5588f
+== WURacing/DBC @ e137bf31646c
+== RetroPilot opendbc (fork of comma.ai opendbc) @ 647fb8a238bb
+== BogGyver opendbc (fork of comma.ai opendbc) @ 9c0b6fe3ae20
+== BYDcar opendbc-byd (fork of comma.ai opendbc) @ caba3753066c
+
+Changes written.

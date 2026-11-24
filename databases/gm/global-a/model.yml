@@ -1,0 +1,3 @@
+name: "Global A architecture"
+aliases: ["GMLAN"]
+description: "GM's Global A electrical architecture (2010s): chassis, powertrain, object, low-speed and high-voltage buses."

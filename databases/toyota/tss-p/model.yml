@@ -1,0 +1,3 @@
+name: "Toyota Safety Sense P"
+aliases: ["TSS-P", "TSS 1"]
+description: "ADAS camera and DSU radar messages of TSS-P vehicles."

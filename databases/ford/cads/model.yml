@@ -1,0 +1,3 @@
+name: "CADS radar"
+aliases: ["Corner radar"]
+description: "Ford corner radar (CADS) messages; 32- and 64-target variants."

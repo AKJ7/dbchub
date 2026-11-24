@@ -1,0 +1,40 @@
+[project]
+name = "dbchub"
+version = "0.1.0"
+description = "A Git-native repository for automotive signal databases (DBC/ARXML/LDF/DBF/KCD/SYM)."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    # Multi-format parser: DBC, DBF, KCD, SYM, ARXML (and LDF where supported)
+    "canmatrix[arxml]>=1.0",
+    # Second-opinion parser for DBC / ARXML / KCD / SYM
+    "cantools>=39",
+    # ARXML / KCD rely on lxml
+    "lxml>=5",
+    # MCP server (scripts/mcp_server.py); its httpx2 also fetches a remote --source
+    "mcp>=2.3,<3",
+    "pyyaml>=6",
+]
+
+[project.scripts]
+# `uv run <name>` after `uv sync` — the scripts, linked to the project env.
+dbchub = "cli.dbchub:main"               # write client (upload/update -> PR)
+dbchub-validate = "scripts.validate:main"   # the "check"
+dbchub-build = "scripts.build_index:main"   # build the catalog data for Jekyll
+dbchub-serve = "scripts.serve:main"         # build + serve the site locally
+dbchub-mcp = "scripts.mcp_server:main"      # MCP server over HTTP (read-only)
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["scripts", "cli"]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.2.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

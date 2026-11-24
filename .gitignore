@@ -4,3 +4,20 @@ __pycache__/
 .venv/
 venv/
 .DS_Store
+
+.idea/
+
+# Jekyll
+.jekyll-cache/
+.jekyll-metadata
+site/Gemfile.lock
+site/.bundle/
+site/vendor/
+
+# Generated catalog data (produced by scripts/build_index.py)
+site/_data/catalog.json
+site/index.json
+site/browse.json
+site/_data/recent.json
+site/search-index.json
+site/databases/

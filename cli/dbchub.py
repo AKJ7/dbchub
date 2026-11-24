@@ -11,7 +11,7 @@ contributions are reviewed, a write is three GitHub REST calls:
 Nothing here needs a server — it talks straight to api.github.com.
 
 Usage:
-    export GITHUB_TOKEN=ghp_...        # 'repo' (or 'public_repo' on a fork) scope
+    export GITHUB_TOKEN=github_pat_... # fine-grained: your fork only, Contents + Pull requests: write
     python cli/dbchub.py upload engine.dbc \
         --repo youruser/dbchub --project powertrain --bus can
 
@@ -30,6 +30,7 @@ import os
 import sys
 import time
 import urllib.error
+import urllib.parse
 import urllib.request
 from pathlib import Path
 
@@ -54,6 +55,15 @@ def api(method: str, path: str, token: str, body: dict | None = None):
         return exc.code, detail
 
 
+def compare_url(upstream: str, base: str, head: str, title: str, body: str) -> str:
+    """GitHub's prefilled "open a pull request" page for head -> upstream:base."""
+    query = urllib.parse.urlencode({"quick_pull": "1", "title": title, "body": body})
+    return (
+        f"https://github.com/{upstream}/compare/"
+        f"{urllib.parse.quote(base)}...{urllib.parse.quote(head, safe=':')}?{query}"
+    )
+
+
 def get_file_sha(repo, path, branch, token):
     """Return the blob sha of an existing file, or None if it does not exist."""
     status, data = api("GET", f"/repos/{repo}/contents/{path}?ref={branch}", token)
@@ -71,15 +81,20 @@ def cmd_write(args, is_update: bool):
     if not local.is_file():
         sys.exit(f"error: no such file: {local}")
 
-    # Target path inside the repo.
+    # Target path inside the repo: databases/<manufacturer>/<model>/<bus>/<file>
     if args.path:
         repo_path = args.path
     elif is_update:
         repo_path = str(local).replace("\\", "/")
     else:
-        if not (args.project and args.bus):
-            sys.exit("error: upload needs --project and --bus (or an explicit --path)")
-        repo_path = f"databases/{args.project}/{args.bus}/{local.name}"
+        if not (args.manufacturer and args.model and args.bus):
+            sys.exit(
+                "error: upload needs --manufacturer, --model and --bus "
+                "(or an explicit --path)"
+            )
+        repo_path = (
+            f"databases/{args.manufacturer}/{args.model}/{args.bus}/{local.name}"
+        )
 
     # 1. resolve base branch head
     status, ref = api("GET", f"/repos/{args.repo}/git/ref/heads/{args.base}", token)
@@ -115,18 +130,22 @@ def cmd_write(args, is_update: bool):
     # 4. open the pull request
     head = f"{args.repo.split('/')[0]}:{branch}" if args.upstream else branch
     pr_repo = args.upstream or args.repo
+    pr_body = args.pr_body or (
+        f"Automated {'update' if is_update else 'upload'} of `{repo_path}` via dbchub CLI."
+    )
     status, pr = api(
         "POST",
         f"/repos/{pr_repo}/pulls",
         token,
-        {
-            "title": body["message"],
-            "head": head,
-            "base": args.base,
-            "body": args.pr_body
-            or f"Automated {'update' if is_update else 'upload'} of `{repo_path}` via dbchub CLI.",
-        },
+        {"title": body["message"], "head": head, "base": args.base, "body": pr_body},
     )
+    if status in (403, 404) and args.upstream:
+        # A fine-grained token limited to the fork can't open a PR on the upstream
+        # repo. The commit is on the fork already: finish on GitHub's compare page.
+        url = compare_url(pr_repo, args.base, head, body["message"], pr_body)
+        print("✅ File committed to your fork. Your token can't open the pull request")
+        print(f"   on {pr_repo}; open it here:\n   {url}")
+        return 0
     if status not in (200, 201):
         sys.exit(f"error: cannot open pull request: {pr}")
 
@@ -142,10 +161,11 @@ def main() -> int:
         p.add_argument("file", help="Local database file.")
         p.add_argument("--repo", required=True, help="owner/repo you can push to (your fork for public contrib).")
         p.add_argument("--upstream", help="owner/repo to open the PR against (default: --repo).")
-        p.add_argument("--base", default="main", help="Base branch (default: main).")
-        p.add_argument("--project", help="Project folder (upload only).")
+        p.add_argument("--base", default="master", help="Base branch (default: master).")
+        p.add_argument("--manufacturer", help="Car manufacturer folder (upload only).")
+        p.add_argument("--model", help="Model folder (upload only).")
         p.add_argument("--bus", help="Bus folder, e.g. can/lin (upload only).")
-        p.add_argument("--path", help="Explicit repo path (overrides project/bus).")
+        p.add_argument("--path", help="Explicit repo path (overrides manufacturer/model/bus).")
         p.add_argument("--branch", help="Branch name (default: auto).")
         p.add_argument("--message", help="Commit message.")
         p.add_argument("--pr-body", help="Pull-request body.")

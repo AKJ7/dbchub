@@ -1,0 +1,2 @@
+name: "Bosch radarless platform"
+description: "Honda vehicles with a Bosch camera and no separate radar (opendbc honda_bosch_radarless)."

@@ -1,0 +1,3 @@
+name: "DASM"
+aliases: ["Driver Assistance Systems Module"]
+description: "Stellantis driver-assistance module messages (BogGyver opendbc fork)."

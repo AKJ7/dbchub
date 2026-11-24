@@ -1,0 +1,4 @@
+name: "Delphi / Aptiv"
+kind: supplier
+aliases: ["Aptiv", "Delphi Automotive"]
+description: "Automotive supplier. Its ESR radar is used by several manufacturers."

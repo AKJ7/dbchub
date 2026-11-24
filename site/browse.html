@@ -1,0 +1,54 @@
+---
+layout: default
+title: Browse all databases
+page_id: browse
+permalink: /browse/
+---
+<div class="hero slim">
+  <div class="wrap">
+    <h1>All databases</h1>
+    <p>Filter by manufacturer, format, bus and license, or search from the bar above.</p>
+  </div>
+</div>
+
+<div class="shell">
+  <aside class="sidebar" id="facets" aria-label="Filters">
+    <div class="facet-actions"><button class="linkbtn" type="button" id="clear-filters" hidden>Clear all filters</button></div>
+    <h3>Manufacturer</h3>
+    <input class="facet-search" id="mfr-filter" type="search" placeholder="Filter manufacturers…" aria-label="Filter manufacturers" />
+    <div class="facet-list scroll" id="facet-mfr"></div>
+    <h3>Format</h3>
+    <div class="facet-list" id="facet-fmt"></div>
+    <h3>Bus</h3>
+    <div class="facet-list" id="facet-bus"></div>
+    <h3>License</h3>
+    <div class="facet-list" id="facet-lic"></div>
+  </aside>
+
+  <section class="content">
+    <div class="toolbar">
+      <div class="count" id="b-count" aria-live="polite">Loading…</div>
+      <div class="controls">
+        <label>Sort
+          <select id="b-sort">
+            <option value="manufacturer">Manufacturer A–Z</option>
+            <option value="name">Name A–Z</option>
+            <option value="updated">Recently updated</option>
+            <option value="added">Recently added</option>
+            <option value="signals">Most signals</option>
+          </select>
+        </label>
+        <label>Per page
+          <select id="b-per">
+            <option>12</option><option selected>24</option><option>48</option><option>96</option>
+          </select>
+        </label>
+      </div>
+    </div>
+
+    <div class="grid" id="b-grid"></div>
+    <div class="empty" id="b-empty" hidden>No databases match your filters.</div>
+    <nav class="pager" id="b-pager" aria-label="Pagination"></nav>
+    <noscript><p class="empty">The browser needs JavaScript to page through the catalog. The full list is also available as <a href="{{ '/index.json' | relative_url }}">index.json</a>.</p></noscript>
+  </section>
+</div>

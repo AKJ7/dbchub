@@ -1,0 +1,3 @@
+name: "TNGA-K platform"
+aliases: ["Camry", "RAV4", "Avalon", "Highlander"]
+description: "Toyota New Global Architecture K-platform vehicles (opendbc toyota_tnga_k_pt)."

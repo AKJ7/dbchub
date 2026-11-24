@@ -1,31 +1,64 @@
 name: Validate databases
 
 # Runs the `check` step of the API on every contribution. A PR that adds or
-# changes a database file is parsed and linted; malformed files fail the check
-# and block the merge.
+# changes a database file is parsed and linted; files with errors fail the check
+# and block the merge. For PRs, a report of what changed (messages / signals
+# added, removed, changed) is added to the job summary and posted as a comment.
+#
+# It runs on every PR (no path filter) so it can be a required status check in
+# branch protection without leaving docs-only PRs waiting forever.
 on:
   pull_request:
-    paths:
-      - "databases/**"
-      - "scripts/**"
   push:
-    branches: [main]
+    branches: [master]
     paths:
       - "databases/**"
+
+permissions:
+  contents: read
+  pull-requests: write
 
 jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
-          python-version: "3.12"
-          cache: pip
+          fetch-depth: 0 # the change report compares against the base branch
 
-      - name: Install parsers
-        run: pip install -r scripts/requirements.txt
+      - name: Install uv
+        uses: astral-sh/setup-uv@d4b2f3b6ecc6e67c4457f6d3e41ec42d3d0fcb86 # v5.4.2
+        with:
+          enable-cache: true
 
       - name: Validate all databases
-        run: python scripts/validate.py --root databases
+        run: uv run dbchub-validate --root databases
+
+      - name: Report database changes
+        if: github.event_name == 'pull_request'
+        run: |
+          uv run python scripts/diffdb.py \
+            "${{ github.event.pull_request.base.sha }}" \
+            "${{ github.event.pull_request.head.sha }}" \
+            --out db-changes.md
+
+      # Fork PRs get a read-only token, so they only see the job summary.
+      - name: Comment the report on the pull request
+        if: >-
+          github.event_name == 'pull_request' &&
+          github.event.pull_request.head.repo.full_name == github.repository
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
+        with:
+          script: |
+            const fs = require("fs");
+            const marker = "<!-- dbchub-db-changes -->";
+            let body = fs.existsSync("db-changes.md") ? fs.readFileSync("db-changes.md", "utf8").trim() : "";
+            if (!body) return;
+            if (body.length > 60000) body = body.slice(0, 60000) + "\n\n… (truncated, see the job summary)";
+            body = marker + "\n" + body;
+            const { owner, repo } = context.repo;
+            const issue_number = context.issue.number;
+            const comments = await github.paginate(github.rest.issues.listComments, { owner, repo, issue_number });
+            const mine = comments.find(c => c.body && c.body.startsWith(marker));
+            if (mine) await github.rest.issues.updateComment({ owner, repo, comment_id: mine.id, body });
+            else await github.rest.issues.createComment({ owner, repo, issue_number, body });

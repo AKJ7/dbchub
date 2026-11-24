@@ -1,0 +1,4 @@
+name: "Kona Electric"
+years: "2019+"
+aliases: ["Kona EV"]
+description: "Reverse-engineered P-CAN, B-CAN, C-CAN and component CAN of the Hyundai Kona Electric (projectgus/kona-ev-dbc)."

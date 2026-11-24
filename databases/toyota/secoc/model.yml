@@ -1,0 +1,3 @@
+name: "SecOC platform"
+aliases: ["Secure Onboard Communication"]
+description: "Toyota vehicles with authenticated (SecOC) CAN messages (opendbc toyota_secoc_pt)."

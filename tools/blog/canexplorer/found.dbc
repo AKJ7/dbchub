@@ -1,0 +1,38 @@
+VERSION ""
+
+
+NS_ :
+
+BS_:
+
+BU_: BCM
+
+
+BO_ 192 Message_0C0: 8 Vector__XXX
+ SG_ EngineSpeed : 0|16@1+ (0.25,0) [0|16383.75] "rpm" Vector__XXX
+ SG_ Throttle : 16|8@1+ (0.4,0) [0|102] "%" Vector__XXX
+ SG_ AliveCounter : 48|4@1+ (1,0) [0|15] "" Vector__XXX
+ SG_ Checksum : 56|8@1+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 1280 BodyStatus: 8 BCM
+ SG_ DoorFrontLeft : 8|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ VehicleSpeed : 23|16@0+ (0.01,0) [0|655.35] "km/h" Vector__XXX
+ SG_ AliveCounter : 51|4@0+ (1,0) [0|15] "" Vector__XXX
+ SG_ Checksum : 63|8@0+ (1,0) [0|255] "" Vector__XXX
+
+
+CM_ "Reverse engineered from a recording of the test car with CANExplorer. Unconfirmed parts are marked in the comments.";
+CM_ BO_ 192 "Probably engine data (10 ms cycle). Sender unknown.";
+CM_ SG_ 192 EngineSpeed "Matched to OBD-II PID 0x0C, r=0.999.";
+CM_ SG_ 192 Throttle "Follows the accelerator pedal; scaling assumed from 0-250 raw = 0-100 %, not yet confirmed.";
+CM_ SG_ 192 AliveCounter "Detected as counter, step 1, wraps at 15.";
+CM_ SG_ 192 Checksum "Detected as CRC-8 SAE J1850 over the other bytes.";
+CM_ SG_ 1280 DoorFrontLeft "Notch + markers: driver door, 5/5 hits.";
+CM_ SG_ 1280 VehicleSpeed "Matched to OBD-II PID 0x0D, r=0.998, lag 0 ms. Verified on a second drive.";
+CM_ SG_ 1280 AliveCounter "Detected as counter, step 1, wraps at 15.";
+CM_ SG_ 1280 Checksum "Detected as CRC-8; parameters not yet confirmed.";
+BA_DEF_ BO_ "GenMsgCycleTime" INT 0 10000;
+BA_DEF_DEF_ "GenMsgCycleTime" 0;
+BA_ "GenMsgCycleTime" BO_ 192 10;
+BA_ "GenMsgCycleTime" BO_ 1280 20;
+VAL_ 1280 DoorFrontLeft 0 "Closed" 1 "Open" ;

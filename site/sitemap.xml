@@ -9,4 +9,7 @@ sitemap: false
   {%- if p.sitemap == false or p.layout != "default" %}{% continue %}{% endif %}
   <url><loc>{{ p.url | absolute_url | xml_escape }}</loc></url>
 {%- endfor %}
+{%- for p in site.posts %}
+  <url><loc>{{ p.url | absolute_url | xml_escape }}</loc><lastmod>{{ p.date | date_to_xmlschema }}</lastmod></url>
+{%- endfor %}
 </urlset>

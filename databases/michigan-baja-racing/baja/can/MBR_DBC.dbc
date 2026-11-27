@@ -1,0 +1,68 @@
+VERSION ""
+
+
+NS_ :
+    NS_DESC_
+    CM_
+    BA_DEF_
+    BA_
+    VAL_
+    CAT_DEF_
+    CAT_
+    FILTER
+    BA_DEF_DEF_
+    EV_DATA_
+    ENVVAR_DATA_
+    SGTYPE_
+    SGTYPE_VAL_
+    BA_DEF_SGTYPE_
+    BA_SGTYPE_
+    SIG_TYPE_REF_
+    VAL_TABLE_
+    SIG_GROUP_
+    SIG_VALTYPE_
+    SIGTYPE_VALTYPE_
+    BO_TX_BU_
+    BA_DEF_REL_
+    BA_REL_
+    BA_DEF_DEF_REL_
+    BU_SG_REL_
+    BU_EV_REL_
+    BU_BO_REL_
+    SG_MUL_VAL_
+
+BS_:
+BU_: ESP32_Collector Dual_RPM Front_Shocks Rear_Shocks
+BO_ 256 RPM_DATA: 8 Dual_RPM
+   SG_ EngineRPM : 0|16@1+ (0.1,0) [0|5000] "" Vector__XXX
+   SG_ WheelRPM : 16|16@1+ (0.1,0) [0|5000] "" ESP32_Collector
+
+BO_ 512 F_SHOCK_DATA: 8 Front_Shocks
+   SG_ FR_Shock : 0|16@1+ (0.01,0) [0|50] "" ESP32_Collector
+   SG_ FL_Shock : 16|16@1+ (0.01,0) [0|50] "" ESP32_Collector
+
+BO_ 513 R_SHOCK_DATA: 8 Rear_Shocks
+   SG_ RL_Shock : 0|16@1+ (0.01,0) [0|50] "" ESP32_Collector
+   SG_ RR_Shock : 16|16@1+ (0.01,0) [0|50] "" ESP32_Collector
+
+BO_ 1 BUS_START_STOP: 1 ESP32_Collector
+   SG_ BUS_HANDLE : 0|8@1+ (1,0) [0|10] "" Vector__XXX
+
+BO_ 2 BUS_RPM_CONTROL: 1 ESP32_Collector
+   SG_ BUS_RPM_CONTROL : 0|8@1+ (1,0) [0|10] "" Dual_RPM
+
+BO_ 3 BUS_SHOCK_CONTROL: 1 ESP32_Collector
+   SG_ BUS_SHOCK_CONTROL : 0|8@1+ (1,0) [0|10] "" Vector__XXX
+
+
+CM_ BU_ ESP32_Collector "Main communication and collection node";
+CM_ BU_ Dual_RPM "Handles both wheel and Engine RPM";
+CM_ BU_ Front_Shocks "FR and FL Shocks";
+CM_ BU_ Rear_Shocks "RR and RL Shocks";
+CM_ BO_ 256 "Sends both wheel and engine RPM";
+CM_ BO_ 1 "Handles both starting and stopping of all can nodes";
+CM_ BO_ 2 "Handles both starting and stopping of RPM nodes";
+CM_ BO_ 3 "Handles both starting and stopping of the SHOCK nodes";
+VAL_ 1 BUS_HANDLE 1 "START_ALL" 2 "STOP_ALL" 0 "No Description";
+VAL_ 2 BUS_RPM_CONTROL 1 "START" 2 "STOP";
+VAL_ 3 BUS_SHOCK_CONTROL 1 "START" 2 "STOP";

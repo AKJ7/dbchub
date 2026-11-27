@@ -1,0 +1,3 @@
+name: "OBD-II PIDs"
+aliases: ["OBD2", "SAE J1979"]
+description: "Standard OBD-II service 01 PIDs as request/response frames, not tied to one vehicle."

@@ -1,0 +1,25 @@
+---
+layout: default
+title: Blog
+description: Guides and write-ups on reverse engineering vehicle buses and building signal databases.
+page_id: blog
+permalink: /blog/
+---
+<div class="hero">
+  <div class="wrap">
+    <h1>Blog</h1>
+    <p>Guides on reading vehicle buses, reverse engineering their traffic, and building signal databases.</p>
+  </div>
+</div>
+
+<div class="post-list">
+  {%- for post in site.posts %}
+  <article class="post-item">
+    <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%-d %B %Y" }}</time>
+    <h2><a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h2>
+    {%- if post.description %}<p>{{ post.description | escape }}</p>{% endif %}
+  </article>
+  {%- else %}
+  <p class="muted">No posts yet.</p>
+  {%- endfor %}
+</div>

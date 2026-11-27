@@ -1,0 +1,249 @@
+VERSION ""
+
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_: IOX_RR IOX_RL IOX_FR IOX_FL
+
+
+BO_ 37 M037_IMU: 4 Vector__XXX
+ SG_ IMU_Angular_Rate : 16|16@1- (0.01,0) [-327.68|327.67] "" Vector__XXX
+ SG_ IMU_Accel : 0|16@1- (0.01,0) [-327.68|327.67] "" Vector__XXX
+
+BO_ 36 M036_Sensors_RR: 8 IOX_RR
+
+BO_ 35 M035_Tr_Temp_RR_4: 8 IOX_RR
+ SG_ RR_Tr_Temp_16 : 48|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RR_Tr_Temp_15 : 32|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RR_Tr_Temp_14 : 16|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RR_Tr_Temp_13 : 0|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+
+BO_ 34 M034_Tr_Temp_RR_3: 8 IOX_RR
+ SG_ RR_Tr_Temp_12 : 48|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RR_Tr_Temp_11 : 32|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RR_Tr_Temp_10 : 16|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RR_Tr_Temp_9 : 0|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+
+BO_ 33 M033_Tr_Temp_RR_2: 8 IOX_RR
+ SG_ RR_Tr_Temp_8 : 48|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RR_Tr_Temp_7 : 32|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RR_Tr_Temp_6 : 16|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RR_Tr_Temp_5 : 0|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+
+BO_ 32 M032_Tr_Temp_RR_1: 8 IOX_RR
+ SG_ RR_Tr_Temp_4 : 48|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RR_Tr_Temp_3 : 32|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RR_Tr_Temp_2 : 16|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RR_Tr_Temp_1 : 0|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+
+BO_ 31 M031_Br_Temp_RR_4: 8 IOX_RR
+ SG_ RR_Br_Temp_16 : 48|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RR_Br_Temp_15 : 32|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RR_Br_Temp_14 : 16|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RR_Br_Temp_13 : 0|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+
+BO_ 30 M030_Br_Temp_RR_3: 8 IOX_RR
+ SG_ RR_Br_Temp_12 : 48|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RR_Br_Temp_11 : 32|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RR_Br_Temp_10 : 16|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RR_Br_Temp_9 : 0|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+
+BO_ 29 M029_Br_Temp_RR_2: 8 IOX_RR
+ SG_ RR_Br_Temp_8 : 48|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RR_Br_Temp_7 : 32|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RR_Br_Temp_6 : 16|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RR_Br_Temp_5 : 0|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+
+BO_ 28 M028_Br_Temp_RR_1: 8 IOX_RR
+ SG_ RR_Br_Temp_4 : 48|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RR_Br_Temp_3 : 32|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RR_Br_Temp_2 : 16|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RR_Br_Temp_1 : 0|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+
+BO_ 27 M027_Sensors_RL: 8 IOX_RL
+
+BO_ 26 M026_Tr_Temp_RL_4: 8 IOX_RL
+ SG_ RL_Tr_Temp_16 : 48|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RL_Tr_Temp_15 : 32|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RL_Tr_Temp_14 : 16|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RL_Tr_Temp_13 : 0|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+
+BO_ 25 M025_Tr_Temp_RL_3: 8 IOX_RL
+ SG_ RL_Tr_Temp_12 : 48|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RL_Tr_Temp_11 : 32|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RL_Tr_Temp_10 : 16|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RL_Tr_Temp_9 : 0|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+
+BO_ 24 M024_Tr_Temp_RL_2: 8 IOX_RL
+ SG_ RL_Tr_Temp_8 : 48|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RL_Tr_Temp_7 : 32|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RL_Tr_Temp_6 : 16|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RL_Tr_Temp_5 : 0|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+
+BO_ 23 M023_Tr_Temp_RL_1: 8 IOX_RL
+ SG_ RL_Tr_Temp_4 : 48|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RL_Tr_Temp_3 : 32|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RL_Tr_Temp_2 : 16|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RL_Tr_Temp_1 : 0|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+
+BO_ 22 M022_Br_Temp_RL_4: 8 IOX_RL
+ SG_ RL_Br_Temp_16 : 48|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RL_Br_Temp_15 : 32|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RL_Br_Temp_14 : 16|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RL_Br_Temp_13 : 0|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+
+BO_ 21 M021_Br_Temp_RL_3: 8 IOX_RL
+ SG_ RL_Br_Temp_12 : 48|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RL_Br_Temp_11 : 32|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RL_Br_Temp_10 : 16|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RL_Br_Temp_9 : 0|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+
+BO_ 20 M020_Br_Temp_RL_2: 8 IOX_RL
+ SG_ RL_Br_Temp_8 : 48|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RL_Br_Temp_7 : 32|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RL_Br_Temp_6 : 16|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RL_Br_Temp_5 : 0|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+
+BO_ 19 M019_Br_Temp_RL_1: 8 IOX_RL
+ SG_ RL_Br_Temp_4 : 48|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RL_Br_Temp_3 : 32|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RL_Br_Temp_2 : 16|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ RL_Br_Temp_1 : 0|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+
+BO_ 18 M018_Sensors_FR: 8 IOX_FR
+
+BO_ 17 M017_Tr_Temp_FR_4: 8 IOX_FR
+ SG_ FR_Tr_Temp_16 : 48|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FR_Tr_Temp_15 : 32|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FR_Tr_Temp_14 : 16|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FR_Tr_Temp_13 : 0|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+
+BO_ 16 M016_Tr_Temp_FR_3: 8 IOX_FR
+ SG_ FR_Tr_Temp_12 : 48|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FR_Tr_Temp_11 : 32|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FR_Tr_Temp_10 : 16|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FR_Tr_Temp_9 : 0|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+
+BO_ 15 M015_Tr_Temp_FR_2: 8 IOX_FR
+ SG_ FR_Tr_Temp_8 : 48|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FR_Tr_Temp_7 : 32|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FR_Tr_Temp_6 : 16|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FR_Tr_Temp_5 : 0|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+
+BO_ 14 M014_Tr_Temp_FR_1: 8 IOX_FR
+ SG_ FR_Tr_Temp_4 : 48|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FR_Tr_Temp_3 : 32|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FR_Tr_Temp_2 : 16|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FR_Tr_Temp_1 : 0|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+
+BO_ 13 M013_Br_Temp_FR_4: 8 IOX_FR
+ SG_ FR_Br_Temp_16 : 48|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FR_Br_Temp_15 : 32|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FR_Br_Temp_14 : 16|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FR_Br_Temp_13 : 0|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+
+BO_ 12 M012_Br_Temp_FR_3: 8 IOX_FR
+ SG_ FR_Br_Temp_12 : 48|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FR_Br_Temp_11 : 32|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FR_Br_Temp_10 : 16|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FR_Br_Temp_9 : 0|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+
+BO_ 11 M011_Br_Temp_FR_2: 8 IOX_FR
+ SG_ FR_Br_Temp_8 : 48|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FR_Br_Temp_7 : 32|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FR_Br_Temp_6 : 16|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FR_Br_Temp_5 : 0|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+
+BO_ 10 M010_Br_Temp_FR_1: 8 IOX_FR
+ SG_ FR_Br_Temp_4 : 48|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FR_Br_Temp_3 : 32|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FR_Br_Temp_2 : 16|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FR_Br_Temp_1 : 0|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+
+BO_ 9 M009_Sensors_FL: 8 IOX_FL
+
+BO_ 8 M008_Tr_Temp_FL_4: 8 IOX_FL
+ SG_ FL_Tr_Temp_16 : 48|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FL_Tr_Temp_15 : 32|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FL_Tr_Temp_14 : 16|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FL_Tr_Temp_13 : 0|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+
+BO_ 7 M007_Tr_Temp_FL_3: 8 IOX_FL
+ SG_ FL_Tr_Temp_12 : 48|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FL_Tr_Temp_11 : 32|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FL_Tr_Temp_10 : 16|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FL_Tr_Temp_9 : 0|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+
+BO_ 6 M006_Tr_Temp_FL_2: 8 IOX_FL
+ SG_ FL_Tr_Temp_8 : 48|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FL_Tr_Temp_7 : 32|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FL_Tr_Temp_6 : 16|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FL_Tr_Temp_5 : 0|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+
+BO_ 5 M005_Tr_Temp_FL_1: 8 IOX_FL
+ SG_ FL_Tr_Temp_4 : 48|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FL_Tr_Temp_3 : 32|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FL_Tr_Temp_2 : 16|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FL_Tr_Temp_1 : 0|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+
+BO_ 4 M004_Br_Temp_FL_4: 8 IOX_FL
+ SG_ FL_Br_Temp_16 : 48|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FL_Br_Temp_15 : 32|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FL_Br_Temp_14 : 16|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FL_Br_Temp_13 : 0|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+
+BO_ 3 M003_Br_Temp_FL_3: 8 IOX_FL
+ SG_ FL_Br_Temp_12 : 48|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FL_Br_Temp_11 : 32|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FL_Br_Temp_10 : 16|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FL_Br_Temp_9 : 0|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+
+BO_ 2 M002_Br_Temp_FL_2: 8 IOX_FL
+ SG_ FL_Br_Temp_8 : 48|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FL_Br_Temp_7 : 32|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FL_Br_Temp_6 : 16|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FL_Br_Temp_5 : 0|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+
+BO_ 1 M001_Br_Temp_FL_1: 8 IOX_FL
+ SG_ FL_Br_Temp_4 : 48|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FL_Br_Temp_3 : 32|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FL_Br_Temp_2 : 16|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+ SG_ FL_Br_Temp_1 : 0|16@1+ (0.02,0) [0|1310.7] "" Vector__XXX
+
+
+
+BA_DEF_  "MultiplexExtEnabled" ENUM  "No","Yes";
+BA_DEF_  "BusType" STRING ;
+BA_DEF_DEF_  "MultiplexExtEnabled" "No";
+BA_DEF_DEF_  "BusType" "";
+

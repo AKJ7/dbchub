@@ -1,0 +1,46 @@
+<figure class="schematic">
+<svg class="obd2" viewBox="0 30 720 360" role="img" aria-labelledby="obd2-title obd2-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="obd2-title">OBD-II (SAE J1962) vehicle socket, front view</title>
+<desc id="obd2-desc">Sixteen pins in two rows of eight, pin 1 top left to pin 8 top right, pin 9 bottom left to pin 16 bottom right. Pin 6 is CAN high and pin 14 CAN low, pins 4 and 5 are chassis and signal ground, pin 16 is battery plus. Pins 2 and 10 are SAE J1850, 7 and 15 the K- and L-line; pins 1, 3, 8, 9, 11, 12 and 13 are left to the manufacturer.</desc>
+<path class="obd2-shell" d="M118 70 H602 Q626 70 622 94 L600 236 Q596 256 576 256 H144 Q124 256 120 236 L98 94 Q94 70 118 70 Z"/>
+<path class="obd2-lip" d="M132 84 H588 Q606 84 603 102 L584 228 Q581 242 566 242 H154 Q139 242 136 228 L117 102 Q114 84 132 84 Z"/>
+<g class="pin pin-oem"><rect x="133" y="104" width="34" height="46" rx="5"/><text class="pin-n" x="150" y="133">1</text></g>
+<text class="pin-l pin-l-oem" x="150" y="56">OEM</text>
+<g class="pin pin-legacy"><rect x="193" y="104" width="34" height="46" rx="5"/><text class="pin-n" x="210" y="133">2</text></g>
+<text class="pin-l pin-l-legacy" x="210" y="56">J1850+</text>
+<g class="pin pin-oem"><rect x="253" y="104" width="34" height="46" rx="5"/><text class="pin-n" x="270" y="133">3</text></g>
+<text class="pin-l pin-l-oem" x="270" y="56">OEM</text>
+<g class="pin pin-gnd"><rect x="313" y="104" width="34" height="46" rx="5"/><text class="pin-n" x="330" y="133">4</text></g>
+<text class="pin-l pin-l-gnd" x="330" y="56">GND</text>
+<g class="pin pin-gnd"><rect x="373" y="104" width="34" height="46" rx="5"/><text class="pin-n" x="390" y="133">5</text></g>
+<text class="pin-l pin-l-gnd" x="390" y="56">SGND</text>
+<g class="pin pin-can"><rect x="433" y="104" width="34" height="46" rx="5"/><text class="pin-n" x="450" y="133">6</text></g>
+<text class="pin-l pin-l-can" x="450" y="56">CAN H</text>
+<g class="pin pin-legacy"><rect x="493" y="104" width="34" height="46" rx="5"/><text class="pin-n" x="510" y="133">7</text></g>
+<text class="pin-l pin-l-legacy" x="510" y="56">K-line</text>
+<g class="pin pin-oem"><rect x="553" y="104" width="34" height="46" rx="5"/><text class="pin-n" x="570" y="133">8</text></g>
+<text class="pin-l pin-l-oem" x="570" y="56">OEM</text>
+<g class="pin pin-oem"><rect x="133" y="176" width="34" height="46" rx="5"/><text class="pin-n" x="150" y="205">9</text></g>
+<text class="pin-l pin-l-oem" x="150" y="290">OEM</text>
+<g class="pin pin-legacy"><rect x="193" y="176" width="34" height="46" rx="5"/><text class="pin-n" x="210" y="205">10</text></g>
+<text class="pin-l pin-l-legacy" x="210" y="290">J1850−</text>
+<g class="pin pin-oem"><rect x="253" y="176" width="34" height="46" rx="5"/><text class="pin-n" x="270" y="205">11</text></g>
+<text class="pin-l pin-l-oem" x="270" y="290">OEM</text>
+<g class="pin pin-oem"><rect x="313" y="176" width="34" height="46" rx="5"/><text class="pin-n" x="330" y="205">12</text></g>
+<text class="pin-l pin-l-oem" x="330" y="290">OEM</text>
+<g class="pin pin-oem"><rect x="373" y="176" width="34" height="46" rx="5"/><text class="pin-n" x="390" y="205">13</text></g>
+<text class="pin-l pin-l-oem" x="390" y="290">OEM</text>
+<g class="pin pin-can"><rect x="433" y="176" width="34" height="46" rx="5"/><text class="pin-n" x="450" y="205">14</text></g>
+<text class="pin-l pin-l-can" x="450" y="290">CAN L</text>
+<g class="pin pin-legacy"><rect x="493" y="176" width="34" height="46" rx="5"/><text class="pin-n" x="510" y="205">15</text></g>
+<text class="pin-l pin-l-legacy" x="510" y="290">L-line</text>
+<g class="pin pin-pwr"><rect x="553" y="176" width="34" height="46" rx="5"/><text class="pin-n" x="570" y="205">16</text></g>
+<text class="pin-l pin-l-pwr" x="570" y="290">+12 V</text>
+<g class="pin pin-can"><rect x="60" y="323" width="16" height="18" rx="3"/></g><text class="legend" x="84" y="337">CAN, ISO 15765-4 (pins 6, 14)</text>
+<g class="pin pin-pwr"><rect x="300" y="323" width="16" height="18" rx="3"/></g><text class="legend" x="324" y="337">Battery +12 V, always on (16)</text>
+<g class="pin pin-gnd"><rect x="540" y="323" width="16" height="18" rx="3"/></g><text class="legend" x="564" y="337">Ground (4, 5)</text>
+<g class="pin pin-legacy"><rect x="60" y="357" width="16" height="18" rx="3"/></g><text class="legend" x="84" y="371">Older buses: J1850, K/L-line</text>
+<g class="pin pin-oem"><rect x="300" y="357" width="16" height="18" rx="3"/></g><text class="legend" x="324" y="371">Left to the manufacturer</text>
+</svg>
+<figcaption>The OBD-II socket in the vehicle, seen from the front (the wide side is on top). Pin labels are what SAE J1962 assigns; “OEM” pins are left to the manufacturer and often carry extra buses.</figcaption>
+</figure>

@@ -287,6 +287,232 @@ The sections below are generated from `databases/SOURCES.json` by
 |---|---|
 | `databases/byd/tang-phev-2015/can/byd_tang_phev_2015.dbc` | `byd_tang_phev_2015.dbc` |
 
+## karlding/wavesculptor-20-dbc
+
+- **Source:** https://github.com/karlding/wavesculptor-20-dbc
+- **License:** MIT — full text in [`THIRD_PARTY_LICENSES/karlding-wavesculptor-20-dbc-LICENSE.txt`](THIRD_PARTY_LICENSES/karlding-wavesculptor-20-dbc-LICENSE.txt)
+- **Credit:** © 2018 Karl Ding — wavesculptor-20-dbc (MIT)
+- **Imported at commit:** `52d83b267bd5c37eeab0ceac751578b80e714148`
+
+| Path | Upstream |
+|---|---|
+| `databases/tritium/wavesculptor-20/can/wavesculptor_20.dbc` | `dbc/wavesculptor_20.dbc` |
+
+## karlding/wavesculptor-22-dbc
+
+- **Source:** https://github.com/karlding/wavesculptor-22-dbc
+- **License:** MIT — full text in [`THIRD_PARTY_LICENSES/karlding-wavesculptor-22-dbc-LICENSE.txt`](THIRD_PARTY_LICENSES/karlding-wavesculptor-22-dbc-LICENSE.txt)
+- **Credit:** © 2018 Karl Ding — wavesculptor-22-dbc (MIT)
+- **Imported at commit:** `aef356e2aca87a81b3f274fb018546cc12328646`
+
+| Path | Upstream |
+|---|---|
+| `databases/tritium/wavesculptor-22/can/wavesculptor_22.dbc` | `dbc/wavesculptor_22.dbc` |
+
+## karlding/elcon-charger-dbc
+
+- **Source:** https://github.com/karlding/elcon-charger-dbc
+- **License:** MIT — full text in [`THIRD_PARTY_LICENSES/karlding-elcon-charger-dbc-LICENSE.txt`](THIRD_PARTY_LICENSES/karlding-elcon-charger-dbc-LICENSE.txt)
+- **Credit:** © 2018 Karl Ding — elcon-charger-dbc (MIT)
+- **Imported at commit:** `c0c6852d82297840520f2759465d2e70671da655`
+
+| Path | Upstream |
+|---|---|
+| `databases/elcon/uhf-charger/can/elcon.dbc` | `dbc/elcon.dbc` |
+
+## karlding/dilithium-power-photon3-dbc
+
+- **Source:** https://github.com/karlding/dilithium-power-photon3-dbc
+- **License:** MIT — full text in [`THIRD_PARTY_LICENSES/karlding-dilithium-power-photon3-dbc-LICENSE.txt`](THIRD_PARTY_LICENSES/karlding-dilithium-power-photon3-dbc-LICENSE.txt)
+- **Credit:** © 2018 Karl Ding — dilithium-power-photon3-dbc (MIT)
+- **Imported at commit:** `c6fcaf3348feef07d91b903944a9f34fd368df64`
+
+| Path | Upstream |
+|---|---|
+| `databases/dilithium-power/photon-3/can/photon-3.dbc` | `dbc/photon-3.dbc` |
+
+## dynamlabs/vcu-dbc
+
+- **Source:** https://github.com/dynamlabs/vcu-dbc
+- **License:** MIT — full text in [`THIRD_PARTY_LICENSES/dynamlabs-vcu-dbc-LICENSE.txt`](THIRD_PARTY_LICENSES/dynamlabs-vcu-dbc-LICENSE.txt)
+- **Credit:** © 2025 Dynam Labs — vcu-dbc (MIT)
+- **Imported at commit:** `1f509c4c664001938d32cd602f934f90fe8420e0`
+
+| Path | Upstream |
+|---|---|
+| `databases/dynam-labs/vcu-plus/can/dynam_vcu_plus.dbc` | `dynam-VCU+.dbc` |
+
+## CSS-Electronics/can-bus-reverse-engineering-skills
+
+- **Source:** https://github.com/CSS-Electronics/can-bus-reverse-engineering-skills
+- **License:** MIT — full text in [`THIRD_PARTY_LICENSES/CSS-Electronics-can-bus-reverse-engineering-skills-LICENSE.txt`](THIRD_PARTY_LICENSES/CSS-Electronics-can-bus-reverse-engineering-skills-LICENSE.txt)
+- **Credit:** © 2026 CSS Electronics — can-bus-reverse-engineering-skills (MIT)
+- **Imported at commit:** `619475ae696ec93f3c635639144eb8af19bb261a`
+
+| Path | Upstream |
+|---|---|
+| `databases/css-electronics/obd2/can/OBD-v4.4.dbc` | `.claude/skills/cansub-reverse-engineering/assets/obd2-dbc/OBD-v4.4.dbc` |
+| `databases/css-electronics/canmod-gnss/can/canmod-gnss.dbc` | `.claude/skills/cansub-reverse-engineering/assets/gps-dbc/canmod-gnss.dbc` |
+| `databases/css-electronics/canedge/can/canedge-internal-can9.dbc` | `.claude/skills/cansub-reverse-engineering/assets/gps-dbc/canedge-internal-can9.dbc` |
+
+## CSS-Electronics/canedge-influxdb-writer
+
+- **Source:** https://github.com/CSS-Electronics/canedge-influxdb-writer
+- **License:** MIT — full text in [`THIRD_PARTY_LICENSES/CSS-Electronics-canedge-influxdb-writer-LICENSE.txt`](THIRD_PARTY_LICENSES/CSS-Electronics-canedge-influxdb-writer-LICENSE.txt)
+- **Credit:** © 2020 Martin Falch (CSS Electronics) — canedge-influxdb-writer (MIT)
+- **Imported at commit:** `9a118c1199dc8313806a293edbfd82e945e58bff`
+
+| Path | Upstream |
+|---|---|
+| `databases/css-electronics/canmod-gps/can/canmod-gps.dbc` | `dbc_files/canmod-gps.dbc` |
+| `databases/nissan/leaf-2018/can/nissan_leaf_uds.dbc` | `dbc_files/nissan_uds.dbc` |
+
+## columbia-fsae/EV27-Software
+
+- **Source:** https://github.com/columbia-fsae/EV27-Software
+- **License:** MIT — full text in [`THIRD_PARTY_LICENSES/columbia-fsae-EV27-Software-LICENSE.txt`](THIRD_PARTY_LICENSES/columbia-fsae-EV27-Software-LICENSE.txt)
+- **Credit:** © 2026 Columbia University Formula Racing — EV27-Software (MIT)
+- **Imported at commit:** `c3e70716a3c797420be0e8d6fac77f48dc4102fa`
+
+| Path | Upstream |
+|---|---|
+| `databases/columbia-fsae/ev26/can/EV26.dbc` | `CAN/EV26.dbc` |
+| `databases/columbia-fsae/ev26/can/IOX.dbc` | `CAN/IOX.dbc` |
+
+## Michigan-Baja-Racing/MBR-CAN
+
+- **Source:** https://github.com/Michigan-Baja-Racing/MBR-CAN
+- **License:** MIT — full text in [`THIRD_PARTY_LICENSES/Michigan-Baja-Racing-MBR-CAN-LICENSE.txt`](THIRD_PARTY_LICENSES/Michigan-Baja-Racing-MBR-CAN-LICENSE.txt)
+- **Credit:** © 2026 Michigan Baja Racing — MBR-CAN (MIT)
+- **Imported at commit:** `6ccafd979d8d052bb2fe2e6ef7e347ed2a981f27`
+
+| Path | Upstream |
+|---|---|
+| `databases/michigan-baja-racing/baja/can/MBR_DBC.dbc` | `dbc/MBR_DBC.dbc` |
+
+## shawnlu96/grancabrio-can
+
+- **Source:** https://github.com/shawnlu96/grancabrio-can
+- **License:** CC-BY-4.0 — full text in [`THIRD_PARTY_LICENSES/shawnlu96-grancabrio-can-LICENSE.txt`](THIRD_PARTY_LICENSES/shawnlu96-grancabrio-can-LICENSE.txt)
+- **Credit:** grancabrio-can contributors — grancabrio-can signal definitions (CC BY 4.0)
+- **Imported at commit:** `aefff7c22ef80a4d7d8ee3e17fd745a3dc9a45c3`
+
+| Path | Upstream |
+|---|---|
+| `databases/maserati/grancabrio-2016/can/maserati_grancabrio_2016.dbc` | `dbc/maserati_grancabrio_2016.dbc` |
+
+## ufnalski/peugeot_207_ipc_barebone
+
+- **Source:** https://github.com/ufnalski/peugeot_207_ipc_barebone
+- **License:** MIT — full text in [`THIRD_PARTY_LICENSES/ufnalski-peugeot_207_ipc_barebone-LICENSE.txt`](THIRD_PARTY_LICENSES/ufnalski-peugeot_207_ipc_barebone-LICENSE.txt)
+- **Credit:** © 2026 Bartlomiej Ufnalski — peugeot_207_ipc_barebone (MIT)
+- **Imported at commit:** `4119e94b0205911a4a4755e28b123f04b46c147e`
+
+| Path | Upstream |
+|---|---|
+| `databases/psa/peugeot-207/can/peugeot_207.dbc` | `Assets/DBC/peugeot_207.dbc` |
+
+## gustavoclimaco/opendbc (fork of comma.ai opendbc)
+
+- **Source:** https://github.com/gustavoclimaco/opendbc
+- **License:** MIT — full text in [`THIRD_PARTY_LICENSES/opendbc-LICENSE.txt`](THIRD_PARTY_LICENSES/opendbc-LICENSE.txt)
+- **Credit:** © comma.ai, Inc. and gustavoclimaco contributors — opendbc fork (MIT)
+- **Imported at commit:** `480510bbf94eb4b895619c91eedee324b4d79728`
+
+| Path | Upstream |
+|---|---|
+| `databases/gwm/haval-h6-mk3/can/gwm_haval_h6_mk3.dbc` | `opendbc/dbc/generator/gwm/gwm_haval_h6_mk3.dbc` |
+
+## liruifeng1120/opendbc_repo.byd (fork of comma.ai opendbc)
+
+- **Source:** https://github.com/liruifeng1120/opendbc_repo.byd
+- **License:** MIT — full text in [`THIRD_PARTY_LICENSES/opendbc-LICENSE.txt`](THIRD_PARTY_LICENSES/opendbc-LICENSE.txt)
+- **Credit:** © comma.ai, Inc. and liruifeng1120 contributors — opendbc fork (MIT)
+- **Imported at commit:** `14fa083e12146a3128fdfa99ce9153062c3b5102`
+
+| Path | Upstream |
+|---|---|
+| `databases/byd/han-dm-2020/can/byd_han_dmev_2020.dbc` | `opendbc/dbc/byd_han_dmev_2020.dbc` |
+
+## skyhanil1004/opendbc (fork of comma.ai opendbc)
+
+- **Source:** https://github.com/skyhanil1004/opendbc
+- **License:** MIT — full text in [`THIRD_PARTY_LICENSES/opendbc-LICENSE.txt`](THIRD_PARTY_LICENSES/opendbc-LICENSE.txt)
+- **Credit:** © comma.ai, Inc. and skyhanil1004 contributors — opendbc fork (MIT)
+- **Imported at commit:** `a5def4b408c20b4b6021b6484277f94202c61b37`
+
+| Path | Upstream |
+|---|---|
+| `databases/hyundai/kia-carnival/can/kia_carnival.dbc` | `kia_carnival.dbc` |
+
+## gotoded/opendbc-sny (fork of comma.ai opendbc)
+
+- **Source:** https://github.com/gotoded/opendbc-sny
+- **License:** MIT — full text in [`THIRD_PARTY_LICENSES/opendbc-LICENSE.txt`](THIRD_PARTY_LICENSES/opendbc-LICENSE.txt)
+- **Credit:** © comma.ai, Inc. and gotoded contributors — opendbc fork (MIT)
+- **Imported at commit:** `3c95be69f89d753cd5cc952774800ef55ccd4008`
+
+| Path | Upstream |
+|---|---|
+| `databases/changan/z6/can/changan_pt.dbc` | `opendbc/dbc/changan_pt.dbc` |
+| `databases/changan/uni-t/can/changan_unit_pt.dbc` | `opendbc/dbc/changan_unit_pt.dbc` |
+
+## cadillacwilliams/opendbc-byd-shark (fork of comma.ai opendbc)
+
+- **Source:** https://github.com/cadillacwilliams/opendbc-byd-shark
+- **License:** MIT — full text in [`THIRD_PARTY_LICENSES/opendbc-LICENSE.txt`](THIRD_PARTY_LICENSES/opendbc-LICENSE.txt)
+- **Credit:** © comma.ai, Inc. and cadillacwilliams contributors — opendbc fork (MIT)
+- **Imported at commit:** `7192b144d3aee7ebab6bebb64facc54ac8f892de`
+
+| Path | Upstream |
+|---|---|
+| `databases/byd/sealion-7/can/byd_sealion_7.dbc` | `opendbc/dbc/byd_sealion_7.dbc` |
+
+## am4513-blip/opendbc_repo (fork of comma.ai opendbc)
+
+- **Source:** https://github.com/am4513-blip/opendbc_repo
+- **License:** MIT — full text in [`THIRD_PARTY_LICENSES/opendbc-LICENSE.txt`](THIRD_PARTY_LICENSES/opendbc-LICENSE.txt)
+- **Credit:** © comma.ai, Inc. and am4513-blip contributors — opendbc fork (MIT)
+- **Imported at commit:** `7c15fcad69960a0edd04437bca6a016a00cb2e46`
+
+| Path | Upstream |
+|---|---|
+| `databases/toyota/lexus-ls/can/lexus_ls_new_mc_pt.dbc` | `opendbc/dbc/generator/toyota/lexus_ls_new_mc_pt.dbc` |
+| `databases/toyota/lexus-ls/can/lexus_ls_adas.dbc` | `opendbc/dbc/lexus_ls_adas.dbc` |
+
+## leonunix/opendbc-sunnypilot (fork of comma.ai opendbc)
+
+- **Source:** https://github.com/leonunix/opendbc-sunnypilot
+- **License:** MIT — full text in [`THIRD_PARTY_LICENSES/opendbc-LICENSE.txt`](THIRD_PARTY_LICENSES/opendbc-LICENSE.txt)
+- **Credit:** © comma.ai, Inc. and leonunix contributors — opendbc fork (MIT)
+- **Imported at commit:** `0858371a11afb61490d786066819cf3d6ea364f6`
+
+| Path | Upstream |
+|---|---|
+| `databases/honda/odyssey-rc5/can/honda_odyssey_rc5_can_generated.dbc` | `opendbc/dbc/generator/honda/honda_odyssey_rc5_can.dbc` (assembled by opendbc's generator) |
+
+## a19917773333-stack/opendbc (fork of comma.ai opendbc)
+
+- **Source:** https://github.com/a19917773333-stack/opendbc
+- **License:** MIT — full text in [`THIRD_PARTY_LICENSES/opendbc-LICENSE.txt`](THIRD_PARTY_LICENSES/opendbc-LICENSE.txt)
+- **Credit:** © comma.ai, Inc. and a19917773333-stack contributors — opendbc fork (MIT)
+- **Imported at commit:** `815a52f7df55d6bc0636010c74a0f8272bd2fc7a`
+
+| Path | Upstream |
+|---|---|
+| `databases/continental/ars408/can/ARS408.dbc` | `opendbc/dbc/ARS408.dbc` |
+
+## dynm/opendbc-bmw-flexray (fork of comma.ai opendbc)
+
+- **Source:** https://github.com/dynm/opendbc-bmw-flexray
+- **License:** MIT — full text in [`THIRD_PARTY_LICENSES/opendbc-LICENSE.txt`](THIRD_PARTY_LICENSES/opendbc-LICENSE.txt)
+- **Credit:** © comma.ai, Inc. and dynm contributors — opendbc fork (MIT)
+- **Imported at commit:** `344ba1aa300975a56809940eec65a40584b541e9`
+
+| Path | Upstream |
+|---|---|
+| `databases/bmw/sp2018/flexray/bmw_sp2018.dbc` | `opendbc/dbc/bmw_sp2018.dbc` |
+
 <!-- END SOURCES -->
 
 ## Adding more sources

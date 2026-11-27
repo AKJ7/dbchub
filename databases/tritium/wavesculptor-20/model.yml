@@ -1,0 +1,2 @@
+name: "WaveSculptor 20"
+description: "Assumes base address 0x80; shift the IDs for other device addresses."

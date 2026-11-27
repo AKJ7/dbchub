@@ -1,0 +1,45 @@
+VERSION ""
+
+
+NS_ :
+
+BS_:
+
+BU_: ECM EPS BCM BMS
+
+
+BO_ 192 Powertrain: 8 ECM
+ SG_ EngineSpeed : 0|16@1+ (0.25,0) [700|6500] "rpm" Vector__XXX
+ SG_ Throttle : 16|8@1+ (0.4,0) [0|100] "%" Vector__XXX
+ SG_ Torque : 24|12@1- (0.5,0) [-100|350] "Nm" Vector__XXX
+ SG_ Counter : 48|4@1+ (1,0) [0|15] "" Vector__XXX
+ SG_ BrakePressed : 52|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ Checksum : 56|8@1+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 224 Steering: 8 EPS
+ SG_ SteeringAngle : 7|16@0- (0.1,0) [-480|480] "deg" Vector__XXX
+
+BO_ 1280 BodyStatus: 8 BCM
+ SG_ DoorFrontLeft : 8|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ VehicleSpeed : 23|16@0+ (0.01,0) [0|140] "km/h" Vector__XXX
+ SG_ AliveCounter : 51|4@0+ (1,0) [0|15] "" Vector__XXX
+ SG_ Checksum : 63|8@0+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 1536 HvBattery: 8 BMS
+ SG_ CellGroup M : 0|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ CellA0 m0 : 8|16@1+ (0.001,0) [3.4|4.1] "V" Vector__XXX
+ SG_ CellB0 m0 : 24|16@1+ (0.001,0) [3.4|4.1] "V" Vector__XXX
+ SG_ CellA1 m1 : 8|16@1+ (0.001,0) [3.4|4.1] "V" Vector__XXX
+ SG_ CellB1 m1 : 24|16@1+ (0.001,0) [3.4|4.1] "V" Vector__XXX
+ SG_ CellA2 m2 : 8|16@1+ (0.001,0) [3.4|4.1] "V" Vector__XXX
+ SG_ CellB2 m2 : 24|16@1+ (0.001,0) [3.4|4.1] "V" Vector__XXX
+ SG_ Temperature : 40|8@1- (1,0) [10|45] "degC" Vector__XXX
+
+
+CM_ "Ground truth of the fictional test car used for the CANExplorer blog post screenshots. Not a real vehicle.";
+BA_DEF_ BO_ "GenMsgCycleTime" INT 0 10000;
+BA_DEF_DEF_ "GenMsgCycleTime" 0;
+BA_ "GenMsgCycleTime" BO_ 192 10;
+BA_ "GenMsgCycleTime" BO_ 224 10;
+BA_ "GenMsgCycleTime" BO_ 1280 20;
+BA_ "GenMsgCycleTime" BO_ 1536 100;

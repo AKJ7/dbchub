@@ -1,0 +1,19 @@
+---
+layout: default
+page_id: blog
+---
+<div class="hero slim">
+  <div class="wrap">
+    <p class="post-crumb"><a href="{{ '/blog/' | relative_url }}">← Blog</a></p>
+    <h1>{{ page.title | escape }}</h1>
+    <p class="post-meta">
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%-d %B %Y" }}</time>
+      {%- if page.author %} · {{ page.author | escape }}{% endif %}
+      {%- assign words = content | number_of_words %} · {{ words | divided_by: 220 | plus: 1 }} min read
+    </p>
+  </div>
+</div>
+
+<article class="post">
+  {{ content }}
+</article>

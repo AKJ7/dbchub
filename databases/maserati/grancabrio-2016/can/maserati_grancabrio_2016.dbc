@@ -1,0 +1,99 @@
+VERSION ""
+
+
+NS_ :
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_:
+
+
+BO_ 97 BRAKE_061: 8 Vector__XXX
+ SG_ BrakePressed : 4|1@1+ (1,0) [0|1] "" Vector__XXX
+
+BO_ 203 GEAR_0CB: 8 Vector__XXX
+ SG_ GearEngaged : 37|3@1+ (1,0) [0|7] "" Vector__XXX
+
+BO_ 204 STEERING_0CC: 5 Vector__XXX
+ SG_ SteeringWheelAngle : 31|16@0- (0.1,0.5) [-546|546] "deg" Vector__XXX
+
+BO_ 326 VEHICLE_SPEED_146: 8 Vector__XXX
+ SG_ VehicleSpeed : 47|16@0+ (0.0078125,0) [0|330] "km/h" Vector__XXX
+
+BO_ 358 WHEEL_SPEEDS_166: 8 Vector__XXX
+ SG_ WheelSpeed_RR : 7|16@0+ (0.0625,-512) [0|330] "km/h" Vector__XXX
+ SG_ WheelSpeed_RL : 23|16@0+ (0.0625,-512) [0|330] "km/h" Vector__XXX
+ SG_ WheelSpeed_FR : 39|16@0+ (0.0625,-512) [0|330] "km/h" Vector__XXX
+ SG_ WheelSpeed_FL : 55|16@0+ (0.0625,-512) [0|330] "km/h" Vector__XXX
+
+BO_ 865 ENGINE_361: 8 Vector__XXX
+ SG_ EngineLoad : 8|8@1+ (0.392157,0) [0|100] "%" Vector__XXX
+ SG_ EngineSpeed : 23|16@0+ (1.0625,0) [0|8000] "rpm" Vector__XXX
+
+BO_ 1376 TRIP_COUNTER_560: 8 Vector__XXX
+ SG_ TripCounter : 56|8@1+ (10,0) [0|2550] "m" Vector__XXX
+
+BO_ 1382 VEHICLE_SPEED_566: 8 Vector__XXX
+ SG_ VehicleSpeed2 : 23|16@0+ (0.0625,0) [0|330] "km/h" Vector__XXX
+
+BO_ 1409 TEMPS_581: 8 Vector__XXX
+ SG_ EngineOilTemp : 8|8@1+ (1,-40) [-40|215] "degC" Vector__XXX
+
+BO_ 1889 COOLANT_761: 8 Vector__XXX
+ SG_ CoolantTemp : 0|8@1+ (1,-40) [-40|215] "degC" Vector__XXX
+ SG_ CoolantTemp2 : 8|8@1+ (1,-40) [-40|215] "degC" Vector__XXX
+
+
+CM_ "Maserati GranCabrio 2016 (M145, 4.7 L F136 V8, ZF 6HP26), CAN bus on OBD-II pins 6/14, 500 kbit/s, 11-bit IDs. Reverse-engineered on ONE car by passive listening; see docs/signals.md for the evidence and confidence of every signal.";
+CM_ SG_ 97 BrakePressed "Brake pedal. Medium-high confidence: never set while the engine load is high (0 of 327 samples), always set at standstill. Not yet ruled out: 'brake OR stopped'. Same bit also appears in 0x146 byte0 bit3 and 0x3A1 byte2 bit4.";
+CM_ SG_ 203 GearEngaged "Gear actually engaged, high 3 bits of byte 4. 1..6 = gear, 7 = neutral / no gear (seen only at standstill), 0 = engine not running (0x361 is not broadcast then). Verified by speed/rpm ratio clusters: 3rd->4th step 1.332 vs ZF 6HP26 1.331. Reverse not yet observed. Byte 4 bit 4 is usually 1; 0x60 (3, bit 4 clear) also occurs - meaning unknown.";
+CM_ BO_ 204 "5-byte frame, 48 Hz (measured with a full-rate logger).";
+CM_ SG_ 204 SteeringWheelAngle "Steering wheel angle, positive = left. Centre reads -5 counts (offset +0.5 deg applied). Full lock +5449 / -5459 counts = +/-545 deg, 3.03 turns lock to lock. Verified on the car.";
+CM_ SG_ 326 VehicleSpeed "Vehicle speed. r=0.999 vs the head unit's decoded speed, mean error 0.40 km/h; divisor 128 confirmed independently by the gearbox ratio step and by the trip counter (10.05 m per count).";
+CM_ BO_ 358 "Raw value drops to 0x002C (44) for all four wheels when the car is stationary. Treat any raw value < 0x2000 as invalid.";
+CM_ SG_ 358 WheelSpeed_RR "Rear right. r=0.9998 vs vehicle speed after removing the invalid state. Left/right assignment: high confidence (outer wheels faster in turns). Front/rear assignment: medium-high (inferred from turning geometry).";
+CM_ SG_ 358 WheelSpeed_RL "Rear left. See WheelSpeed_RR.";
+CM_ SG_ 358 WheelSpeed_FR "Front right. See WheelSpeed_RR.";
+CM_ SG_ 358 WheelSpeed_FL "Front left. See WheelSpeed_RR.";
+CM_ SG_ 865 EngineLoad "Medium-high confidence. Idle ~20 % (raw 52), coasting ~12 % (raw 31), heavy throttle ~51 % (raw 130); never overlaps with BrakePressed. Looks like calculated load rather than raw pedal position.";
+CM_ SG_ 865 EngineSpeed "Engine speed. Mean error 21 rpm with the 17/16 factor (74 rpm with factor 1). Origin of the 17/16 factor unknown, but the gearbox ratio check depends on it and matches.";
+CM_ SG_ 1376 TripCounter "Distance counter in byte 7, 1 count = 10 m (measured 10.05 m), +1 per step. Use differences, not the absolute value. Width beyond 8 bits unknown (never exceeded 0xB0 in our logs; byte 6 bits 0-1 never seen set). Byte 6 carries flags, NOT counter bits: 0x04 / 0x08 appear briefly while driving, 0x20 while the counter is reset/not running (whole of a stationary idle, end of a drive with byte 7 = 0).";
+CM_ SG_ 1382 VehicleSpeed2 "Second speed source. r=0.997, mean error 0.66 km/h.";
+CM_ SG_ 1409 EngineOilTemp "Engine oil temperature, ~90 % confidence. Found in a cold-start recording: starts at ambient, lags coolant, plateaus near coolant temperature and stays at 87-90 degC under load (oil cooler thermostat). The same value is repeated in 0x561 byte3, 0x061 byte3 and 0x081 byte4. The ECU does not answer OBD PID 0x5C on this car.";
+CM_ SG_ 1889 CoolantTemp "Engine coolant temperature, standard OBD encoding. Matches the dashboard gauge (90 on a 130 scale) and the thermostat plateau of 87-89 degC.";
+CM_ SG_ 1889 CoolantTemp2 "Redundant copy of CoolantTemp (differs by at most 1 degC).";
+
+VAL_ 97 BrakePressed 0 "Released" 1 "Pressed" ;
+VAL_ 203 GearEngaged 0 "Engine not running" 7 "Neutral / none" ;
+VAL_ 358 WheelSpeed_RR 44 "Invalid (stationary)" ;
+VAL_ 358 WheelSpeed_RL 44 "Invalid (stationary)" ;
+VAL_ 358 WheelSpeed_FR 44 "Invalid (stationary)" ;
+VAL_ 358 WheelSpeed_FL 44 "Invalid (stationary)" ;

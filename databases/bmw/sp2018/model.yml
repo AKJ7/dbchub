@@ -1,0 +1,3 @@
+name: "SP2018 platform"
+aliases: ["BMW G-series"]
+description: "FlexRay frames as seen through a FlexRay-to-CAN bridge (17-byte payloads); many signals are provisional."
